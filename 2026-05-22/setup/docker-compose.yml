@@ -1,0 +1,12 @@
+services:
+  agate-workshop:
+    image: nanophyto/agate-workshops:2026-05
+    container_name: agate-workshop
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/workspace
+    environment:
+      JULIA_NUM_THREADS: auto
+      JUPYTER_TOKEN: agate
+    working_dir: /workspace
