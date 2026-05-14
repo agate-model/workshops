@@ -1,0 +1,17 @@
+[deps]
+Agate = "bfca70c2-57f0-43ca-9d73-37e39d1a5db6"
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+Literate = "98b081ad-f1c9-55d3-8b20-4c87d4299306"
+NCDatasets = "85f8d34a-cbdd-5861-8df4-14fed0d494ab"
+
+[compat]
+Agate = "0.4"
+CairoMakie = "0.12, 0.13, 0.14, 0.15"
+CSV = "0.10"
+DataFrames = "1"
+Documenter = "1"
+Literate = "2"
+NCDatasets = "0.14"
