@@ -3,7 +3,7 @@ FROM julia:1.10
 ENV DEBIAN_FRONTEND=noninteractive
 ENV JULIA_NUM_THREADS=auto
 ENV JULIA_PROJECT=/opt/agate-workshop-env
-ENV PATH="/root/.local/bin:${PATH}"
+ENV PATH="/usr/local/julia/bin:/root/.local/bin:${PATH}"
 
 # System dependencies for code-server, Julia package builds, and plotting backends.
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -33,8 +33,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install code-server.
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 
-# Verify Julia path.
-RUN command -v julia && julia --version
+# Make Julia available at both common locations.
+RUN test -x /usr/local/julia/bin/julia \
+    && ln -sf /usr/local/julia/bin/julia /usr/local/bin/julia \
+    && /usr/local/julia/bin/julia --version \
+    && /usr/local/bin/julia --version
 
 # Create the Julia workshop environment and install Agate.jl 0.4.0 from the registry.
 RUN julia -e 'using Pkg; \
@@ -54,7 +57,6 @@ RUN mkdir -p /root/.local/share/code-server/User \
 {
   "workbench.colorTheme": "Default Dark Modern",
   "workbench.preferredDarkColorTheme": "Default Dark Modern",
-
   "workbench.activityBar.location": "hidden",
   "window.menuBarVisibility": "hidden",
   "workbench.layoutControl.enabled": false,
@@ -64,7 +66,6 @@ RUN mkdir -p /root/.local/share/code-server/User \
   "workbench.tips.enabled": false,
   "workbench.welcomePage.walkthroughs.openOnInstall": false,
   "workbench.commandCenter": false,
-
   "chat.disableAIFeatures": true,
   "chat.commandCenter.enabled": false,
   "chat.agent.enabled": false,
@@ -75,18 +76,25 @@ RUN mkdir -p /root/.local/share/code-server/User \
     "markdown": false,
     "plaintext": false
   },
-
   "git.enabled": false,
   "scm.diffDecorations": "none",
-
   "extensions.ignoreRecommendations": true,
   "extensions.showRecommendationsOnlyOnDemand": true,
-
   "telemetry.telemetryLevel": "off",
   "update.mode": "none",
-
+  "terminal.integrated.env.linux": {
+    "JULIA_PROJECT": "/opt/agate-workshop-env",
+    "JULIA_NUM_THREADS": "auto"
+  },
   "julia.environmentPath": "/opt/agate-workshop-env",
-  "julia.executablePath": "/usr/local/bin/julia"
+  "julia.executablePath": "/usr/local/julia/bin/julia",
+  "julia.additionalArgs": [
+    "--project=/opt/agate-workshop-env"
+  ],
+  "julia.useRevise": false,
+  "julia.juliaup.install.hint": false,
+  "julia.enableTelemetry": false,
+  "julia.enableCrashReporter": false
 }
 EOF
 
@@ -112,16 +120,25 @@ RUN cat > /usr/local/bin/start-code-server <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 
+export JULIA_PROJECT=/opt/agate-workshop-env
+export JULIA_NUM_THREADS=auto
+
+mkdir -p /root/.local/share/code-server/User
 mkdir -p /workspace/.vscode
 
-cat > /workspace/.vscode/settings.json <<'JSON'
+cat > /root/.local/share/code-server/User/settings.json <<'JSON'
 {
   "workbench.colorTheme": "Default Dark Modern",
+  "workbench.preferredDarkColorTheme": "Default Dark Modern",
   "workbench.activityBar.location": "hidden",
   "window.menuBarVisibility": "hidden",
   "workbench.layoutControl.enabled": false,
+  "workbench.statusBar.visible": true,
+  "workbench.startupEditor": "readme",
+  "workbench.editor.enablePreview": false,
+  "workbench.tips.enabled": false,
+  "workbench.welcomePage.walkthroughs.openOnInstall": false,
   "workbench.commandCenter": false,
-
   "chat.disableAIFeatures": true,
   "chat.commandCenter.enabled": false,
   "chat.agent.enabled": false,
@@ -132,13 +149,61 @@ cat > /workspace/.vscode/settings.json <<'JSON'
     "markdown": false,
     "plaintext": false
   },
+  "git.enabled": false,
+  "scm.diffDecorations": "none",
+  "extensions.ignoreRecommendations": true,
+  "extensions.showRecommendationsOnlyOnDemand": true,
+  "telemetry.telemetryLevel": "off",
+  "update.mode": "none",
+  "terminal.integrated.env.linux": {
+    "JULIA_PROJECT": "/opt/agate-workshop-env",
+    "JULIA_NUM_THREADS": "auto"
+  },
+  "julia.environmentPath": "/opt/agate-workshop-env",
+  "julia.executablePath": "/usr/local/julia/bin/julia",
+  "julia.additionalArgs": [
+    "--project=/opt/agate-workshop-env"
+  ],
+  "julia.useRevise": false,
+  "julia.juliaup.install.hint": false,
+  "julia.enableTelemetry": false,
+  "julia.enableCrashReporter": false
+}
+JSON
 
+cat > /workspace/.vscode/settings.json <<'JSON'
+{
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.activityBar.location": "hidden",
+  "window.menuBarVisibility": "hidden",
+  "workbench.layoutControl.enabled": false,
+  "workbench.commandCenter": false,
+  "chat.disableAIFeatures": true,
+  "chat.commandCenter.enabled": false,
+  "chat.agent.enabled": false,
+  "github.copilot.chat.enabled": false,
+  "github.copilot.enable": {
+    "*": false,
+    "julia": false,
+    "markdown": false,
+    "plaintext": false
+  },
   "git.enabled": false,
   "extensions.ignoreRecommendations": true,
   "telemetry.telemetryLevel": "off",
-
+  "terminal.integrated.env.linux": {
+    "JULIA_PROJECT": "/opt/agate-workshop-env",
+    "JULIA_NUM_THREADS": "auto"
+  },
   "julia.environmentPath": "/opt/agate-workshop-env",
-  "julia.executablePath": "/usr/local/bin/julia"
+  "julia.executablePath": "/usr/local/julia/bin/julia",
+  "julia.additionalArgs": [
+    "--project=/opt/agate-workshop-env"
+  ],
+  "julia.useRevise": false,
+  "julia.juliaup.install.hint": false,
+  "julia.enableTelemetry": false,
+  "julia.enableCrashReporter": false
 }
 JSON
 
