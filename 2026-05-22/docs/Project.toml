@@ -1,5 +1,5 @@
 [deps]
-Agate = "bfca70c2-57f0-43ca-9d73-37e39d1a5db6"
+Agate = "41889b7c-c35c-4f16-abd7-94b299d9fd29"
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
