@@ -53,7 +53,7 @@ cd(workshop_root) do
 end
 
 makedocs(
-    sitename = "Agate.jl workshop",
+    sitename = "Agate.jl workshop 2026-05",
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", "false") == "true",
         assets = String[],

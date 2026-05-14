@@ -17,7 +17,7 @@ println("Active project: ", Base.active_project())
 
 ````
 Agate.jl loaded successfully.
-Active project: /home/joost/workshops/2026-05-22/docs/Project.toml
+Active project: /home/joost/workshops/2026-05/docs/Project.toml
 
 ````
 
