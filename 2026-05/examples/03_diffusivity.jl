@@ -25,7 +25,7 @@ nothing #hide
 
 # Second, we define the model physical forcings. Diffusivity is split across a 100 m interface on a two-level vertical grid, and PAR is held at its maximum surface value with a fixed attenuation coefficient.
 #diffusivity
-κ_max = 1e-2 + 1e-4
+κ_max = 1e-5
 const layer_interface = -100meters
 
 @inline function diffusivity(x, y, z, t)
