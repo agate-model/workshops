@@ -39,11 +39,11 @@ RUN test -x /usr/local/julia/bin/julia \
     && /usr/local/julia/bin/julia --version \
     && /usr/local/bin/julia --version
 
-# Create the Julia workshop environment and install Agate.jl 0.4.0 from the registry.
-RUN julia -e 'using Pkg; \
-    Pkg.activate("/opt/agate-workshop-env"); \
-    Pkg.add(Pkg.PackageSpec(name="Agate", version="0.4.0")); \
-    Pkg.add(["CairoMakie", "NCDatasets", "DataFrames", "CSV", "Statistics"]); \
+# Create the Julia workshop environment from the repository Project.toml.
+COPY Project.toml /opt/agate-workshop-env/Project.toml
+
+RUN julia --project=/opt/agate-workshop-env -e 'using Pkg; \
+    Pkg.instantiate(); \
     Pkg.precompile()'
 
 # Install the Julia VS Code extension inside code-server.
