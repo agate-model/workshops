@@ -3,3 +3,12 @@
 2026-05/docs/Manifest.toml
 2026-05/docs/src/generated
 
+# Model output
+*.jld
+*.jld2
+
+# Plots
+*.png
+*.svg
+*.gif
+*.mp4
