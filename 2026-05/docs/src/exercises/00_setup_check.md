@@ -4,9 +4,7 @@ EditURL = "../../../examples/00_setup_check.jl"
 
 # Setup check
 
-This short example checks that the Agate.jl workshop environment is available.
-
-It is both a runnable Julia script and a rendered documentation page.
+Run this script to check that the Docker environment is setup correctly.
 
 ````julia
 using Agate
@@ -17,7 +15,7 @@ println("Active project: ", Base.active_project())
 
 ````
 Agate.jl loaded successfully.
-Active project: /home/joost/workshops/2026-05/docs/Project.toml
+Active project: /home/phyto/workshops/2026-05/docs/Project.toml
 
 ````
 

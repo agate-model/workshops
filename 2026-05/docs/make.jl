@@ -9,15 +9,9 @@ using Documenter
 workshop_root = normpath(joinpath(@__DIR__, ".."))
 
 examples_dir = joinpath(workshop_root, "examples")
-scripts_dir = joinpath(workshop_root, "scripts")
 docs_src_dir = joinpath(@__DIR__, "src")
 docs_exercises_dir = joinpath(docs_src_dir, "exercises")
-docs_assets_dir = joinpath(docs_src_dir, "assets")
-
-mkpath(scripts_dir)
 mkpath(docs_exercises_dir)
-mkpath(docs_assets_dir)
-
 example_files = [
     "00_setup_check.jl",
 ]
@@ -29,14 +23,6 @@ cd(workshop_root) do
 
     for file in example_files
         source = joinpath(examples_dir, file)
-
-        # Generate the runnable participant script from the same source file.
-        Literate.script(
-            source,
-            scripts_dir;
-            keep_comments = true,
-            credit = false,
-        )
 
         # Generate and execute the rendered documentation page.
         #
