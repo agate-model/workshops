@@ -231,7 +231,7 @@ examples/00_setup_check.jl
 
 You can run the script from the GUI by pressing the **play** icon:
 
-![img](figs/docker-run-script.png)
+![img](figs/docker-run-setup.png)
 
 
 Alternatively, you can run the script from the VS Code terminal:
