@@ -229,7 +229,12 @@ Inside VS Code, open the setup check script in the workshop folder. It should be
 examples/00_setup_check.jl
 ```
 
-Run the script from the VS Code terminal:
+You can run the script from the GUI by pressing the **play** icon:
+
+![img](figs/docker-run-script.png)
+
+
+Alternatively, you can run the script from the VS Code terminal:
 
 ```bash
 julia examples/00_setup_check.jl
