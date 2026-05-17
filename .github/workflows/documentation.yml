@@ -27,7 +27,7 @@ jobs:
       - name: Install docs dependencies (use local Agate)
         run: |
 
-          julia --project=2026-02/setup -e '
+          julia --project=docs -e '
             using Pkg
             Pkg.develop(PackageSpec(path=pwd()))
             Pkg.instantiate()
