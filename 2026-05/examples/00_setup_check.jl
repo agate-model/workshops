@@ -1,8 +1,7 @@
 # # Setup check
 #
-# This short example checks that the Agate.jl workshop environment is available.
+# Run this script to check that the Docker environment is setup correctly.
 #
-# It is both a runnable Julia script and a rendered documentation page.
 
 using Agate
 
