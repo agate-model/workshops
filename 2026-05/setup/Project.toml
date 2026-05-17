@@ -10,7 +10,7 @@ OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
 ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 
 [compat]
-Agate = "0.5.1"
+Agate = "0.5.2"
 CairoMakie = "0.12, 0.13, 0.14, 0.15"
 CSV = "0.10"
 DataFrames = "1"
