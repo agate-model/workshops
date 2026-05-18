@@ -34,8 +34,8 @@ You need a local copy of the workshop materials before starting the container.
 
 There are two options:
 
-A. **Download manually from the browser** — recommended if you do not use Git.
-B. **Clone with Git** — recommended if you already use Git.
+- A. **Download manually from the browser** — recommended if you do not use Git.
+- B. **Clone with Git** — recommended if you already use Git.
 
 ### Option A: download manually from the browser
 
