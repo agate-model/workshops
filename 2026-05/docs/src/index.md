@@ -21,7 +21,7 @@ Welcome to the Agate.jl workshop.
 | 12:45–13:45 | Lunch |
 | 13:45–14:35 | Session 3: Physical forcing: light and diffusivity |
 | 14:35–15:10 | Own-work block 1 |
-| 15:10–15:40 | Afternoon break |
+| 15:10–15:40 | Break |
 | 15:40–16:30 | Own-work block 2 |
 | 16:30–16:55 | Show-and-tell (optional) and feedback |
 | 16:55–17:00 | Wrap-up |
