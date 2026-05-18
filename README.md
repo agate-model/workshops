@@ -2,7 +2,7 @@
 
 Welcome to the Agate.jl workshop Github.
 
-Before joining the workshop please follow the [setup instructions](setup.md).
+Before joining the workshop please follow the [setup instructions](https://agate-model.github.io/workshops/dev/setup/).
 
 ## Course materials
 
