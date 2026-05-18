@@ -1,0 +1,11 @@
+services:
+  agate-workshop:
+    image: nanophyto/agate-workshops:2026-05
+    container_name: agate-workshop
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/workspace
+    environment:
+      JULIA_NUM_THREADS: auto
+    working_dir: /workspace

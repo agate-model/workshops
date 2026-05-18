@@ -1,0 +1,38 @@
+{
+  "workbench.colorTheme": "Dark Modern",
+  "workbench.activityBar.location": "hidden",
+  "window.menuBarVisibility": "hidden",
+  "workbench.layoutControl.enabled": false,
+  "workbench.commandCenter": false,
+  "chat.disableAIFeatures": true,
+  "chat.commandCenter.enabled": false,
+  "chat.agent.enabled": false,
+  "github.copilot.chat.enabled": false,
+  "github.copilot.enable": {
+    "*": false,
+    "julia": false,
+    "markdown": false,
+    "plaintext": false
+  },
+  "git.enabled": false,
+  "extensions.ignoreRecommendations": true,
+  "telemetry.telemetryLevel": "off",
+  "editor.fontFamily": "DejaVu Sans Mono, monospace",
+  "editor.fontLigatures": false,
+  "terminal.integrated.fontFamily": "DejaVu Sans Mono, monospace",
+  "terminal.integrated.fontLigatures.enabled": false,
+  "terminal.integrated.gpuAcceleration": "off",
+  "terminal.integrated.env.linux": {
+    "JULIA_PROJECT": "/opt/agate-workshop-env",
+    "JULIA_NUM_THREADS": "auto"
+  },
+  "julia.environmentPath": "/opt/agate-workshop-env",
+  "julia.executablePath": "/usr/local/julia/bin/julia",
+  "julia.additionalArgs": [
+    "--project=/opt/agate-workshop-env"
+  ],
+  "julia.useRevise": false,
+  "julia.juliaup.install.hint": false,
+  "julia.enableTelemetry": false,
+  "julia.enableCrashReporter": false
+}

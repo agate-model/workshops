@@ -1,0 +1,19 @@
+[deps]
+Agate = "41889b7c-c35c-4f16-abd7-94b299d9fd29"
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+NCDatasets = "85f8d34a-cbdd-5861-8df4-14fed0d494ab"
+OceanBioME = "a49af516-9db8-4be4-be45-1dad61c5a376"
+Oceananigans = "9e8cae18-63c1-5223-a75c-80ca9d6e9a09"
+OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
+ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
+IntervalArithmetic = "d1acc4aa-44c8-5952-acd4-ba5d80a2a253"
+
+[compat]
+Agate = "0.5.2"
+CairoMakie = "0.12, 0.13, 0.14, 0.15"
+CSV = "0.10"
+DataFrames = "1"
+NCDatasets = "0.14"
+IntervalArithmetic = "0.20"
