@@ -10,7 +10,11 @@ OceanBioME = "a49af516-9db8-4be4-be45-1dad61c5a376"
 Oceananigans = "9e8cae18-63c1-5223-a75c-80ca9d6e9a09"
 
 [compat]
+<<<<<<< HEAD
 Agate = "0.4"
+=======
+Agate = "0.5.2"
+>>>>>>> origin/main
 CairoMakie = "0.12, 0.13, 0.14, 0.15"
 CSV = "0.10"
 DataFrames = "1"

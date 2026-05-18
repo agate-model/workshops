@@ -17,6 +17,11 @@
   "git.enabled": false,
   "extensions.ignoreRecommendations": true,
   "telemetry.telemetryLevel": "off",
+  "editor.fontFamily": "DejaVu Sans Mono, monospace",
+  "editor.fontLigatures": false,
+  "terminal.integrated.fontFamily": "DejaVu Sans Mono, monospace",
+  "terminal.integrated.fontLigatures.enabled": false,
+  "terminal.integrated.gpuAcceleration": "off",
   "terminal.integrated.env.linux": {
     "JULIA_PROJECT": "/opt/agate-workshop-env",
     "JULIA_NUM_THREADS": "auto"

@@ -18,8 +18,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxrender1 \
     libxext6 \
     libx11-6 \
-    libfontconfig1 \
+    fontconfig \
     libfreetype6 \
+    fonts-dejavu-core \
     libglib2.0-0 \
     libdbus-1-3 \
     libxi6 \
@@ -28,8 +29,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxcursor1 \
     libxcomposite1 \
     libasound2 \
+    && fc-cache -f \
     && rm -rf /var/lib/apt/lists/*
-
+    
 # Install code-server.
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 
@@ -82,6 +84,10 @@ RUN mkdir -p /root/.local/share/code-server/User \
   "extensions.showRecommendationsOnlyOnDemand": true,
   "telemetry.telemetryLevel": "off",
   "update.mode": "none",
+  "editor.fontFamily": "DejaVu Sans Mono, monospace",
+  "editor.fontLigatures": false,
+  "terminal.integrated.fontFamily": "DejaVu Sans Mono, monospace",
+  "terminal.integrated.fontLigatures.enabled": false,
   "terminal.integrated.env.linux": {
     "JULIA_PROJECT": "/opt/agate-workshop-env",
     "JULIA_NUM_THREADS": "auto"
@@ -155,6 +161,11 @@ cat > /root/.local/share/code-server/User/settings.json <<'JSON'
   "extensions.showRecommendationsOnlyOnDemand": true,
   "telemetry.telemetryLevel": "off",
   "update.mode": "none",
+  "editor.fontFamily": "DejaVu Sans Mono, monospace",
+  "editor.fontLigatures": false,
+  "terminal.integrated.fontFamily": "DejaVu Sans Mono, monospace",
+  "terminal.integrated.fontLigatures.enabled": false,
+  "terminal.integrated.gpuAcceleration": "off",
   "terminal.integrated.env.linux": {
     "JULIA_PROJECT": "/opt/agate-workshop-env",
     "JULIA_NUM_THREADS": "auto"
@@ -191,6 +202,11 @@ cat > /workspace/.vscode/settings.json <<'JSON'
   "git.enabled": false,
   "extensions.ignoreRecommendations": true,
   "telemetry.telemetryLevel": "off",
+  "editor.fontFamily": "DejaVu Sans Mono, monospace",
+  "editor.fontLigatures": false,
+  "terminal.integrated.fontFamily": "DejaVu Sans Mono, monospace",
+  "terminal.integrated.fontLigatures.enabled": false,
+  "terminal.integrated.gpuAcceleration": "off",
   "terminal.integrated.env.linux": {
     "JULIA_PROJECT": "/opt/agate-workshop-env",
     "JULIA_NUM_THREADS": "auto"
