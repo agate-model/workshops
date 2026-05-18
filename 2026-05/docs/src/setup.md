@@ -1,24 +1,5 @@
 # Setup
 
-<<<<<<< HEAD
-The workshop environment is provided through Docker.
-
-Open code-server at:
-
-```text
-http://localhost:8080
-```
-
-The examples are available as runnable Julia scripts in the `scripts/` folder.
-
-For example:
-
-```bash
-julia scripts/00_setup_check.jl
-```
-
-The container is configured so Julia uses the workshop environment by default.
-=======
 This page explains how to install and run the container for the Agate.jl workshop.
 
 The workshop uses Docker so that everyone can run the same software environment without having to install Julia and associated packages manually. The workshop materials are stored separately on GitHub. You will download the materials to your own computer, then attach that folder to the Docker container.
@@ -268,4 +249,3 @@ Base.active_project()
 ```
 
 It should point to the workshop environment inside the container.
->>>>>>> origin/main
