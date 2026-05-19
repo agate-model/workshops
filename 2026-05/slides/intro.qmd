@@ -29,9 +29,9 @@ All major Earth System Models (ESMs) use FORTRAN.
 
 Downsides:
 
+- First appeared in 1957; 69 years ago
 - Ocean biogeochemistry often secondary/tertiary
 - Non-composable -> iron cycling for PISCES can't be used in DARWIN
-- Written in FORTRAN -> less intuitive + worse UX than modern languages
 - Hard to Automatically Differentiate -> makes Bayesian inference and machine learning expensive!
 - Difficult to utilize GPUs (but increasingly possible)
 

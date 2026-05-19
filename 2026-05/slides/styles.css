@@ -1,12 +1,12 @@
 /* Basic 1920x1080 Reveal.js layout for the Agate.jl opening lecture. */
 
 :root {
-  --content-top: 190px;
-  --content-left: 110px;
-  --content-right: 110px;
+  --content-top: 160px;
+  --content-left: 80px;
+  --content-right: 80px;
   --copy-width: 820px;
-  --image-width: 760px;
-  --image-max-height: 620px;
+  --image-max-width: 800px;
+  --image-max-height: 720px;
   --panel-radius: 18px;
 }
 
@@ -47,8 +47,10 @@
   position: absolute;
   right: var(--content-right);
   top: var(--content-top);
-  width: var(--image-width);
+  max-width: var(--image-max-width);
   max-height: var(--image-max-height);
+  width: auto;
+  height: auto;
   object-fit: contain;
   background: none;
   border-radius: 0;
