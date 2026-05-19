@@ -17,9 +17,9 @@ Welcome to the Agate.jl workshop.
 | 10:30–11:10 | Session 1: Size, allometry, and plankton traits |
 | 11:10–11:25 | Break |
 | 11:25–12:05 | Session 2: Predation and trophic structure |
-| 12:05–12:45 | Group exercise |
+| 12:05–12:45 | Session 3: Physical forcing: light and diffusivity  |
 | 12:45–13:45 | Lunch |
-| 13:45–14:35 | Session 3: Physical forcing: light and diffusivity |
+| 13:45–14:35 | Group exercise |
 | 14:35–15:10 | Own-work block 1 |
 | 15:10–15:40 | Break |
 | 15:40–16:30 | Own-work block 2 |
