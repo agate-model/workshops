@@ -3,7 +3,7 @@ module WorkshopBoxModels
 using Agate
 using Agate.Introspection: tracer_names
 using Agate.Library.Light
-using OceanBioME: Biogeochemistry
+using OceanBioME: Biogeochemistry, BoxModel, BoxModelGrid
 using Oceananigans
 using Oceananigans.Units
 
@@ -58,7 +58,7 @@ model construction explicit and inspectable.
 """
 function run_box_model(
     bgc;
-    filename="outputs/quick_start.jld2",
+    filename=joinpath("outputs", "quick_start.jld2"),
     initial_conditions=default_quickstart_initial_conditions(),
     light_attenuation=FunctionFieldPAR(; grid=BoxModelGrid()),
     Δt=240minutes,

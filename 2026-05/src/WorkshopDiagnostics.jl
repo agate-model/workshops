@@ -4,10 +4,11 @@ using Agate
 using Agate.Library.Light
 using Agate.Introspection: tracer_names
 using OceanBioME
-using OceanBioME: Biogeochemistry
+using OceanBioME: Biogeochemistry, BoxModel, BoxModelGrid
 using Oceananigans
 using Oceananigans.Units
 using CairoMakie
+using LinearAlgebra: diag
 using Statistics
 
 export run_quickstart_box_model,
@@ -21,14 +22,14 @@ export run_quickstart_box_model,
        default_predation_matrix
 
 """
-    run_quickstart_box_model(; filename="outputs/quick_start.jld2")
+    run_quickstart_box_model(; filename=joinpath("outputs", "quick_start.jld2"))
 
 Run the Agate.jl Quickstart box model and write daily tracer output.
 
 This mirrors the Quickstart model: a default NiPiZD model with two
 phytoplankton groups, two zooplankton groups, nutrient, and detritus.
 """
-function run_quickstart_box_model(; filename="outputs/quick_start.jld2")
+function run_quickstart_box_model(; filename=joinpath("outputs", "quick_start.jld2"))
     mkpath(dirname(filename))
 
     bgc = Agate.Models.NiPiZD.construct()
@@ -80,7 +81,7 @@ end
 
 Plot nutrient, phytoplankton, zooplankton, detritus, plankton, and total nitrogen pools.
 """
-function plot_nitrogen_pools(times, data; figure_path="figures/diagnostic_01_nitrogen_pools.png")
+function plot_nitrogen_pools(times, data; figure_path=joinpath("figures", "diagnostic_01_nitrogen_pools.png"))
     mkpath(dirname(figure_path))
 
     N = _get(data, :N)
@@ -131,7 +132,7 @@ end
 
 Plot biomass by group and the number of groups above a persistence threshold.
 """
-function plot_persistence(times, data; threshold=1e-6, figure_path="figures/diagnostic_02_persistence.png")
+function plot_persistence(times, data; threshold=1e-6, figure_path=joinpath("figures", "diagnostic_02_persistence.png"))
     mkpath(dirname(figure_path))
 
     groups = [:P1, :P2, :Z1, :Z2]
@@ -176,7 +177,7 @@ Plot final biomass against illustrative plankton diameters and the biomass-weigh
 mean plankton size through time.
 """
 function plot_size_spectrum(times, data; diameters=default_plankton_diameters(),
-                            figure_path="figures/diagnostic_03_size_spectrum.png")
+                            figure_path=joinpath("figures", "diagnostic_03_size_spectrum.png"))
     mkpath(dirname(figure_path))
 
     groups = [:P1, :P2, :Z1, :Z2]
@@ -266,7 +267,7 @@ end
 
 Plot a predation matrix and simple prey/predator counts.
 """
-function plot_trophic_interactions(groups, matrix; figure_path="figures/diagnostic_04_trophic_interactions.png")
+function plot_trophic_interactions(groups, matrix; figure_path=joinpath("figures", "diagnostic_04_trophic_interactions.png"))
     mkpath(dirname(figure_path))
 
     summary = summarize_predation_matrix(groups, matrix)
