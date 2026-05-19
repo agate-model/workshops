@@ -3,6 +3,10 @@
 2026-05/docs/Manifest.toml
 2026-05/docs/src/generated
 
+# Quarto slides
+2026-05/slides/intro_files/
+*.html
+
 # Model output
 *.jld
 *.jld2
