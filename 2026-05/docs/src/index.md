@@ -33,6 +33,13 @@ Welcome to the Agate.jl workshop.
 ```@contents
 Pages = [
     "exercises/00_setup_check.md",
+    "exercises/01_quick_start.md",
+    "exercises/02_diagnostics.md",
+    "exercises/03_allometric_scaling.md",
+    "exercises/04_number_and_size.md",
+    "exercises/05_palatability.md",
+    "exercises/06_diffusivity.md",
+    "exercises/07_irradiance.md",
 ]
 Depth = 2
 ```
