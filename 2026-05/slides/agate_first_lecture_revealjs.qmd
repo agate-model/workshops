@@ -10,6 +10,9 @@ format:
     chalkboard: false
     preview-links: auto
     css: styles.css
+    title-slide-attributes:
+      data-background-image: images/background-placeholder.svg
+      data-background-size: cover
 execute:
   echo: false
 ---
