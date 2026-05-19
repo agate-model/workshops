@@ -8,13 +8,10 @@
 
 using CairoMakie
 
-include("src/WorkshopBoxModels.jl")
-include("src/WorkshopDiagnostics.jl")
-using .WorkshopBoxModels
-using .WorkshopDiagnostics
+include(joinpath(@__DIR__, "..", "src", "WorkshopSetup.jl"))
 
-mkpath("outputs")
-mkpath("figures")
+mkpath(joinpath("outputs"))
+mkpath(joinpath("figures"))
 
 nothing #hide
 
@@ -24,7 +21,7 @@ nothing #hide
 # Exercise 01 to create a small output file.
 
 bgc = default_quickstart_bgc()
-run = run_box_model(bgc; filename="outputs/02_diagnostics_quick_start.jld2")
+run = run_box_model(bgc; filename=joinpath("outputs", "02_diagnostics_quick_start.jld2"))
 timeseries = read_box_tracer_timeseries(run.filename, run.tracer_syms)
 
 times = timeseries.times
@@ -37,7 +34,7 @@ nothing #hide
 # `plot_nitrogen_pools` groups individual tracers into nutrient, detritus,
 # phytoplankton, zooplankton, living plankton, and total nitrogen pools.
 
-fig_nitrogen = plot_nitrogen_pools(times, data; figure_path="figures/02_diagnostic_nitrogen_pools.png")
+fig_nitrogen = plot_nitrogen_pools(times, data; figure_path=joinpath("figures", "02_diagnostic_nitrogen_pools.png"))
 fig_nitrogen
 
 # ## Persistence
@@ -49,7 +46,7 @@ fig_persistence = plot_persistence(
     times,
     data;
     threshold=1e-6,
-    figure_path="figures/02_diagnostic_persistence.png",
+    figure_path=joinpath("figures", "02_diagnostic_persistence.png"),
 )
 fig_persistence
 
@@ -62,7 +59,7 @@ fig_size = plot_size_spectrum(
     times,
     data;
     diameters=default_plankton_diameters(),
-    figure_path="figures/02_diagnostic_size_spectrum.png",
+    figure_path=joinpath("figures", "02_diagnostic_size_spectrum.png"),
 )
 fig_size
 
@@ -79,7 +76,7 @@ println(summary)
 fig_trophic = plot_trophic_interactions(
     predation.groups,
     predation.matrix;
-    figure_path="figures/02_diagnostic_trophic_interactions.png",
+    figure_path=joinpath("figures", "02_diagnostic_trophic_interactions.png"),
 )
 fig_trophic
 

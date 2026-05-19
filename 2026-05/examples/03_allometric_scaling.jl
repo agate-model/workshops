@@ -1,6 +1,6 @@
 # # [Exercise 03: Allometric scaling] (@id allometric_scaling_exercise)
 #
-# This exercise changes allometric scaling in the [Agate.jl-NiPiZD](@ref NiPiZD) model.
+# This exercise changes allometric scaling in the Agate.jl NiPiZD model.
 # We inspect the trait curves produced by different allometric coefficients, then run each case in a well-mixed zero-dimensional box.
 #
 # Agate.jl represents allometric parameter rules as a power law on spherical cell volume:
@@ -81,9 +81,24 @@ gmax_default_b = -0.16
 # The phytoplankton parameters are plotted at phytoplankton diameters, and the zooplankton parameter is plotted at zooplankton diameters.
 # These are inferred from the constructed model rather than written out by hand.
 
+function parameter_values_for_group(bgc, group::Symbol, values)
+    tracers = collect(getproperty(plankton_groups(bgc), group))
+    all_tracers = collect(plankton_tracers(bgc))
+    values = collect(values)
+
+    if length(values) == length(tracers)
+        return values
+    elseif length(values) == length(all_tracers)
+        lookup = Dict(all_tracers .=> values)
+        return [lookup[tracer] for tracer in tracers]
+    else
+        error("Cannot align $(length(values)) parameter values with $(length(tracers)) $(group) tracers.")
+    end
+end
+
 function allometry_case(bgc; mumax_prefactor, mumax_exponent, kN_prefactor, kN_exponent, gmax_prefactor, gmax_exponent)
-    P = plankton_groups(bgc).P
-    Z = plankton_groups(bgc).Z
+    P = collect(plankton_groups(bgc).P)
+    Z = collect(plankton_groups(bgc).Z)
     P_diameters = group_tracer_diameters(bgc, :P)
     Z_diameters = group_tracer_diameters(bgc, :Z)
     curve_diameters = allometric_diameter_range(bgc)
@@ -93,7 +108,7 @@ function allometry_case(bgc; mumax_prefactor, mumax_exponent, kN_prefactor, kN_e
             title = "mumax",
             tracers = P,
             diameters = P_diameters,
-            values = bgc.parameters.maximum_growth_rate .* day,
+            values = parameter_values_for_group(bgc, :P, bgc.parameters.maximum_growth_rate) .* day,
             curve = power_law(curve_diameters; prefactor = mumax_prefactor, exponent = mumax_exponent) .* day,
             ylabel = "mumax (d⁻¹)",
         ),
@@ -101,7 +116,7 @@ function allometry_case(bgc; mumax_prefactor, mumax_exponent, kN_prefactor, kN_e
             title = "kN",
             tracers = P,
             diameters = P_diameters,
-            values = bgc.parameters.nutrient_half_saturation,
+            values = parameter_values_for_group(bgc, :P, bgc.parameters.nutrient_half_saturation),
             curve = power_law(curve_diameters; prefactor = kN_prefactor, exponent = kN_exponent),
             ylabel = "kN",
         ),
@@ -109,7 +124,7 @@ function allometry_case(bgc; mumax_prefactor, mumax_exponent, kN_prefactor, kN_e
             title = "gmax",
             tracers = Z,
             diameters = Z_diameters,
-            values = bgc.parameters.maximum_predation_rate .* day,
+            values = parameter_values_for_group(bgc, :Z, bgc.parameters.maximum_predation_rate) .* day,
             curve = power_law(curve_diameters; prefactor = gmax_prefactor, exponent = gmax_exponent) .* day,
             ylabel = "gmax (d⁻¹)",
         ),
@@ -151,7 +166,7 @@ end
 fig_default = plot_allometry_case(
     bgc_default;
     label = "Default",
-    filename = "figures/03_default_allometry.png",
+    filename = joinpath("figures", "03_default_allometry.png"),
     mumax_prefactor = mumax_default_a,
     mumax_exponent = mumax_default_b,
     kN_prefactor = kN_default_a,
@@ -177,7 +192,7 @@ bgc_flat = Agate.Models.NiPiZD.construct(;
 fig_flat = plot_allometry_case(
     bgc_flat;
     label = "Flat",
-    filename = "figures/03_flat_allometry.png",
+    filename = joinpath("figures", "03_flat_allometry.png"),
     mumax_prefactor = 2 / day,
     mumax_exponent = 0.0,
     kN_prefactor = 0.17,
@@ -204,7 +219,7 @@ bgc_strong_small_fast = Agate.Models.NiPiZD.construct(;
 fig_strong = plot_allometry_case(
     bgc_strong_small_fast;
     label = "Strong small-fast",
-    filename = "figures/03_strong_small_fast_allometry.png",
+    filename = joinpath("figures", "03_strong_small_fast_allometry.png"),
     mumax_prefactor = 2 / day,
     mumax_exponent = -0.35,
     kN_prefactor = 0.17,
@@ -257,13 +272,13 @@ function run_box_model(bgc; filename)
 end
 
 # Run the default case.
-default_filename = run_box_model(bgc_default; filename = "outputs/03_default.jld2")
+default_filename = run_box_model(bgc_default; filename = joinpath("outputs", "03_default.jld2"))
 
 # Run the flat-allometry case.
-flat_filename = run_box_model(bgc_flat; filename = "outputs/03_flat.jld2")
+flat_filename = run_box_model(bgc_flat; filename = joinpath("outputs", "03_flat.jld2"))
 
 # Run the strong small-fast case.
-strong_filename = run_box_model(bgc_strong_small_fast; filename = "outputs/03_strong_small_fast.jld2")
+strong_filename = run_box_model(bgc_strong_small_fast; filename = joinpath("outputs", "03_strong_small_fast.jld2"))
 
 nothing #hide
 
@@ -318,7 +333,7 @@ lines!(axD, flat_dynamics.times, flat_dynamics.D; label = "Flat")
 lines!(axD, strong_dynamics.times, strong_dynamics.D; label = "Strong small-fast")
 
 axislegend(axN; position = :rt)
-save("figures/03_ecosystem_dynamics.png", fig_dynamics)
+save(joinpath("figures", "03_ecosystem_dynamics.png"), fig_dynamics)
 fig_dynamics
 
 # ## Exercises

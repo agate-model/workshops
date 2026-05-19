@@ -18,11 +18,10 @@ using Oceananigans
 using Oceananigans.Units
 using CairoMakie
 
-include("src/WorkshopBoxModels.jl")
-using .WorkshopBoxModels
+include(joinpath(@__DIR__, "..", "src", "WorkshopSetup.jl"))
 
-mkpath("outputs")
-mkpath("figures")
+mkpath(joinpath("outputs"))
+mkpath(joinpath("figures"))
 
 nothing #hide
 
@@ -58,7 +57,7 @@ nothing #hide
 
 # Run the model and save daily tracer output.
 
-quickstart_filename = "outputs/01_quick_start_manual.jld2"
+quickstart_filename = joinpath("outputs", "01_quick_start_manual.jld2")
 simulation = Simulation(full_model; Δt=240minutes, stop_time=1095days)
 
 simulation.output_writers[:fields] = JLD2Writer(
@@ -92,7 +91,7 @@ for (idx, sym) in enumerate(tracer_syms)
     lines!(ax, timeseries.times, timeseries.data[Symbol(sym)]; linewidth=3)
 end
 
-save("figures/01_quick_start_manual.png", fig_manual)
+save(joinpath("figures", "01_quick_start_manual.png"), fig_manual)
 fig_manual
 
 # ## A general workshop box-model wrapper
@@ -109,7 +108,7 @@ fig_manual
 
 wrapped = run_box_model(
     bgc;
-    filename="outputs/01_quick_start_wrapped.jld2",
+    filename=joinpath("outputs", "01_quick_start_wrapped.jld2"),
     initial_conditions=(N=7.0, P1=0.01, Z1=0.01, P2=0.1, Z2=0.01, D=0.01),
     Δt=240minutes,
     stop_time=1095days,
@@ -132,7 +131,7 @@ larger_initial_conditions = (N=7.0, D=0.01, P1=0.01, P2=0.01, P3=0.01, Z1=0.01, 
 
 larger = run_box_model(
     larger_bgc;
-    filename="outputs/01_quick_start_larger_community.jld2",
+    filename=joinpath("outputs", "01_quick_start_larger_community.jld2"),
     initial_conditions=larger_initial_conditions,
     Δt=240minutes,
     stop_time=365days,
