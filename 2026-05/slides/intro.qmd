@@ -17,25 +17,48 @@ execute:
   echo: false
 ---
 
-
-## Why another ecosystem modelling tool? {background-image="images/background-placeholder.svg" background-size="cover"}
+## Current state of the art {background-image="images/background-placeholder.svg" background-size="cover"}
 
 ::: {.slide-copy}
-- Ecosystem model ideas often start as simple scientific changes: add a process, change a parameterization, split a type, or test a model variant.
-- In practice, these changes are often implemented deep inside a specific host model.
-- Once implemented, they may be hard to transfer to another model or coupling framework.
-- Ecological model components should be easier to reuse.
+
+All major Earth System Models (ESMs) use FORTRAN.
+
+- Highly optimized and battle tested
+- Large user base / existing expertise
+- Physical system well calibrated (circulation, boundary conditions)
+
+Downsides:
+
+- Ocean biogeochemistry often secondary/tertiary
+- Non-composable -> iron cycling for PISCES can't be used in DARWIN
+- Written in FORTRAN -> less intuitive + worse UX than modern languages
+- Hard to Automatically Differentiate -> makes Bayesian inference and machine learning expensive!
+- Difficult to utilize GPUs (but increasingly possible)
+
 :::
 
 ![](images/slide-01.svg){.slide-image}
 
-## Scientific changes that do not transfer {background-image="images/background-placeholder.svg" background-size="cover"}
+## Julia programming language - a new frontier ? {background-image="images/background-placeholder.svg" background-size="cover"}
 
 ::: {.slide-copy}
-- A new ecosystem process may depend on one tracer layout.
-- A parameterization may be tied to one numerical grid or host model.
-- Diagnostics and assumptions may be difficult to reproduce elsewhere.
-- The same ecological idea may need to be reimplemented for every model.
+
+Benefits:
+
+- Similar performance to FORTRAN but easier to program (like Python, R, MATLAB)
+- Designed to be composable (at least in theory)
+- Strong Automatic Differentiation infrastructure
+- GPUs well supported
+- Existing physical oceanography model (Oceananigans.jl) and an active Earth System Modelling community (NumericalEarth.jl)
+
+Downsides:
+
+- Effectively starting from scratch (ESMs are complex(!))
+- Small user base / expertise
+- While theoretically easy to use, plotting etc. is still behind Python/R
+- Senior PI's are hesitant to learn a new language
+- FORTRAN has stood the test of time, will Julia?
+
 :::
 
 ![](images/slide-02.svg){.slide-image}
