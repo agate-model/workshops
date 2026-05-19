@@ -10,8 +10,18 @@ workshop_root = normpath(joinpath(@__DIR__, ".."))
 
 examples_dir = joinpath(workshop_root, "examples")
 docs_src_dir = joinpath(@__DIR__, "src")
-docs_exercises_dir = joinpath(docs_src_dir, "exercises")
+docs_exercises_dir = joinpath(docs_src_dir, "generated")
 mkpath(docs_exercises_dir)
+
+# Literate executes generated pages from docs/src/exercises. This small shim
+# lets the examples keep the simple path they use when run from examples/.
+docs_support_src_dir = joinpath(docs_src_dir, "src")
+mkpath(docs_support_src_dir)
+write(
+    joinpath(docs_support_src_dir, "WorkshopSetup.jl"),
+    "include(joinpath(@__DIR__, \"..\", \"..\", \"..\", \"src\", \"WorkshopSetup.jl\"))\n",
+)
+
 example_files = [
     "00_setup_check.jl",
     "01_quick_start.jl",
@@ -49,20 +59,22 @@ makedocs(
     format=Documenter.HTML(
         prettyurls=get(ENV, "CI", "false") == "true",
         assets=String[],
+        size_threshold_warn=1_000_000,
+        size_threshold=2_000_000,
     ),
     modules=Module[],
     pages=[
         "Home" => "index.md",
         "Setup" => "setup.md",
         "Examples" => [
-            "00 Setup Check" => "exercises/00_setup_check.md",
-            "01 Quick Start" => "exercises/01_quick_start.md",
-            "02 Diagnostics" => "exercises/02_diagnostics.md",
-            "03 Allometric Scaling" => "exercises/03_allometric_scaling.md",
-            "04 Number and Size" => "exercises/04_number_and_size.md",
-            "05 Palatability" => "exercises/05_palatability.md",
-            "06 Diffusivity" => "exercises/06_diffusivity.md",
-            "07 Irradiance" => "exercises/07_irradiance.md",
+            "00 Setup Check" => "generated/00_setup_check.md",
+            "01 Quick Start" => "generated/01_quick_start.md",
+            "02 Diagnostics" => "generated/02_diagnostics.md",
+            "03 Allometric Scaling" => "generated/03_allometric_scaling.md",
+            "04 Number and Size" => "generated/04_number_and_size.md",
+            "05 Palatability" => "generated/05_palatability.md",
+            "06 Diffusivity" => "generated/06_diffusivity.md",
+            "07 Irradiance" => "generated/07_irradiance.md",
         ],
     ],
 )
