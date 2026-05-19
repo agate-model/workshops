@@ -23,7 +23,7 @@
 # CairoMakie.jl is used for plotting.
 
 using Agate
-using Agate.Introspection: plankton_tracers
+using Agate.Introspection: plankton_diameters, plankton_groups, plankton_tracers
 using Agate.Library.Allometry: AllometricParam, PowerLaw
 using Agate.Library.Light
 using OceanBioME
@@ -39,16 +39,22 @@ nothing #hide
 
 # ## Plankton sizes
 #
-# The default Agate.jl-NiPiZD phytoplankton sizes are 2 and 10 μm ESD.
-# The default zooplankton sizes are 20 and 100 μm ESD.
-# We define those diameters explicitly, use them for plotting, and pass them to `construct` so the plotted sizes and model sizes are identical.
+# The Agate.jl-NiPiZD model stores plankton ESD metadata on constructed biogeochemistry objects.
+# The introspection helpers keep tracer labels and diameters aligned, so plotting code does not need to duplicate the model's size structure.
 
-phyto_diameters = [2.0, 10.0]
-zoo_diameters = [20.0, 100.0]
+function plankton_diameter_lookup(bgc)
+    return Dict(plankton_tracers(bgc) .=> plankton_diameters(bgc))
+end
 
-plankton_diameters = Dict(:P1 => 2.0, :P2 => 10.0, :Z1 => 20.0, :Z2 => 100.0)
+function group_tracer_diameters(bgc, group::Symbol)
+    lookup = plankton_diameter_lookup(bgc)
+    return [lookup[tracer] for tracer in getproperty(plankton_groups(bgc), group)]
+end
 
-allometric_diameters = exp.(range(log(1.0), log(120.0); length = 200))
+function allometric_diameter_range(bgc; length = 200)
+    diameters = plankton_diameters(bgc)
+    return exp.(range(log(minimum(diameters) / 2), log(maximum(diameters) * 1.2); length))
+end
 
 cell_volume(d) = 4 / 3 * π * (d / 2)^3
 power_law(diameters; prefactor, exponent) = prefactor .* cell_volume.(diameters) .^ exponent
@@ -60,13 +66,10 @@ nothing #hide
 # We start with the default allometric coefficients.
 # Rates are specified using Oceananigans units, for example `2 / day`, rather than manually converting from seconds.
 
-bgc_default = Agate.Models.NiPiZD.construct(;
-    phyto_size_structure = phyto_diameters,
-    zoo_size_structure = zoo_diameters,
-)
+bgc_default = Agate.Models.NiPiZD.construct()
 
-plankton = plankton_tracers(bgc_default)
-println("Plankton tracers: ", plankton)
+println("Plankton tracers: ", plankton_tracers(bgc_default))
+println("Plankton diameters: ", plankton_diameters(bgc_default), " μm")
 
 mumax_default_a = 2 / day
 mumax_default_b = -0.15
@@ -75,33 +78,87 @@ kN_default_b = 0.27
 gmax_default_a = 30.84 / day
 gmax_default_b = -0.16
 
-mumax_default_curve = power_law(allometric_diameters; prefactor = mumax_default_a, exponent = mumax_default_b) .* day
-kN_default_curve = power_law(allometric_diameters; prefactor = kN_default_a, exponent = kN_default_b)
-gmax_default_curve = power_law(allometric_diameters; prefactor = gmax_default_a, exponent = gmax_default_b) .* day
+# The phytoplankton parameters are plotted at phytoplankton diameters, and the zooplankton parameter is plotted at zooplankton diameters.
+# These are inferred from the constructed model rather than written out by hand.
 
-plankton_sizes = [plankton_diameters[p] for p in plankton]
-mumax_default = bgc_default.parameters.maximum_growth_rate .* day
-kN_default = bgc_default.parameters.nutrient_half_saturation
-gmax_default = bgc_default.parameters.maximum_predation_rate .* day
+function allometry_case(bgc; mumax_prefactor, mumax_exponent, kN_prefactor, kN_exponent, gmax_prefactor, gmax_exponent)
+    P = plankton_groups(bgc).P
+    Z = plankton_groups(bgc).Z
+    P_diameters = group_tracer_diameters(bgc, :P)
+    Z_diameters = group_tracer_diameters(bgc, :Z)
+    curve_diameters = allometric_diameter_range(bgc)
 
-fig_default = Figure(; size = (1050, 420), fontsize = 16)
-ax_mumax_default = Axis(fig_default[1, 1]; xlabel = "Diameter (μm ESD)", ylabel = "mumax (d⁻¹)", title = "Default mumax", xscale = log10)
-ax_kN_default = Axis(fig_default[1, 2]; xlabel = "Diameter (μm ESD)", ylabel = "kN", title = "Default kN", xscale = log10)
-ax_gmax_default = Axis(fig_default[1, 3]; xlabel = "Diameter (μm ESD)", ylabel = "gmax (d⁻¹)", title = "Default gmax", xscale = log10)
+    return (
+        mumax = (
+            title = "mumax",
+            tracers = P,
+            diameters = P_diameters,
+            values = bgc.parameters.maximum_growth_rate .* day,
+            curve = power_law(curve_diameters; prefactor = mumax_prefactor, exponent = mumax_exponent) .* day,
+            ylabel = "mumax (d⁻¹)",
+        ),
+        kN = (
+            title = "kN",
+            tracers = P,
+            diameters = P_diameters,
+            values = bgc.parameters.nutrient_half_saturation,
+            curve = power_law(curve_diameters; prefactor = kN_prefactor, exponent = kN_exponent),
+            ylabel = "kN",
+        ),
+        gmax = (
+            title = "gmax",
+            tracers = Z,
+            diameters = Z_diameters,
+            values = bgc.parameters.maximum_predation_rate .* day,
+            curve = power_law(curve_diameters; prefactor = gmax_prefactor, exponent = gmax_exponent) .* day,
+            ylabel = "gmax (d⁻¹)",
+        ),
+        curve_diameters = curve_diameters,
+    )
+end
 
-lines!(ax_mumax_default, allometric_diameters, mumax_default_curve)
-scatter!(ax_mumax_default, plankton_sizes, mumax_default; markersize = 14)
-text!(ax_mumax_default, plankton_sizes, mumax_default; text = string.(plankton), align = (:left, :bottom), offset = (5, 5))
+function plot_allometry_case(bgc; label, filename, kwargs...)
+    case = allometry_case(bgc; kwargs...)
+    traits = (case.mumax, case.kN, case.gmax)
 
-lines!(ax_kN_default, allometric_diameters, kN_default_curve)
-scatter!(ax_kN_default, plankton_sizes, kN_default; markersize = 14)
-text!(ax_kN_default, plankton_sizes, kN_default; text = string.(plankton), align = (:left, :bottom), offset = (5, 5))
+    fig = Figure(; size = (1050, 420), fontsize = 16)
 
-lines!(ax_gmax_default, allometric_diameters, gmax_default_curve)
-scatter!(ax_gmax_default, plankton_sizes, gmax_default; markersize = 14)
-text!(ax_gmax_default, plankton_sizes, gmax_default; text = string.(plankton), align = (:left, :bottom), offset = (5, 5))
+    for (column, trait) in enumerate(traits)
+        ax = Axis(
+            fig[1, column];
+            xlabel = "Diameter (μm ESD)",
+            ylabel = trait.ylabel,
+            title = "$label $(trait.title)",
+            xscale = log10,
+        )
 
-save("figures/01_default_allometry.png", fig_default)
+        lines!(ax, case.curve_diameters, trait.curve)
+        scatter!(ax, trait.diameters, trait.values; markersize = 14)
+        text!(
+            ax,
+            trait.diameters,
+            trait.values;
+            text = string.(trait.tracers),
+            align = (:left, :bottom),
+            offset = (5, 5),
+        )
+    end
+
+    save(filename, fig)
+    return fig
+end
+
+fig_default = plot_allometry_case(
+    bgc_default;
+    label = "Default",
+    filename = "figures/01_default_allometry.png",
+    mumax_prefactor = mumax_default_a,
+    mumax_exponent = mumax_default_b,
+    kN_prefactor = kN_default_a,
+    kN_exponent = kN_default_b,
+    gmax_prefactor = gmax_default_a,
+    gmax_exponent = gmax_default_b,
+)
 fig_default
 
 # ## Flat allometry
@@ -110,8 +167,6 @@ fig_default
 # The parameter values no longer depend on size, so each curve is horizontal.
 
 bgc_flat = Agate.Models.NiPiZD.construct(;
-    phyto_size_structure = phyto_diameters,
-    zoo_size_structure = zoo_diameters,
     parameters = (
         maximum_growth_rate = AllometricParam(PowerLaw(); prefactor = 2 / day, exponent = 0.0),
         nutrient_half_saturation = AllometricParam(PowerLaw(); prefactor = 0.17, exponent = 0.0),
@@ -119,32 +174,17 @@ bgc_flat = Agate.Models.NiPiZD.construct(;
     ),
 )
 
-mumax_flat_curve = power_law(allometric_diameters; prefactor = 2 / day, exponent = 0.0) .* day
-kN_flat_curve = power_law(allometric_diameters; prefactor = 0.17, exponent = 0.0)
-gmax_flat_curve = power_law(allometric_diameters; prefactor = 30.84 / day, exponent = 0.0) .* day
-
-mumax_flat = bgc_flat.parameters.maximum_growth_rate .* day
-kN_flat = bgc_flat.parameters.nutrient_half_saturation
-gmax_flat = bgc_flat.parameters.maximum_predation_rate .* day
-
-fig_flat = Figure(; size = (1050, 420), fontsize = 16)
-ax_mumax_flat = Axis(fig_flat[1, 1]; xlabel = "Diameter (μm ESD)", ylabel = "mumax (d⁻¹)", title = "Flat mumax", xscale = log10)
-ax_kN_flat = Axis(fig_flat[1, 2]; xlabel = "Diameter (μm ESD)", ylabel = "kN", title = "Flat kN", xscale = log10)
-ax_gmax_flat = Axis(fig_flat[1, 3]; xlabel = "Diameter (μm ESD)", ylabel = "gmax (d⁻¹)", title = "Flat gmax", xscale = log10)
-
-lines!(ax_mumax_flat, allometric_diameters, mumax_flat_curve)
-scatter!(ax_mumax_flat, plankton_sizes, mumax_flat; markersize = 14)
-text!(ax_mumax_flat, plankton_sizes, mumax_flat; text = string.(plankton), align = (:left, :bottom), offset = (5, 5))
-
-lines!(ax_kN_flat, allometric_diameters, kN_flat_curve)
-scatter!(ax_kN_flat, plankton_sizes, kN_flat; markersize = 14)
-text!(ax_kN_flat, plankton_sizes, kN_flat; text = string.(plankton), align = (:left, :bottom), offset = (5, 5))
-
-lines!(ax_gmax_flat, allometric_diameters, gmax_flat_curve)
-scatter!(ax_gmax_flat, plankton_sizes, gmax_flat; markersize = 14)
-text!(ax_gmax_flat, plankton_sizes, gmax_flat; text = string.(plankton), align = (:left, :bottom), offset = (5, 5))
-
-save("figures/01_flat_allometry.png", fig_flat)
+fig_flat = plot_allometry_case(
+    bgc_flat;
+    label = "Flat",
+    filename = "figures/01_flat_allometry.png",
+    mumax_prefactor = 2 / day,
+    mumax_exponent = 0.0,
+    kN_prefactor = 0.17,
+    kN_exponent = 0.0,
+    gmax_prefactor = 30.84 / day,
+    gmax_exponent = 0.0,
+)
 fig_flat
 
 # ## Strong small-fast allometry
@@ -154,8 +194,6 @@ fig_flat
 # A positive `kN` exponent makes larger phytoplankton require higher nutrient concentration to approach maximum growth.
 
 bgc_strong_small_fast = Agate.Models.NiPiZD.construct(;
-    phyto_size_structure = phyto_diameters,
-    zoo_size_structure = zoo_diameters,
     parameters = (
         maximum_growth_rate = AllometricParam(PowerLaw(); prefactor = 2 / day, exponent = -0.35),
         nutrient_half_saturation = AllometricParam(PowerLaw(); prefactor = 0.17, exponent = 0.35),
@@ -163,32 +201,17 @@ bgc_strong_small_fast = Agate.Models.NiPiZD.construct(;
     ),
 )
 
-mumax_strong_curve = power_law(allometric_diameters; prefactor = 2 / day, exponent = -0.35) .* day
-kN_strong_curve = power_law(allometric_diameters; prefactor = 0.17, exponent = 0.35)
-gmax_strong_curve = power_law(allometric_diameters; prefactor = 30.84 / day, exponent = -0.35) .* day
-
-mumax_strong = bgc_strong_small_fast.parameters.maximum_growth_rate .* day
-kN_strong = bgc_strong_small_fast.parameters.nutrient_half_saturation
-gmax_strong = bgc_strong_small_fast.parameters.maximum_predation_rate .* day
-
-fig_strong = Figure(; size = (1050, 420), fontsize = 16)
-ax_mumax_strong = Axis(fig_strong[1, 1]; xlabel = "Diameter (μm ESD)", ylabel = "mumax (d⁻¹)", title = "Strong small-fast mumax", xscale = log10)
-ax_kN_strong = Axis(fig_strong[1, 2]; xlabel = "Diameter (μm ESD)", ylabel = "kN", title = "Strong small-fast kN", xscale = log10)
-ax_gmax_strong = Axis(fig_strong[1, 3]; xlabel = "Diameter (μm ESD)", ylabel = "gmax (d⁻¹)", title = "Strong small-fast gmax", xscale = log10)
-
-lines!(ax_mumax_strong, allometric_diameters, mumax_strong_curve)
-scatter!(ax_mumax_strong, plankton_sizes, mumax_strong; markersize = 14)
-text!(ax_mumax_strong, plankton_sizes, mumax_strong; text = string.(plankton), align = (:left, :bottom), offset = (5, 5))
-
-lines!(ax_kN_strong, allometric_diameters, kN_strong_curve)
-scatter!(ax_kN_strong, plankton_sizes, kN_strong; markersize = 14)
-text!(ax_kN_strong, plankton_sizes, kN_strong; text = string.(plankton), align = (:left, :bottom), offset = (5, 5))
-
-lines!(ax_gmax_strong, allometric_diameters, gmax_strong_curve)
-scatter!(ax_gmax_strong, plankton_sizes, gmax_strong; markersize = 14)
-text!(ax_gmax_strong, plankton_sizes, gmax_strong; text = string.(plankton), align = (:left, :bottom), offset = (5, 5))
-
-save("figures/01_strong_small_fast_allometry.png", fig_strong)
+fig_strong = plot_allometry_case(
+    bgc_strong_small_fast;
+    label = "Strong small-fast",
+    filename = "figures/01_strong_small_fast_allometry.png",
+    mumax_prefactor = 2 / day,
+    mumax_exponent = -0.35,
+    kN_prefactor = 0.17,
+    kN_exponent = 0.35,
+    gmax_prefactor = 30.84 / day,
+    gmax_exponent = -0.35,
+)
 fig_strong
 
 # ## Zero-dimensional ecosystem simulations
@@ -196,12 +219,27 @@ fig_strong
 # The parameter plots show potential rates.
 # We now run the same three allometric cases in a well-mixed box model and compare the ecosystem dynamics.
 
+function plankton_initial_conditions(bgc; phyto = 0.03, zoo = 0.01)
+    groups = plankton_groups(bgc)
+    pairs = Pair{Symbol,Float64}[]
+
+    for tracer in groups.P
+        push!(pairs, tracer => phyto)
+    end
+
+    for tracer in groups.Z
+        push!(pairs, tracer => zoo)
+    end
+
+    return (; pairs...)
+end
+
 function run_box_model(bgc; filename)
     light_attenuation = FunctionFieldPAR(; grid = BoxModelGrid())
     bgc_model = Biogeochemistry(bgc; light_attenuation)
     full_model = BoxModel(; biogeochemistry = bgc_model)
 
-    set!(full_model; N = 8.0, D = 0.01, P1 = 0.03, P2 = 0.03, Z1 = 0.01, Z2 = 0.01)
+    set!(full_model; N = 8.0, D = 0.01, plankton_initial_conditions(bgc)...)
 
     simulation = Simulation(full_model; Δt = 240minutes, stop_time = 1095days)
 
@@ -232,23 +270,29 @@ nothing #hide
 # ## Plot ecosystem dynamics
 #
 # We summarize each simulation by plotting nutrient, total phytoplankton, total zooplankton, and detritus.
-# These totals make the allometric cases easier to compare than six separate tracer lines.
+# The P and Z totals use the model's plankton group metadata, so the plotting still works if the size structure changes.
 
-function read_box_totals(filename)
+function read_box_totals(filename, bgc)
+    P = plankton_groups(bgc).P
+    Z = plankton_groups(bgc).Z
     times = FieldTimeSeries(filename, "N").times ./ day
     N = FieldTimeSeries(filename, "N")[1, 1, 1, :]
     D = FieldTimeSeries(filename, "D")[1, 1, 1, :]
-    P1 = FieldTimeSeries(filename, "P1")[1, 1, 1, :]
-    P2 = FieldTimeSeries(filename, "P2")[1, 1, 1, :]
-    Z1 = FieldTimeSeries(filename, "Z1")[1, 1, 1, :]
-    Z2 = FieldTimeSeries(filename, "Z2")[1, 1, 1, :]
 
-    return (; times = collect(times), N = collect(N), P = collect(P1 .+ P2), Z = collect(Z1 .+ Z2), D = collect(D))
+    total_tracer_group(tracers) = sum(FieldTimeSeries(filename, string(tracer))[1, 1, 1, :] for tracer in tracers)
+
+    return (;
+        times = collect(times),
+        N = collect(N),
+        P = collect(total_tracer_group(P)),
+        Z = collect(total_tracer_group(Z)),
+        D = collect(D),
+    )
 end
 
-default_dynamics = read_box_totals(default_filename)
-flat_dynamics = read_box_totals(flat_filename)
-strong_dynamics = read_box_totals(strong_filename)
+default_dynamics = read_box_totals(default_filename, bgc_default)
+flat_dynamics = read_box_totals(flat_filename, bgc_flat)
+strong_dynamics = read_box_totals(strong_filename, bgc_strong_small_fast)
 
 fig_dynamics = Figure(; size = (950, 760), fontsize = 16)
 

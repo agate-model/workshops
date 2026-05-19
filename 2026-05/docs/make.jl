@@ -14,6 +14,8 @@ docs_exercises_dir = joinpath(docs_src_dir, "exercises")
 mkpath(docs_exercises_dir)
 example_files = [
     "00_setup_check.jl",
+    "01_allometric_scaling.jl",
+    "02_number_and_sizes.jl",
 ]
 
 # Run from the workshop root so relative paths in examples are predictable.
@@ -50,6 +52,8 @@ makedocs(
         "Setup" => "setup.md",
         "Examples" => [
             "00 Setup Check" => "exercises/00_setup_check.md",
+            "01 Allometric Scaling" => "exercises/01_allometric_scaling.md",
+            "02 Number and Sizes" => "exercises/02_number_and_sizes.md",
         ],
     ],
 )
