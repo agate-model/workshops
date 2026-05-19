@@ -1,0 +1,57 @@
+/* Basic 1920x1080 Reveal.js layout for the Agate.jl opening lecture. */
+
+.reveal .slides section {
+  text-align: left;
+}
+
+.reveal h2 {
+  font-size: 1.65em;
+  line-height: 1.08;
+  margin-bottom: 0.6em;
+}
+
+.reveal .slide-copy {
+  position: absolute;
+  left: 110px;
+  top: 190px;
+  width: 820px;
+  font-size: 0.78em;
+  line-height: 1.28;
+  padding: 0.7em 0.9em;
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 18px;
+}
+
+.reveal .slide-copy table {
+  font-size: 0.72em;
+  width: 100%;
+}
+
+.reveal .slide-copy th,
+.reveal .slide-copy td {
+  padding: 0.25em 0.35em;
+  vertical-align: top;
+}
+
+.reveal .slide-image {
+  position: absolute;
+  right: 110px;
+  top: 220px;
+  width: 760px;
+  max-height: 620px;
+  object-fit: contain;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+  padding: 0;
+}
+
+.image-panel img {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+}

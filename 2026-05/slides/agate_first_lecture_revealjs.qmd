@@ -1,0 +1,172 @@
+---
+title: "Agate.jl Workshop: Motivation and Orientation"
+author: ""
+format:
+  revealjs:
+    width: 1920
+    height: 1080
+    theme: simple
+    slide-number: true
+    chalkboard: false
+    preview-links: auto
+    css: styles.css
+execute:
+  echo: false
+---
+
+
+## Why another ecosystem modelling tool? {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Ecosystem model ideas often start as simple scientific changes: add a process, change a parameterization, split a type, or test a model variant.
+- In practice, these changes are often implemented deep inside a specific host model.
+- Once implemented, they may be hard to transfer to another model or coupling framework.
+- Ecological model components should be easier to reuse.
+:::
+
+![](images/slide-01.svg){.slide-image}
+
+## Scientific changes that do not transfer {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- A new ecosystem process may depend on one tracer layout.
+- A parameterization may be tied to one numerical grid or host model.
+- Diagnostics and assumptions may be difficult to reproduce elsewhere.
+- The same ecological idea may need to be reimplemented for every model.
+:::
+
+![](images/slide-02.svg){.slide-image}
+
+## From monolithic models to composable components {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Monolithic workflow: physical model, numerics, ecosystem equations, parameters, and diagnostics are tightly coupled.
+- Composable workflow: ecosystem components are specified through interfaces and coupled to different contexts.
+- Reusable components make model variants easier to compare.
+- Composability supports a distributed climate model made from interoperable packages.
+:::
+
+![](images/slide-03.svg){.slide-image}
+
+## The wider Julia climate and ocean ecosystem {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+Clima and NumericalEarth.jl ecosystem  
+↓  
+Oceananigans.jl: ocean physics and simulation  
+↓  
+OceanBioME.jl: biogeochemistry and ecosystem coupling  
+↓  
+Agate.jl: aquatic ecosystem model construction
+:::
+
+![](images/slide-04.svg){.slide-image}
+
+## Why Julia for this? {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- High-level expression: model ideas can be written close to the scientific abstraction.
+- Performance: numerical code can run efficiently without moving to a separate implementation language.
+- Multiple dispatch: components can share interfaces while specializing behavior.
+- GPU support: important for high-resolution ocean and climate simulations.
+- Automatic differentiation: a long-term route toward tunable and calibratable model components.
+:::
+
+![](images/slide-05.svg){.slide-image}
+
+## What does Agate.jl stand for? {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+| Term | Meaning |
+|---|---|
+| Aquatic | Aquatic ecosystem and biogeochemical model components. |
+| GCM-agnostic | Components should not be tied to one circulation model or physical host. |
+| Tunable | Long-term goal: components that can be calibrated, optimized, differentiated, and tested systematically. |
+| Ecosystems | Communities, traits, interactions, and process structure. |
+:::
+
+![](images/slide-06.svg){.slide-image}
+
+## What Agate.jl should give the user {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- A way to specify ecosystem model structure at a higher level.
+- A way to construct model variants from ecological assumptions.
+- A way to separate the scientific question from low-level implementation details.
+- A path toward reusable ecosystem components across physical contexts.
+:::
+
+![](images/slide-07.svg){.slide-image}
+
+## Models as controlled ecological arguments {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Models are not copies of nature; they are simplified arguments about mechanisms.
+- A useful model edit should correspond to a clear assumption.
+- A useful experiment compares alternatives, not just isolated runs.
+- Interpretation requires a diagnostic: what output would show whether the assumption mattered?
+:::
+
+![](images/slide-08.svg){.slide-image}
+
+## Why trait-based modelling? {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Plankton communities are diverse and difficult to represent species by species.
+- Trait-based models represent ecological strategies rather than every named organism.
+- Traits connect biological differences to model processes.
+- This makes it easier to construct families of model variants.
+:::
+
+![](images/slide-09.svg){.slide-image}
+
+## Why allometry? {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Allometry describes how biological quantities scale with organism size or other traits.
+- It reduces the number of independent parameters that must be assigned manually.
+- It makes modelling assumptions explicit and reusable.
+- It helps construct related model types from shared rules.
+:::
+
+![](images/slide-10.svg){.slide-image}
+
+## A simple workflow for the day {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+Ecological question  
+↓  
+Model assumption  
+↓  
+Agate.jl constructor or setup choice  
+↓  
+Model run  
+↓  
+Diagnostic and interpretation
+:::
+
+![](images/slide-11.svg){.slide-image}
+
+## Roadmap without pre-teaching the modules {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+| Part of workshop | Role in the day |
+|---|---|
+| Opening lecture | Why this software and modelling approach exists. |
+| Short module lectures | Introduce the concepts needed for each hands-on exercise. |
+| Hands-on modules | Practice constructing and modifying model variants. |
+| Self-paced examples | Apply the workflow to a chosen ecological question. |
+:::
+
+![](images/slide-12.svg){.slide-image}
+
+## Final takeaway {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Agate.jl is motivated by transferable, GCM-agnostic ecosystem model components.
+- Julia supports a composable, high-performance, and eventually tunable modelling ecosystem.
+- Trait-based and allometric abstractions help turn ecological assumptions into reusable model structure.
+- The rest of the workshop will introduce concepts only when they are needed for the exercises.
+:::
+
+![](images/slide-13.svg){.slide-image}
