@@ -29,31 +29,38 @@ data = timeseries.data
 
 nothing #hide
 
-# ## Nitrogen pools
+# ## Tracer concentrations
 #
-# `plot_nitrogen_pools` groups individual tracers into nutrient, detritus,
-# phytoplankton, zooplankton, living plankton, and total nitrogen pools.
+# `plot_tracer_concentrations` follows the per-tracer plotting pattern from the
+# Quick start exercise, but grows the figure vertically for larger communities.
 
-fig_nitrogen = plot_nitrogen_pools(times, data; figure_path=joinpath("figures", "02_diagnostic_nitrogen_pools.png"))
-fig_nitrogen
+fig_tracers = plot_tracer_concentrations(
+    times,
+    data,
+    run.tracer_syms;
+    figure_path=joinpath("figures", "02_diagnostic_tracer_concentrations.png"),
+)
+fig_tracers
 
-# ## Persistence
+# ## Relative nitrogen contributions
 #
-# `plot_persistence` counts how many plankton groups remain above a chosen
-# biomass threshold. This provides a simple first check for loss of groups.
+# `plot_contributions` sums phytoplankton and zooplankton
+# tracers, then compares their relative contributions with nutrient and
+# detritus pools and with each other.
 
-fig_persistence = plot_persistence(
+fig_nitrogen = plot_contributions(
     times,
     data;
-    threshold=1e-6,
-    figure_path=joinpath("figures", "02_diagnostic_persistence.png"),
+    figure_path=joinpath("figures", "02_diagnostic_relative_nitrogen_contributions.png"),
 )
-fig_persistence
+fig_nitrogen
 
-# ## Size spectrum
+# ## Community-weighted mean size
 #
 # The default Quick start does not expose a single canonical size diagnostic, so
-# the workshop uses an illustrative diameter lookup for the four plankton groups.
+# the workshop uses an illustrative diameter lookup for the plankton groups.
+# This diagnostic plots the community-weighted mean size for all plankton, then
+# overlays the phytoplankton and zooplankton means separately.
 
 fig_size = plot_size_spectrum(
     times,
@@ -82,7 +89,7 @@ fig_trophic
 
 # ## Exercises
 #
-# 1. Increase the persistence threshold. Which groups disappear first?
-# 2. Change one illustrative plankton diameter and rerun the size-spectrum diagnostic.
-# 3. Turn on cannibalism in `default_predation_matrix(; cannibalism=true)`. How does connectance change?
-# 4. Pick one diagnostic and adapt it for a later workshop exercise.
+# 1. Change the box-model community size and rerun the tracer concentration diagnostic.
+# 2. Change one illustrative plankton diameter and rerun the size diagnostic.
+# 3. Compare the phytoplankton and zooplankton CWM curves. Which community shifts more?
+# 4. Turn on cannibalism in `default_predation_matrix(; cannibalism=true)`. How does connectance change?

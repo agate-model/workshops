@@ -13,8 +13,8 @@ using Statistics
 
 export run_quickstart_box_model,
        read_quickstart_timeseries,
-       plot_nitrogen_pools,
-       plot_persistence,
+       plot_tracer_concentrations,
+       plot_contributions,
        plot_size_spectrum,
        plot_trophic_interactions,
        summarize_predation_matrix,
@@ -76,86 +76,97 @@ function _get(data::Dict{Symbol, Vector{Float64}}, key::Symbol)
     return get(data, key, zeros(length(first(values(data)))))
 end
 
-"""
-    plot_nitrogen_pools(times, data; figure_path)
+function _sum_matching(data::Dict{Symbol, Vector{Float64}}, pattern::Regex)
+    matching = [values for (key, values) in data if occursin(pattern, String(key))]
+    isempty(matching) && return zeros(length(first(values(data))))
+    return reduce(.+, matching)
+end
 
-Plot nutrient, phytoplankton, zooplankton, detritus, plankton, and total nitrogen pools.
+function _stacked_relative_area!(ax, times, series)
+    denominator = reduce(.+, last.(series)) .+ eps()
+    lower = zeros(length(times))
+
+    for (label, values) in series
+        upper = lower .+ values ./ denominator
+        band!(ax, times, lower, upper; label)
+        lower = upper
+    end
+
+    ylims!(ax, 0, 1)
+    return ax
+end
+
+
 """
-function plot_nitrogen_pools(times, data; figure_path=joinpath("figures", "diagnostic_01_nitrogen_pools.png"))
+    plot_tracer_concentrations(times, data, tracer_syms; figure_path, columns=2)
+
+Plot each tracer concentration in its own panel. The figure height expands with
+how many tracer panels are needed.
+"""
+function plot_tracer_concentrations(times, data, tracer_syms=sort(collect(keys(data)); by=string);
+                                    figure_path=joinpath("figures", "diagnostic_00_tracer_concentrations.png"),
+                                    columns=2)
     mkpath(dirname(figure_path))
 
-    N = _get(data, :N)
-    D = _get(data, :D)
-    P1 = _get(data, :P1)
-    P2 = _get(data, :P2)
-    Z1 = _get(data, :Z1)
-    Z2 = _get(data, :Z2)
+    tracers = Symbol.(tracer_syms)
+    ntracers = length(tracers)
+    rows = cld(ntracers, columns)
 
-    phytoplankton = P1 .+ P2
-    zooplankton = Z1 .+ Z2
-    plankton = phytoplankton .+ zooplankton
-    total = N .+ D .+ plankton
+    fig = Figure(; size=(600 * columns, 260 * rows), fontsize=20)
 
-    fig = Figure(; size=(1100, 750), fontsize=20)
-
-    ax1 = Axis(fig[1, 1];
-        xlabel="Time (days)",
-        ylabel="Nitrogen (mmol N m⁻³)",
-        title="Nitrogen pools")
-
-    lines!(ax1, times, N, label="Nutrient")
-    lines!(ax1, times, phytoplankton, label="Phytoplankton")
-    lines!(ax1, times, zooplankton, label="Zooplankton")
-    lines!(ax1, times, D, label="Detritus")
-    lines!(ax1, times, total, label="Total")
-    axislegend(ax1; position=:rt)
-
-    ax2 = Axis(fig[2, 1];
-        xlabel="Time (days)",
-        ylabel="Fraction of living plankton N",
-        title="Relative contribution of plankton groups")
-
-    living = plankton .+ eps()
-    lines!(ax2, times, P1 ./ living, label="P1")
-    lines!(ax2, times, P2 ./ living, label="P2")
-    lines!(ax2, times, Z1 ./ living, label="Z1")
-    lines!(ax2, times, Z2 ./ living, label="Z2")
-    ylims!(ax2, 0, 1)
-    axislegend(ax2; position=:rt)
+    for (idx, tracer) in enumerate(tracers)
+        row = cld(idx, columns)
+        col = mod1(idx, columns)
+        ax = Axis(
+            fig[row, col];
+            ylabel=string(tracer),
+            xlabel="Days",
+            title="$(tracer) concentration (mmol N m⁻³)",
+        )
+        lines!(ax, times, _get(data, tracer); linewidth=3)
+    end
 
     save(figure_path, fig)
     return fig
 end
 
 """
-    plot_persistence(times, data; threshold, figure_path)
+    plot_contributions(times, data; figure_path)
 
-Plot biomass by group and the number of groups above a persistence threshold.
+Plot relative nitrogen contributions as stacked areas for total nitrogen pools
+and for living plankton pools.
 """
-function plot_persistence(times, data; threshold=1e-6, figure_path=joinpath("figures", "diagnostic_02_persistence.png"))
+function plot_contributions(times, data; figure_path=joinpath("figures", "diagnostic_01_relative_nitrogen_contributions.png"))
     mkpath(dirname(figure_path))
 
-    groups = [:P1, :P2, :Z1, :Z2]
-    matrix = reduce(hcat, [_get(data, g) for g in groups])
-    survivors = vec(sum(matrix .> threshold; dims=2))
+    N = _get(data, :N)
+    D = _get(data, :D)
+    phytoplankton = _sum_matching(data, r"^P\d*$")
+    zooplankton = _sum_matching(data, r"^Z\d*$")
 
     fig = Figure(; size=(1100, 750), fontsize=20)
 
     ax1 = Axis(fig[1, 1];
         xlabel="Time (days)",
-        ylabel="Biomass (mmol N m⁻³)",
-        title="Group biomass")
-    for (i, g) in enumerate(groups)
-        lines!(ax1, times, matrix[:, i], label=String(g))
-    end
+        ylabel="Relative contribution",
+        title="Relative nitrogen pools")
+    _stacked_relative_area!(ax1, times, [
+        "N" => N,
+        "D" => D,
+        "P" => phytoplankton,
+        "Z" => zooplankton,
+    ])
     axislegend(ax1; position=:rt)
 
     ax2 = Axis(fig[2, 1];
         xlabel="Time (days)",
-        ylabel="Groups above threshold",
-        title="Persistence threshold = $(threshold)")
-    lines!(ax2, times, survivors)
-    ylims!(ax2, 0, length(groups) + 0.5)
+        ylabel="Relative contribution",
+        title="Relative living plankton pools")
+    _stacked_relative_area!(ax2, times, [
+        "P" => phytoplankton,
+        "Z" => zooplankton,
+    ])
+    axislegend(ax2; position=:rt)
 
     save(figure_path, fig)
     return fig
@@ -170,42 +181,62 @@ These are workshop diagnostics, not a claim about the package defaults.
 """
 default_plankton_diameters() = Dict(:P1 => 1.0, :P2 => 5.0, :Z1 => 20.0, :Z2 => 80.0)
 
+function _matching_groups(data, diameters, pattern::Regex)
+    groups = [key for key in keys(data) if occursin(pattern, String(key)) && haskey(diameters, key)]
+    return sort(groups; by=string)
+end
+
+function _community_weighted_mean_size(data, diameters, groups)
+    isempty(groups) && return zeros(length(first(values(data))))
+
+    biomass_matrix = reduce(hcat, [_get(data, group) for group in groups])
+    sizes = [diameters[group] for group in groups]
+    total_biomass = vec(sum(biomass_matrix; dims=2)) .+ eps()
+
+    return [sum(biomass_matrix[i, j] * sizes[j] for j in eachindex(groups)) / total_biomass[i]
+            for i in axes(biomass_matrix, 1)]
+end
+
 """
     plot_size_spectrum(times, data; diameters, figure_path)
 
-Plot final biomass against illustrative plankton diameters and the biomass-weighted
-mean plankton size through time.
+Plot community-weighted mean plankton size through time in three subplots:
+for the full plankton community, phytoplankton only, and zooplankton only.
 """
 function plot_size_spectrum(times, data; diameters=default_plankton_diameters(),
                             figure_path=joinpath("figures", "diagnostic_03_size_spectrum.png"))
     mkpath(dirname(figure_path))
 
-    groups = [:P1, :P2, :Z1, :Z2]
-    sizes = [diameters[g] for g in groups]
-    biomass_matrix = reduce(hcat, [_get(data, g) for g in groups])
-    final_biomass = biomass_matrix[end, :]
+    phytoplankton_groups = _matching_groups(data, diameters, r"^P\d*$")
+    zooplankton_groups = _matching_groups(data, diameters, r"^Z\d*$")
+    plankton_groups = vcat(phytoplankton_groups, zooplankton_groups)
 
-    total_biomass = vec(sum(biomass_matrix; dims=2)) .+ eps()
-    mean_size = [sum(biomass_matrix[i, j] * sizes[j] for j in eachindex(groups)) / total_biomass[i]
-                 for i in axes(biomass_matrix, 1)]
+    mean_size = _community_weighted_mean_size(data, diameters, plankton_groups)
+    phytoplankton_mean_size = _community_weighted_mean_size(data, diameters, phytoplankton_groups)
+    zooplankton_mean_size = _community_weighted_mean_size(data, diameters, zooplankton_groups)
 
-    fig = Figure(; size=(1100, 750), fontsize=20)
+    fig = Figure(; size=(1100, 1050), fontsize=20)
 
     ax1 = Axis(fig[1, 1];
-        xlabel="Diameter (μm)",
-        ylabel="Final biomass (mmol N m⁻³)",
-        title="Final biomass by illustrative size class",
-        xscale=log10)
-    scatter!(ax1, sizes, final_biomass; markersize=22)
-    for (x, y, g) in zip(sizes, final_biomass, groups)
-        text!(ax1, x, y; text=String(g), align=(:left, :bottom), offset=(5, 5))
-    end
+        xlabel="Time (days)",
+        ylabel="CWM diameter (μm)",
+        title="Community mean size through time")
+    lines!(ax1, times, mean_size; label="P + Z")
+    axislegend(ax1; position=:rt)
 
     ax2 = Axis(fig[2, 1];
         xlabel="Time (days)",
-        ylabel="Biomass-weighted diameter (μm)",
-        title="Community mean size through time")
-    lines!(ax2, times, mean_size)
+        ylabel="CWM diameter (μm)",
+        title="Phytoplankton mean size through time")
+    lines!(ax2, times, phytoplankton_mean_size; label="P")
+    axislegend(ax2; position=:rt)
+
+    ax3 = Axis(fig[3, 1];
+        xlabel="Time (days)",
+        ylabel="CWM diameter (μm)",
+        title="Zooplankton mean size through time")
+    lines!(ax3, times, zooplankton_mean_size; label="Z")
+    axislegend(ax3; position=:rt)
 
     save(figure_path, fig)
     return fig
