@@ -40,7 +40,9 @@ fig_tracers = plot_tracer_concentrations(
     run.tracer_syms;
     figure_path=joinpath("figures", "02_diagnostic_tracer_concentrations.png"),
 )
-fig_tracers
+nothing #hide
+
+# ![](figures/02_diagnostic_tracer_concentrations.png)
 
 # ## Relative nitrogen contributions
 #
@@ -53,14 +55,16 @@ fig_nitrogen = plot_contributions(
     data;
     figure_path=joinpath("figures", "02_diagnostic_relative_nitrogen_contributions.png"),
 )
-fig_nitrogen
+nothing #hide
+
+# ![](figures/02_diagnostic_relative_nitrogen_contributions.png)
 
 # ## Community-weighted mean size
 #
 # The default Quick start does not expose a single canonical size diagnostic, so
 # the workshop uses an illustrative diameter lookup for the plankton groups.
 # This diagnostic plots the community-weighted mean size for all plankton, then
-# overlays the phytoplankton and zooplankton means separately.
+# separates the phytoplankton and zooplankton mean sizes into their own subplots.
 
 fig_size = plot_size_spectrum(
     times,
@@ -68,7 +72,9 @@ fig_size = plot_size_spectrum(
     diameters=default_plankton_diameters(),
     figure_path=joinpath("figures", "02_diagnostic_size_spectrum.png"),
 )
-fig_size
+nothing #hide
+
+# ![](figures/02_diagnostic_size_spectrum.png)
 
 # ## Trophic interactions
 #
@@ -85,11 +91,13 @@ fig_trophic = plot_trophic_interactions(
     predation.matrix;
     figure_path=joinpath("figures", "02_diagnostic_trophic_interactions.png"),
 )
-fig_trophic
+nothing #hide
+
+# ![](figures/02_diagnostic_trophic_interactions.png)
 
 # ## Exercises
 #
 # 1. Change the box-model community size and rerun the tracer concentration diagnostic.
 # 2. Change one illustrative plankton diameter and rerun the size diagnostic.
-# 3. Compare the phytoplankton and zooplankton CWM curves. Which community shifts more?
+# 3. Compare the phytoplankton and zooplankton CWM panels. Which community shifts more?
 # 4. Turn on cannibalism in `default_predation_matrix(; cannibalism=true)`. How does connectance change?
