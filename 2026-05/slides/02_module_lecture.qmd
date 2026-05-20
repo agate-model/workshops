@@ -3,32 +3,38 @@ title: "Module Lecture 1"
 author: ""
 ---
 
-## Module 1 framing {background-image="images/background-placeholder.svg" background-size="cover"}
+## Size as fundamental trait {background-image="images/background-placeholder.svg" background-size="cover"}
 
 ::: {.slide-copy}
-- Replace this text with the concept lecture for the first hands-on module.
-- Keep the aim narrow: introduce only the ideas needed for the next exercise.
-- Use this slide to connect the module task to the broader workshop workflow.
+- Universal trait (bacteria to whales)
+- Huge size range of plankton in ocean
 :::
 
 ::: {.slide-figure}
-![](images/slide-01.svg)
+![](images/02_allometry/slide-01.svg)
 <p class="caption">Replace with a module-specific figure caption.</p>
 :::
 
-## Module 1 workflow {background-image="images/background-placeholder.svg" background-size="cover"}
+## Surface Area to Volume {background-image="images/background-placeholder.svg" background-size="cover"}
 
 ::: {.slide-copy}
-Ecological question  
-↓  
-Model assumption  
-↓  
-Setup choice  
-↓  
-Diagnostic
+- Allometric scaling a function of SA:V ratio
 :::
 
 ::: {.slide-figure}
-![](images/slide-11.svg)
+![](images/02_allometry/slide-01.svg)
 <p class="caption">Replace with the workflow or diagnostic used in this module.</p>
 :::
+
+
+## Maximum growth rate {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Allometric scaling a function of SA:V ratio
+:::
+
+::: {.slide-figure}
+![](images/02_allometry/slide-01.svg)
+<p class="caption">Replace with the workflow or diagnostic used in this module.</p>
+:::
+
