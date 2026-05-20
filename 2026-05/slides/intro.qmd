@@ -145,13 +145,11 @@ Agate.jl: aquatic ecosystem model construction
 <p class="caption">The Agate.jl acronym connects scope, portability, tuning, and ecosystems.</p>
 :::
 
-## What Agate.jl should give the user {background-image="images/background-placeholder.svg" background-size="cover"}
+## Trait-based approaches {background-image="images/background-placeholder.svg" background-size="cover"}
 
 ::: {.slide-copy}
-- A way to specify ecosystem model structure at a higher level.
-- A way to construct model variants from ecological assumptions.
-- A way to separate the scientific question from low-level implementation details.
-- A path toward reusable ecosystem components across physical contexts.
+- XX species in ocean
+- Trait based frameworks provide first-principles constraints
 :::
 
 ::: {.slide-figure}
@@ -159,7 +157,7 @@ Agate.jl: aquatic ecosystem model construction
 <p class="caption">Agate.jl as a higher-level interface for constructing model variants.</p>
 :::
 
-## Models as controlled ecological arguments {background-image="images/background-placeholder.svg" background-size="cover"}
+## Emergent ecosystems {background-image="images/background-placeholder.svg" background-size="cover"}
 
 ::: {.slide-copy}
 - Models are not copies of nature; they are simplified arguments about mechanisms.
@@ -173,7 +171,7 @@ Agate.jl: aquatic ecosystem model construction
 <p class="caption">Model edits as explicit ecological assumptions and comparisons.</p>
 :::
 
-## Why trait-based modelling? {background-image="images/background-placeholder.svg" background-size="cover"}
+## Allometry {background-image="images/background-placeholder.svg" background-size="cover"}
 
 ::: {.slide-copy}
 - Plankton communities are diverse and difficult to represent species by species.
