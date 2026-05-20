@@ -34,7 +34,66 @@ author: ""
 :::
 
 ::: {.slide-figure}
-![](images/02_allometry/slide-01.svg)
+![](images/02_allometry/slide-03.svg)
 <p class="caption">Replace with the workflow or diagnostic used in this module.</p>
 :::
 
+
+## Maximum grazing rate {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- growth vs prey
+:::
+
+::: {.slide-figure}
+![](images/02_allometry/slide-04.svg)
+<p class="caption">Replace with the workflow or diagnostic used in this module.</p>
+:::
+
+## Nutrient half saturation {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- nutrients vs growth
+:::
+
+::: {.slide-figure}
+![](images/02_allometry/slide-05.svg)
+<p class="caption">Replace with the workflow or diagnostic used in this module.</p>
+:::
+
+
+## Allometric scaling {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- aV^b
+:::
+
+::: {.slide-figure}
+![](images/02_allometry/slide-06.svg)
+<p class="caption">Replace with the workflow or diagnostic used in this module.</p>
+:::
+
+
+## Number of groups {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- How many are needed to capture diversity?
+:::
+
+::: {.slide-figure}
+![](images/02_allometry/slide-07.svg)
+<p class="caption">Replace with the workflow or diagnostic used in this module.</p>
+:::
+
+## Size ranges {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Are there physiological limitations?
+- Biogeochemical ones?
+- Physics (e.g. sinking)?
+:::
+
+::: {.slide-figure}
+![](images/02_allometry/slide-08.svg)
+<p class="caption">Replace with the workflow or diagnostic used in this module.</p>
+:::
