@@ -75,9 +75,23 @@ makedocs(
             "05 Palatability" => "generated/05_palatability.md",
             "06 Diffusivity" => "generated/06_diffusivity.md",
             "07 Irradiance" => "generated/07_irradiance.md",
-        ],
+            ],
+        "Workshop slides" => "lectures.md",
     ],
 )
+# Quarto renders slide decks into slides/_site before this script runs in CI.
+# Copy that site into the Documenter output so the decks are hosted under
+# the same GitHub Pages deployment as the workshop documentation.
+slides_src = joinpath(workshop_root, "slides", "_site")
+slides_dst = joinpath(@__DIR__, "build", "slides")
+
+if isdir(slides_src)
+    isdir(slides_dst) && rm(slides_dst; recursive=true, force=true)
+    cp(slides_src, slides_dst)
+else
+    @warn "Quarto slide output not found; skipping slide embedding" slides_src
+end
+
 
 deploydocs(
     repo="github.com/agate-model/workshops.git",

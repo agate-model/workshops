@@ -30,6 +30,9 @@ jobs:
         with:
           version: '1.10'
 
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
       - name: Cache Julia artifacts
         uses: julia-actions/cache@v2
 
@@ -38,6 +41,9 @@ jobs:
         run: |
           using Pkg
           Pkg.instantiate()
+
+      - name: Render Quarto slides
+        run: quarto render 2026-05/slides
 
       - name: Build and deploy documentation
         run: julia --color=yes --project=2026-05/docs 2026-05/docs/make.jl

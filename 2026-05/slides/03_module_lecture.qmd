@@ -1,0 +1,30 @@
+---
+title: "Module Lecture 2"
+author: ""
+---
+
+## Module 2 framing {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Replace this text with the concept lecture for the second hands-on module.
+- Keep the framing focused on the assumption being changed.
+- Add only the background needed for participants to run and interpret the exercise.
+:::
+
+::: {.slide-figure}
+![](images/slide-02.svg)
+<p class="caption">Replace with a module-specific figure caption.</p>
+:::
+
+## Module 2 diagnostic {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- What output should participants inspect?
+- What change would indicate that the assumption mattered?
+- What comparison is most useful?
+:::
+
+::: {.slide-figure}
+![](images/slide-08.svg)
+<p class="caption">Replace with the diagnostic or comparison for this module.</p>
+:::

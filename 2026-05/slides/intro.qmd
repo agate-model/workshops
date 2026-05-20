@@ -1,20 +1,6 @@
 ---
 title: "Agate.jl Workshop: Motivation and Orientation"
 author: ""
-format:
-  revealjs:
-    width: 1920
-    height: 1080
-    theme: simple
-    slide-number: true
-    chalkboard: false
-    preview-links: auto
-    css: styles.css
-    title-slide-attributes:
-      data-background-image: images/background-placeholder.svg
-      data-background-size: cover
-execute:
-  echo: false
 ---
 
 ## Current state of the art {background-image="images/background-placeholder.svg" background-size="cover"}

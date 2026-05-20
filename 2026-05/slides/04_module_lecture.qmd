@@ -1,0 +1,30 @@
+---
+title: "Module Lecture 3"
+author: ""
+---
+
+## Module 3 framing {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Replace this text with the concept lecture for the third hands-on module.
+- State the modelling question clearly.
+- Identify the assumption or parameterization participants will modify.
+:::
+
+::: {.slide-figure}
+![](images/slide-03.svg)
+<p class="caption">Replace with a module-specific figure caption.</p>
+:::
+
+## Module 3 takeaway {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- What should participants understand before the exercise starts?
+- What result should they be able to interpret afterward?
+- How does this module connect back to composable ecosystem model construction?
+:::
+
+::: {.slide-figure}
+![](images/slide-13.svg)
+<p class="caption">Replace with the key takeaway for this module.</p>
+:::

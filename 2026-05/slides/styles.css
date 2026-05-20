@@ -2,10 +2,10 @@
 
 :root {
   --content-top: 155px;
-  --content-left: 40px;
-  --content-gap: 100px;
+  --content-left: 70px;
+  --content-gap: 50px;
   --copy-width: 700px;
-  --figure-max-width: 950px;
+  --figure-width: 1030px;
   --figure-max-height: 800px;
   --panel-radius: 18px;
 }
@@ -54,7 +54,7 @@
 
 .reveal .slide-figure img {
   display: block;
-  max-width: var(--figure-max-width);
+  max-width: 100%;
   max-height: var(--figure-max-height);
   width: auto;
   height: auto;
