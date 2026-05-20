@@ -1,0 +1,142 @@
+[
+  {
+    "objectID": "04_module_lecture.html#module-3-framing",
+    "href": "04_module_lecture.html#module-3-framing",
+    "title": "Module Lecture 3",
+    "section": "Module 3 framing",
+    "text": "Module 3 framing\n\n\nReplace this text with the concept lecture for the third hands-on module.\nState the modelling question clearly.\nIdentify the assumption or parameterization participants will modify.\n\n\n\n\n\nReplace with a module-specific figure caption."
+  },
+  {
+    "objectID": "04_module_lecture.html#module-3-takeaway",
+    "href": "04_module_lecture.html#module-3-takeaway",
+    "title": "Module Lecture 3",
+    "section": "Module 3 takeaway",
+    "text": "Module 3 takeaway\n\n\nWhat should participants understand before the exercise starts?\nWhat result should they be able to interpret afterward?\nHow does this module connect back to composable ecosystem model construction?\n\n\n\n\n\nReplace with the key takeaway for this module."
+  },
+  {
+    "objectID": "02_module_lecture.html#module-1-framing",
+    "href": "02_module_lecture.html#module-1-framing",
+    "title": "Module Lecture 1",
+    "section": "Module 1 framing",
+    "text": "Module 1 framing\n\n\nReplace this text with the concept lecture for the first hands-on module.\nKeep the aim narrow: introduce only the ideas needed for the next exercise.\nUse this slide to connect the module task to the broader workshop workflow.\n\n\n\n\n\nReplace with a module-specific figure caption."
+  },
+  {
+    "objectID": "02_module_lecture.html#module-1-workflow",
+    "href": "02_module_lecture.html#module-1-workflow",
+    "title": "Module Lecture 1",
+    "section": "Module 1 workflow",
+    "text": "Module 1 workflow\n\nEcological question\n↓\nModel assumption\n↓\nSetup choice\n↓\nDiagnostic\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
+  },
+  {
+    "objectID": "intro.html#welcome",
+    "href": "intro.html#welcome",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Welcome",
+    "text": "Welcome\n\n\n\n\n\n\n\n\nTime\nSession\n\n\n\n\n09:30–10:00\nDocker setup (optional, this can be done before the workshop)\n\n\n10:00–10:30\nWelcome and workshop overview\n\n\n10:30–11:10\nSession 1: Size, allometry, and plankton traits\n\n\n11:10–11:25\nBreak\n\n\n11:25–12:05\nSession 2: Predation and trophic structure\n\n\n12:05–12:45\nSession 3: Physical forcing: light and diffusivity\n\n\n12:45–13:45\nLunch\n\n\n13:45–14:35\nGroup exercise\n\n\n14:35–15:10\nOwn-work block 1\n\n\n15:10–15:40\nBreak\n\n\n15:40–16:30\nOwn-work block 2\n\n\n16:30–16:55\nShow-and-tell (optional) and feedback\n\n\n16:55–17:00\nWrap-up\n\n\n17:00\nPub\n\n\n\n\n\n\n\nMap of Berkley Square 8-10 (from mazemap)."
+  },
+  {
+    "objectID": "intro.html#current-state-of-the-art",
+    "href": "intro.html#current-state-of-the-art",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Current state of the art",
+    "text": "Current state of the art\n\nAll major Earth System Models (ESMs) use FORTRAN.\n\nHighly optimized and battle tested\nLarge user base / existing expertise\nPhysical system well calibrated (circulation, boundary conditions)\n\nDownsides:\n\nFirst appeared in 1957; 69 years ago\nOcean biogeochemistry often secondary/tertiary\nNon-composable -&gt; iron cycling for PISCES can’t be used in DARWIN\nHard to Automatically Differentiate -&gt; makes Bayesian inference and machine learning expensive!\nDifficult to utilize GPUs (but increasingly possible)\n\n\n\n\n\nLegacy Earth system model infrastructure and FORTRAN-based scientific computing."
+  },
+  {
+    "objectID": "intro.html#julia-programming-language---a-new-frontier",
+    "href": "intro.html#julia-programming-language---a-new-frontier",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Julia programming language - a new frontier ?",
+    "text": "Julia programming language - a new frontier ?\n\nBenefits:\n\nSimilar performance to FORTRAN but easier to program (like Python, R, MATLAB)\nDesigned to be composable (at least in theory)\nStrong Automatic Differentiation infrastructure\nGPUs well supported\nExisting physical oceanography model (Oceananigans.jl) and an active Earth System Modelling community (NumericalEarth.jl)\n\nDownsides:\n\nEffectively starting from scratch (ESMs are complex(!))\nSmall user base / expertise\nWhile theoretically easy to use, plotting etc. is still behind Python/R\nSenior PI’s are hesitant to learn a new language\nFORTRAN has stood the test of time, will Julia?\n\n\n\n\n\nJulia as a bridge between expressive scientific code and high-performance simulation."
+  },
+  {
+    "objectID": "intro.html#from-monolithic-models-to-composable-components",
+    "href": "intro.html#from-monolithic-models-to-composable-components",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "From monolithic models to composable components",
+    "text": "From monolithic models to composable components\n\n\nMonolithic workflow: physical model, numerics, ecosystem equations, parameters, and diagnostics are tightly coupled.\nComposable workflow: ecosystem components are specified through interfaces and coupled to different contexts.\nReusable components make model variants easier to compare.\nComposability supports a distributed climate model made from interoperable packages.\n\n\n\n\n\nComposable components make model variants easier to assemble and compare."
+  },
+  {
+    "objectID": "intro.html#the-wider-julia-climate-and-ocean-ecosystem",
+    "href": "intro.html#the-wider-julia-climate-and-ocean-ecosystem",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "The wider Julia climate and ocean ecosystem",
+    "text": "The wider Julia climate and ocean ecosystem\n\nClima and NumericalEarth.jl ecosystem\n↓\nOceananigans.jl: ocean physics and simulation\n↓\nOceanBioME.jl: biogeochemistry and ecosystem coupling\n↓\nAgate.jl: aquatic ecosystem model construction\n\n\n\n\nAgate.jl in the broader Julia climate and ocean software ecosystem."
+  },
+  {
+    "objectID": "intro.html#why-julia-for-this",
+    "href": "intro.html#why-julia-for-this",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Why Julia for this?",
+    "text": "Why Julia for this?\n\n\nHigh-level expression: model ideas can be written close to the scientific abstraction.\nPerformance: numerical code can run efficiently without moving to a separate implementation language.\nMultiple dispatch: components can share interfaces while specializing behavior.\nGPU support: important for high-resolution ocean and climate simulations.\nAutomatic differentiation: a long-term route toward tunable and calibratable model components.\n\n\n\n\n\nJulia features relevant to ecosystem model development."
+  },
+  {
+    "objectID": "intro.html#what-does-agate.jl-stand-for",
+    "href": "intro.html#what-does-agate.jl-stand-for",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "What does Agate.jl stand for?",
+    "text": "What does Agate.jl stand for?\n\n\n\n\n\n\n\n\nTerm\nMeaning\n\n\n\n\nAquatic\nAquatic ecosystem and biogeochemical model components.\n\n\nGCM-agnostic\nComponents should not be tied to one circulation model or physical host.\n\n\nTunable\nLong-term goal: components that can be calibrated, optimized, differentiated, and tested systematically.\n\n\nEcosystems\nCommunities, traits, interactions, and process structure.\n\n\n\n\n\n\n\nThe Agate.jl acronym connects scope, portability, tuning, and ecosystems."
+  },
+  {
+    "objectID": "intro.html#what-agate.jl-should-give-the-user",
+    "href": "intro.html#what-agate.jl-should-give-the-user",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "What Agate.jl should give the user",
+    "text": "What Agate.jl should give the user\n\n\nA way to specify ecosystem model structure at a higher level.\nA way to construct model variants from ecological assumptions.\nA way to separate the scientific question from low-level implementation details.\nA path toward reusable ecosystem components across physical contexts.\n\n\n\n\n\nAgate.jl as a higher-level interface for constructing model variants."
+  },
+  {
+    "objectID": "intro.html#models-as-controlled-ecological-arguments",
+    "href": "intro.html#models-as-controlled-ecological-arguments",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Models as controlled ecological arguments",
+    "text": "Models as controlled ecological arguments\n\n\nModels are not copies of nature; they are simplified arguments about mechanisms.\nA useful model edit should correspond to a clear assumption.\nA useful experiment compares alternatives, not just isolated runs.\nInterpretation requires a diagnostic: what output would show whether the assumption mattered?\n\n\n\n\n\nModel edits as explicit ecological assumptions and comparisons."
+  },
+  {
+    "objectID": "intro.html#why-trait-based-modelling",
+    "href": "intro.html#why-trait-based-modelling",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Why trait-based modelling?",
+    "text": "Why trait-based modelling?\n\n\nPlankton communities are diverse and difficult to represent species by species.\nTrait-based models represent ecological strategies rather than every named organism.\nTraits connect biological differences to model processes.\nThis makes it easier to construct families of model variants.\n\n\n\n\n\nTraits provide handles for representing ecological strategies."
+  },
+  {
+    "objectID": "intro.html#why-allometry",
+    "href": "intro.html#why-allometry",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Why allometry?",
+    "text": "Why allometry?\n\n\nAllometry describes how biological quantities scale with organism size or other traits.\nIt reduces the number of independent parameters that must be assigned manually.\nIt makes modelling assumptions explicit and reusable.\nIt helps construct related model types from shared rules.\n\n\n\n\n\nAllometric rules generate structured parameter variation from shared assumptions."
+  },
+  {
+    "objectID": "intro.html#a-simple-workflow-for-the-day",
+    "href": "intro.html#a-simple-workflow-for-the-day",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "A simple workflow for the day",
+    "text": "A simple workflow for the day\n\nEcological question\n↓\nModel assumption\n↓\nAgate.jl constructor or setup choice\n↓\nModel run\n↓\nDiagnostic and interpretation\n\n\n\n\nA common workflow from ecological question to diagnostic interpretation."
+  },
+  {
+    "objectID": "intro.html#roadmap-without-pre-teaching-the-modules",
+    "href": "intro.html#roadmap-without-pre-teaching-the-modules",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Roadmap without pre-teaching the modules",
+    "text": "Roadmap without pre-teaching the modules\n\n\n\n\n\n\n\n\nPart of workshop\nRole in the day\n\n\n\n\nOpening lecture\nWhy this software and modelling approach exists.\n\n\nShort module lectures\nIntroduce the concepts needed for each hands-on exercise.\n\n\nHands-on modules\nPractice constructing and modifying model variants.\n\n\nSelf-paced examples\nApply the workflow to a chosen ecological question.\n\n\n\n\n\n\n\nWorkshop structure: short concepts followed by hands-on model construction."
+  },
+  {
+    "objectID": "intro.html#final-takeaway",
+    "href": "intro.html#final-takeaway",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Final takeaway",
+    "text": "Final takeaway\n\n\nAgate.jl is motivated by transferable, GCM-agnostic ecosystem model components.\nJulia supports a composable, high-performance, and eventually tunable modelling ecosystem.\nTrait-based and allometric abstractions help turn ecological assumptions into reusable model structure.\nThe rest of the workshop will introduce concepts only when they are needed for the exercises.\n\n\n\n\n\nThe central workshop motivation: transferable, composable ecosystem models."
+  },
+  {
+    "objectID": "03_module_lecture.html#module-2-framing",
+    "href": "03_module_lecture.html#module-2-framing",
+    "title": "Module Lecture 2",
+    "section": "Module 2 framing",
+    "text": "Module 2 framing\n\n\nReplace this text with the concept lecture for the second hands-on module.\nKeep the framing focused on the assumption being changed.\nAdd only the background needed for participants to run and interpret the exercise.\n\n\n\n\n\nReplace with a module-specific figure caption."
+  },
+  {
+    "objectID": "03_module_lecture.html#module-2-diagnostic",
+    "href": "03_module_lecture.html#module-2-diagnostic",
+    "title": "Module Lecture 2",
+    "section": "Module 2 diagnostic",
+    "text": "Module 2 diagnostic\n\n\nWhat output should participants inspect?\nWhat change would indicate that the assumption mattered?\nWhat comparison is most useful?\n\n\n\n\n\nReplace with the diagnostic or comparison for this module."
+  }
+]

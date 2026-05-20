@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
+
+  <meta name="author" content="">
+  <title>Agate.jl Workshop: Motivation and Orientation</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-0427d8d92a431aa6a6430e53ec02a470.css">
+  <link rel="stylesheet" href="styles.css">
+  <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="images/background-placeholder.svg" data-background-size="cover" class="quarto-title-block center">
+  <h1 class="title">Agate.jl Workshop: Motivation and Orientation</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="welcome" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Welcome</h2>
+<div class="slide-copy">
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Time</th>
+<th>Session</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>09:30–10:00</td>
+<td><em>Docker setup (optional, this can be done before the workshop)</em></td>
+</tr>
+<tr class="even">
+<td>10:00–10:30</td>
+<td>Welcome and workshop overview</td>
+</tr>
+<tr class="odd">
+<td>10:30–11:10</td>
+<td>Session 1: Size, allometry, and plankton traits</td>
+</tr>
+<tr class="even">
+<td>11:10–11:25</td>
+<td>Break</td>
+</tr>
+<tr class="odd">
+<td>11:25–12:05</td>
+<td>Session 2: Predation and trophic structure</td>
+</tr>
+<tr class="even">
+<td>12:05–12:45</td>
+<td>Session 3: Physical forcing: light and diffusivity</td>
+</tr>
+<tr class="odd">
+<td>12:45–13:45</td>
+<td>Lunch</td>
+</tr>
+<tr class="even">
+<td>13:45–14:35</td>
+<td>Group exercise</td>
+</tr>
+<tr class="odd">
+<td>14:35–15:10</td>
+<td>Own-work block 1</td>
+</tr>
+<tr class="even">
+<td>15:10–15:40</td>
+<td>Break</td>
+</tr>
+<tr class="odd">
+<td>15:40–16:30</td>
+<td>Own-work block 2</td>
+</tr>
+<tr class="even">
+<td>16:30–16:55</td>
+<td>Show-and-tell (optional) and feedback</td>
+</tr>
+<tr class="odd">
+<td>16:55–17:00</td>
+<td>Wrap-up</td>
+</tr>
+<tr class="even">
+<td>17:00</td>
+<td>Pub</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-00.svg">
+<p class="caption">
+Map of Berkley Square 8-10 (from <a href="https://use.mazemap.com/#v=1&amp;config=UoBCampuses&amp;campusid=843&amp;center=-2.606670,51.454875&amp;zoom=20&amp;zlevel=2">mazemap</a>).
+</p>
+</div>
+</section>
+<section id="current-state-of-the-art" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Current state of the art</h2>
+<div class="slide-copy">
+<p>All major Earth System Models (ESMs) use FORTRAN.</p>
+<ul>
+<li>Highly optimized and battle tested</li>
+<li>Large user base / existing expertise</li>
+<li>Physical system well calibrated (circulation, boundary conditions)</li>
+</ul>
+<p>Downsides:</p>
+<ul>
+<li>First appeared in 1957; 69 years ago</li>
+<li>Ocean biogeochemistry often secondary/tertiary</li>
+<li>Non-composable -&gt; iron cycling for PISCES can’t be used in DARWIN</li>
+<li>Hard to Automatically Differentiate -&gt; makes Bayesian inference and machine learning expensive!</li>
+<li>Difficult to utilize GPUs (but increasingly possible)</li>
+</ul>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-01.svg">
+<p class="caption">
+Legacy Earth system model infrastructure and FORTRAN-based scientific computing.
+</p>
+</div>
+</section>
+<section id="julia-programming-language---a-new-frontier" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Julia programming language - a new frontier ?</h2>
+<div class="slide-copy">
+<p>Benefits:</p>
+<ul>
+<li>Similar performance to FORTRAN but easier to program (like Python, R, MATLAB)</li>
+<li>Designed to be composable (at least in theory)</li>
+<li>Strong Automatic Differentiation infrastructure</li>
+<li>GPUs well supported</li>
+<li>Existing physical oceanography model (Oceananigans.jl) and an active Earth System Modelling community (NumericalEarth.jl)</li>
+</ul>
+<p>Downsides:</p>
+<ul>
+<li>Effectively starting from scratch (ESMs are complex(!))</li>
+<li>Small user base / expertise</li>
+<li>While theoretically easy to use, plotting etc. is still behind Python/R</li>
+<li>Senior PI’s are hesitant to learn a new language</li>
+<li>FORTRAN has stood the test of time, will Julia?</li>
+</ul>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-02.svg">
+<p class="caption">
+Julia as a bridge between expressive scientific code and high-performance simulation.
+</p>
+</div>
+</section>
+<section id="from-monolithic-models-to-composable-components" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>From monolithic models to composable components</h2>
+<div class="slide-copy">
+<ul>
+<li>Monolithic workflow: physical model, numerics, ecosystem equations, parameters, and diagnostics are tightly coupled.</li>
+<li>Composable workflow: ecosystem components are specified through interfaces and coupled to different contexts.</li>
+<li>Reusable components make model variants easier to compare.</li>
+<li>Composability supports a distributed climate model made from interoperable packages.</li>
+</ul>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-03.svg">
+<p class="caption">
+Composable components make model variants easier to assemble and compare.
+</p>
+</div>
+</section>
+<section id="the-wider-julia-climate-and-ocean-ecosystem" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>The wider Julia climate and ocean ecosystem</h2>
+<div class="slide-copy">
+<p>Clima and NumericalEarth.jl ecosystem<br>
+↓<br>
+Oceananigans.jl: ocean physics and simulation<br>
+↓<br>
+OceanBioME.jl: biogeochemistry and ecosystem coupling<br>
+↓<br>
+Agate.jl: aquatic ecosystem model construction</p>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-04.svg">
+<p class="caption">
+Agate.jl in the broader Julia climate and ocean software ecosystem.
+</p>
+</div>
+</section>
+<section id="why-julia-for-this" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Why Julia for this?</h2>
+<div class="slide-copy">
+<ul>
+<li>High-level expression: model ideas can be written close to the scientific abstraction.</li>
+<li>Performance: numerical code can run efficiently without moving to a separate implementation language.</li>
+<li>Multiple dispatch: components can share interfaces while specializing behavior.</li>
+<li>GPU support: important for high-resolution ocean and climate simulations.</li>
+<li>Automatic differentiation: a long-term route toward tunable and calibratable model components.</li>
+</ul>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-05.svg">
+<p class="caption">
+Julia features relevant to ecosystem model development.
+</p>
+</div>
+</section>
+<section id="what-does-agate.jl-stand-for" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>What does Agate.jl stand for?</h2>
+<div class="slide-copy">
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Aquatic</td>
+<td>Aquatic ecosystem and biogeochemical model components.</td>
+</tr>
+<tr class="even">
+<td>GCM-agnostic</td>
+<td>Components should not be tied to one circulation model or physical host.</td>
+</tr>
+<tr class="odd">
+<td>Tunable</td>
+<td>Long-term goal: components that can be calibrated, optimized, differentiated, and tested systematically.</td>
+</tr>
+<tr class="even">
+<td>Ecosystems</td>
+<td>Communities, traits, interactions, and process structure.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-06.svg">
+<p class="caption">
+The Agate.jl acronym connects scope, portability, tuning, and ecosystems.
+</p>
+</div>
+</section>
+<section id="what-agate.jl-should-give-the-user" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>What Agate.jl should give the user</h2>
+<div class="slide-copy">
+<ul>
+<li>A way to specify ecosystem model structure at a higher level.</li>
+<li>A way to construct model variants from ecological assumptions.</li>
+<li>A way to separate the scientific question from low-level implementation details.</li>
+<li>A path toward reusable ecosystem components across physical contexts.</li>
+</ul>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-07.svg">
+<p class="caption">
+Agate.jl as a higher-level interface for constructing model variants.
+</p>
+</div>
+</section>
+<section id="models-as-controlled-ecological-arguments" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Models as controlled ecological arguments</h2>
+<div class="slide-copy">
+<ul>
+<li>Models are not copies of nature; they are simplified arguments about mechanisms.</li>
+<li>A useful model edit should correspond to a clear assumption.</li>
+<li>A useful experiment compares alternatives, not just isolated runs.</li>
+<li>Interpretation requires a diagnostic: what output would show whether the assumption mattered?</li>
+</ul>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-08.svg">
+<p class="caption">
+Model edits as explicit ecological assumptions and comparisons.
+</p>
+</div>
+</section>
+<section id="why-trait-based-modelling" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Why trait-based modelling?</h2>
+<div class="slide-copy">
+<ul>
+<li>Plankton communities are diverse and difficult to represent species by species.</li>
+<li>Trait-based models represent ecological strategies rather than every named organism.</li>
+<li>Traits connect biological differences to model processes.</li>
+<li>This makes it easier to construct families of model variants.</li>
+</ul>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-09.svg">
+<p class="caption">
+Traits provide handles for representing ecological strategies.
+</p>
+</div>
+</section>
+<section id="why-allometry" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Why allometry?</h2>
+<div class="slide-copy">
+<ul>
+<li>Allometry describes how biological quantities scale with organism size or other traits.</li>
+<li>It reduces the number of independent parameters that must be assigned manually.</li>
+<li>It makes modelling assumptions explicit and reusable.</li>
+<li>It helps construct related model types from shared rules.</li>
+</ul>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-10.svg">
+<p class="caption">
+Allometric rules generate structured parameter variation from shared assumptions.
+</p>
+</div>
+</section>
+<section id="a-simple-workflow-for-the-day" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>A simple workflow for the day</h2>
+<div class="slide-copy">
+<p>Ecological question<br>
+↓<br>
+Model assumption<br>
+↓<br>
+Agate.jl constructor or setup choice<br>
+↓<br>
+Model run<br>
+↓<br>
+Diagnostic and interpretation</p>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-11.svg">
+<p class="caption">
+A common workflow from ecological question to diagnostic interpretation.
+</p>
+</div>
+</section>
+<section id="roadmap-without-pre-teaching-the-modules" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Roadmap without pre-teaching the modules</h2>
+<div class="slide-copy">
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Part of workshop</th>
+<th>Role in the day</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Opening lecture</td>
+<td>Why this software and modelling approach exists.</td>
+</tr>
+<tr class="even">
+<td>Short module lectures</td>
+<td>Introduce the concepts needed for each hands-on exercise.</td>
+</tr>
+<tr class="odd">
+<td>Hands-on modules</td>
+<td>Practice constructing and modifying model variants.</td>
+</tr>
+<tr class="even">
+<td>Self-paced examples</td>
+<td>Apply the workflow to a chosen ecological question.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-12.svg">
+<p class="caption">
+Workshop structure: short concepts followed by hands-on model construction.
+</p>
+</div>
+</section>
+<section id="final-takeaway" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Final takeaway</h2>
+<div class="slide-copy">
+<ul>
+<li>Agate.jl is motivated by transferable, GCM-agnostic ecosystem model components.</li>
+<li>Julia supports a composable, high-performance, and eventually tunable modelling ecosystem.</li>
+<li>Trait-based and allometric abstractions help turn ecological assumptions into reusable model structure.</li>
+<li>The rest of the workshop will introduce concepts only when they are needed for the exercises.</li>
+</ul>
+</div>
+<div class="slide-figure">
+<img data-src="images/slide-13.svg">
+<p class="caption">
+The central workshop motivation: transferable, composable ecosystem models.
+</p>
+</div>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1920,
+
+        height: 1080,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
