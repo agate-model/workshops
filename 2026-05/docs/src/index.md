@@ -43,3 +43,8 @@ Pages = [
 ]
 Depth = 2
 ```
+
+## Workshop slides
+
+The workshop lecture slides are available from the [Workshop slides](lectures.md) page.
+
