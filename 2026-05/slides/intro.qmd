@@ -3,6 +3,34 @@ title: "Agate.jl Workshop: Motivation and Orientation"
 author: ""
 ---
 
+## Welcome {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+
+| Time | Session |
+|---|---|
+| 09:30–10:00 | *Docker setup (optional, this can be done before the workshop)* |
+| 10:00–10:30 | Welcome and workshop overview |
+| 10:30–11:10 | Session 1: Size, allometry, and plankton traits |
+| 11:10–11:25 | Break |
+| 11:25–12:05 | Session 2: Predation and trophic structure |
+| 12:05–12:45 | Session 3: Physical forcing: light and diffusivity  |
+| 12:45–13:45 | Lunch |
+| 13:45–14:35 | Group exercise |
+| 14:35–15:10 | Own-work block 1 |
+| 15:10–15:40 | Break |
+| 15:40–16:30 | Own-work block 2 |
+| 16:30–16:55 | Show-and-tell (optional) and feedback |
+| 16:55–17:00 | Wrap-up |
+| 17:00       | Pub |
+
+:::
+
+::: {.slide-figure}
+![](images/slide-00.svg)
+<p class="caption">Map of Berkley Square 8-10 (from [mazemap](https://use.mazemap.com/#v=1&config=UoBCampuses&campusid=843&center=-2.606670,51.454875&zoom=20&zlevel=2)).</p>
+:::
+
 ## Current state of the art {background-image="images/background-placeholder.svg" background-size="cover"}
 
 ::: {.slide-copy}
