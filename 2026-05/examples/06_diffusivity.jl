@@ -25,30 +25,30 @@ nothing #hide
 
 # Second, we define the model physical forcings. Diffusivity is split across a 100 m interface on a two-level vertical grid, and PAR is held at its maximum surface value with a fixed attenuation coefficient.
 #diffusivity
-κ_max = 1e-5
-const layer_interface = -100meters
+DIFFUSIVITY_MAX = 1e-5
+LAYER_INTERFACE = -100meters
 
-@inline function diffusivity(x, y, z, t)
-    if z >= layer_interface
-        return κ_max
+@inline function diffusivity_profile(x, y, z, t)
+    if z >= LAYER_INTERFACE
+        return DIFFUSIVITY_MAX
     else
         return 0.0
     end
 end
 
 #irradiance
-PAR_surface_max = 80
+PAR_SURFACE_MAX = 80
 
-function irradiance(x, y, z, t)
-    return ifelse(z >= layer_interface, PAR_surface_max, 0.0)
+function surface_irradiance(x, y, z, t)
+    return ifelse(z >= LAYER_INTERFACE, PAR_SURFACE_MAX, 0.0)
 end
 
 #plots
 t_range = 0.0:days:(365.0 * days)  # Time range from 0 to 365 days 
 z_range = [-150.0, -50.0]  # Two 100 m layer centers 
 x, y, z = 0.0, 0.0, 0.0
-κₜ_values = [diffusivity(x, y, z, t) for t in t_range, z in z_range]
-PAR_values = [irradiance(x, y, z, t) for t in t_range, z in z_range]
+κₜ_values = [diffusivity_profile(x, y, z, t) for t in t_range, z in z_range]
+PAR_values = [surface_irradiance(x, y, z, t) for t in t_range, z in z_range]
 
 fig_forcing = Figure(; resolution=(800, 600), fontsize=14)
 ax1 = Axis(fig_forcing[1, 1]; xlabel="Time (days)", ylabel="Depth (m)", title="irradiance")
@@ -75,7 +75,7 @@ bgc = Agate.Models.NiPiZD.construct(;
 nothing #hide
 
 bgc_model = Biogeochemistry(
-    bgc; light_attenuation=FunctionFieldPAR(; grid, PAR_f=irradiance)
+    bgc; light_attenuation=FunctionFieldPAR(; grid, PAR_f=surface_irradiance)
 )
 nothing #hide
 
@@ -84,7 +84,7 @@ full_model = NonhydrostaticModel(;
     clock=Clock(; time=0.0),
     timestepper=:QuasiAdamsBashforth2,
     closure=ScalarDiffusivity(
-        VerticallyImplicitTimeDiscretization(); ν=diffusivity, κ=diffusivity
+        VerticallyImplicitTimeDiscretization(); ν=diffusivity_profile, κ=diffusivity_profile
     ),
     biogeochemistry=bgc_model,
 )

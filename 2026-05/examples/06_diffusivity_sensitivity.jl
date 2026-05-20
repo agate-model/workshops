@@ -22,8 +22,8 @@ using Statistics
 stop_time = 3*365day
 Δt = 1hour
 output_interval = 1day
-layer_interface = -100meters
-PAR_surface_max = 80
+LAYER_INTERFACE = -100meters
+PAR_SURFACE_MAX = 80
 
 κ_values = [
     3e-5,
@@ -34,23 +34,28 @@ PAR_surface_max = 80
 
 # ## Forcings
 
-function make_diffusivity(κ_max, layer_interface)
-    return (x, y, z, t) -> ifelse(z >= layer_interface, κ_max, 0.0)
+struct LayeredDiffusivity{T}
+    κ_max::T
+    layer_interface::T
 end
 
-function irradiance(x, y, z, t)
-    return ifelse(z >= layer_interface, PAR_surface_max, 0.0)
+@inline function (diffusivity::LayeredDiffusivity)(x, y, z, t)
+    return ifelse(z >= diffusivity.layer_interface, diffusivity.κ_max, zero(diffusivity.κ_max))
+end
+
+function surface_irradiance(x, y, z, t)
+    return ifelse(z >= LAYER_INTERFACE, PAR_SURFACE_MAX, 0.0)
 end
 
 # ## Physical and ecosystem model
 
 function build_model(κ_max)
     grid = RectilinearGrid(; size=(1, 1, 2), extent=(20meters, 20meters, 200meters))
-    diffusivity = make_diffusivity(κ_max, layer_interface)
+    diffusivity = LayeredDiffusivity(κ_max, LAYER_INTERFACE)
 
     bgc = Agate.Models.NiPiZD.construct()
     bgc_model = Biogeochemistry(
-        bgc; light_attenuation=FunctionFieldPAR(; grid, PAR_f=irradiance)
+        bgc; light_attenuation=FunctionFieldPAR(; grid, PAR_f=surface_irradiance)
     )
 
     model = NonhydrostaticModel(;

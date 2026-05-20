@@ -20,7 +20,7 @@ using Oceananigans
 using Oceananigans.Units
 using CairoMakie
 
-const year = years = 365day
+year = years = 365day
 nothing #hide
 
 # ## Ecosystem model
@@ -36,23 +36,26 @@ nothing #hide
 
 # Second, we define the model physical forcings. In this example, mixed layer depth (MLD) forces the physical mixing (diffusivity), while PAR influences plankton photosynthesis.
 #diffusivity
-@inline function diffusivity(x, y, z, t)
-    H(t, t₀, t₁) = ifelse(t₀ < t < t₁, 1.0, 0.0)
-    function fmld1(t)
-        return H(t, 50days, year) *
-               (1 / (1 + exp(-(t - 100days) / 5days))) *
-               (1 / (1 + exp((t - 330days) / 25days)))
-    end
-    function MLD(t)
-        return -(
-            10 +
-            340 * (
-                1 - fmld1(year - eps(year)) * exp(-mod(t, year) / 25days) -
-                fmld1(mod(t, year))
-            )
+@inline seasonal_window(t, t₀, t₁) = ifelse(t₀ < t < t₁, 1.0, 0.0)
+
+@inline function mld_factor(t)
+    return seasonal_window(t, 50days, year) *
+           (1 / (1 + exp(-(t - 100days) / 5days))) *
+           (1 / (1 + exp((t - 330days) / 25days)))
+end
+
+@inline function mixed_layer_depth(t)
+    return -(
+        10 +
+        340 * (
+            1 - mld_factor(year - eps(year)) * exp(-mod(t, year) / 25days) -
+            mld_factor(mod(t, year))
         )
-    end
-    return 1e-2 * (1 + tanh((z - MLD(t)) / 10)) / 2 + 1e-4
+    )
+end
+
+@inline function diffusivity_profile(x, y, z, t)
+    return 1e-2 * (1 + tanh((z - mixed_layer_depth(t)) / 10)) / 2 + 1e-4
 end
 
 #irradiance
@@ -68,7 +71,7 @@ end
 t_range = 0.0:days:(365.0 * days)  # Time range from 0 to 365 days 
 z_range = -200.0:10.0:0.0  # Depth range from -200m to 0m 
 x, y, z = 0.0, 0.0, 0.0
-κₜ_values = [diffusivity(x, y, z, t) for t in t_range, z in z_range]
+κₜ_values = [diffusivity_profile(x, y, z, t) for t in t_range, z in z_range]
 PAR_values = [seasonal_PAR(x, y, z, t) for t in t_range, z in z_range]
 
 fig_forcing = Figure(; resolution=(800, 600), fontsize=14)
@@ -95,7 +98,7 @@ full_model = NonhydrostaticModel(;
     clock=Clock(; time=0.0),
     timestepper=:QuasiAdamsBashforth2,
     closure=ScalarDiffusivity(
-        VerticallyImplicitTimeDiscretization(); ν=diffusivity, κ=diffusivity
+        VerticallyImplicitTimeDiscretization(); ν=diffusivity_profile, κ=diffusivity_profile
     ),
     biogeochemistry=bgc_model,
 )
