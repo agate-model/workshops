@@ -48,7 +48,8 @@ nothing #hide
 #
 # `plot_contributions` sums phytoplankton and zooplankton
 # tracers, then compares their relative contributions with nutrient and
-# detritus pools and with each other.
+# detritus pools, separates dead and living biomass, and finally compares
+# phytoplankton and zooplankton with each other.
 
 fig_nitrogen = plot_contributions(
     times,

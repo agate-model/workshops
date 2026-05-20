@@ -82,13 +82,23 @@ function _sum_matching(data::Dict{Symbol, Vector{Float64}}, pattern::Regex)
     return reduce(.+, matching)
 end
 
-function _stacked_relative_area!(ax, times, series)
+const CONTRIBUTION_COLORS = Dict(
+    "N" => :goldenrod2,
+    "D" => :sienna3,
+    "P" => :seagreen3,
+    "Z" => :steelblue3,
+    "Dead" => :tan3,
+    "Living" => :cadetblue3,
+)
+
+function _stacked_relative_area!(ax, times, series; colors=nothing)
     denominator = reduce(.+, last.(series)) .+ eps()
     lower = zeros(length(times))
 
-    for (label, values) in series
+    for (idx, (label, values)) in enumerate(series)
         upper = lower .+ values ./ denominator
-        band!(ax, times, lower, upper; label)
+        color = isnothing(colors) ? get(CONTRIBUTION_COLORS, label, nothing) : colors[idx]
+        band!(ax, times, lower, upper; label, color)
         lower = upper
     end
 
@@ -133,8 +143,8 @@ end
 """
     plot_contributions(times, data; figure_path)
 
-Plot relative nitrogen contributions as stacked areas for total nitrogen pools
-and for living plankton pools.
+Plot relative nitrogen contributions as stacked areas for total nitrogen pools,
+dead versus living biomass, and living plankton pools.
 """
 function plot_contributions(times, data; figure_path=joinpath("figures", "diagnostic_01_relative_nitrogen_contributions.png"))
     mkpath(dirname(figure_path))
@@ -143,8 +153,10 @@ function plot_contributions(times, data; figure_path=joinpath("figures", "diagno
     D = _get(data, :D)
     phytoplankton = _sum_matching(data, r"^P\d*$")
     zooplankton = _sum_matching(data, r"^Z\d*$")
+    dead_biomass = N .+ D
+    living_biomass = phytoplankton .+ zooplankton
 
-    fig = Figure(; size=(1100, 750), fontsize=20)
+    fig = Figure(; size=(1100, 1050), fontsize=20)
 
     ax1 = Axis(fig[1, 1];
         xlabel="Time (days)",
@@ -161,12 +173,22 @@ function plot_contributions(times, data; figure_path=joinpath("figures", "diagno
     ax2 = Axis(fig[2, 1];
         xlabel="Time (days)",
         ylabel="Relative contribution",
-        title="Relative living plankton pools")
+        title="Relative dead and living biomass")
     _stacked_relative_area!(ax2, times, [
+        "Dead" => dead_biomass,
+        "Living" => living_biomass,
+    ])
+    axislegend(ax2; position=:rt)
+
+    ax3 = Axis(fig[3, 1];
+        xlabel="Time (days)",
+        ylabel="Relative contribution",
+        title="Relative living plankton pools")
+    _stacked_relative_area!(ax3, times, [
         "P" => phytoplankton,
         "Z" => zooplankton,
     ])
-    axislegend(ax2; position=:rt)
+    axislegend(ax3; position=:rt)
 
     save(figure_path, fig)
     return fig
