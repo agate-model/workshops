@@ -12,7 +12,7 @@ author: ""
 
 ::: {.slide-figure}
 ![](images/02_allometry/slide-01.svg)
-<p class="caption">Replace with a module-specific figure caption.</p>
+<p class="caption">Modified from: Holland & McQuatters-Gollop (2024). mNCEA policy brief – The many scales of pelagic habitats. Defra mNCEA Programme – Pelagic Natural Capital. University of Plymouth.</p>
 :::
 
 ## Surface Area to Volume {background-image="images/background-placeholder.svg" background-size="cover"}
@@ -22,7 +22,7 @@ author: ""
 :::
 
 ::: {.slide-figure}
-![](images/02_allometry/slide-01.svg)
+![](images/02_allometry/slide-02.svg)
 <p class="caption">Replace with the workflow or diagnostic used in this module.</p>
 :::
 
