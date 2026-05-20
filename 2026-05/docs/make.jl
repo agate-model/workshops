@@ -54,6 +54,19 @@ cd(workshop_root) do
     end
 end
 
+# Quarto renders slide decks into slides/_site before this script runs in CI.
+# Copy that site into docs/src before makedocs so Documenter can validate
+# local links to the rendered slide HTML.
+slides_site_src = joinpath(workshop_root, "slides", "_site")
+slides_docs_src = joinpath(docs_src_dir, "slides")
+
+if isdir(slides_site_src)
+    isdir(slides_docs_src) && rm(slides_docs_src; recursive=true, force=true)
+    cp(slides_site_src, slides_docs_src)
+else
+    @warn "Quarto slide output not found before makedocs; slide links may be unavailable" slides_site_src
+end
+
 makedocs(
     sitename="Agate.jl workshop 2026-05",
     format=Documenter.HTML(
@@ -66,6 +79,7 @@ makedocs(
     pages=[
         "Home" => "index.md",
         "Setup" => "setup.md",
+        "Workshop slides" => "lectures.md",
         "Examples" => [
             "00 Setup Check" => "generated/00_setup_check.md",
             "01 Quick Start" => "generated/01_quick_start.md",
@@ -75,23 +89,16 @@ makedocs(
             "05 Palatability" => "generated/05_palatability.md",
             "06 Diffusivity" => "generated/06_diffusivity.md",
             "07 Irradiance" => "generated/07_irradiance.md",
-            ],
-        "Workshop slides" => "lectures.md",
+        ],
     ],
 )
-# Quarto renders slide decks into slides/_site before this script runs in CI.
-# Copy that site into the Documenter output so the decks are hosted under
-# the same GitHub Pages deployment as the workshop documentation.
-slides_src = joinpath(workshop_root, "slides", "_site")
-slides_dst = joinpath(@__DIR__, "build", "slides")
-
-if isdir(slides_src)
-    isdir(slides_dst) && rm(slides_dst; recursive=true, force=true)
-    cp(slides_src, slides_dst)
-else
-    @warn "Quarto slide output not found; skipping slide embedding" slides_src
+# Ensure rendered slides are present in the final build output even if a
+# future Documenter version changes how non-markdown files are copied.
+slides_build_dst = joinpath(@__DIR__, "build", "slides")
+if isdir(slides_site_src)
+    isdir(slides_build_dst) && rm(slides_build_dst; recursive=true, force=true)
+    cp(slides_site_src, slides_build_dst)
 end
-
 
 deploydocs(
     repo="github.com/agate-model/workshops.git",
