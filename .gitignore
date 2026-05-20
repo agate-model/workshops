@@ -5,6 +5,8 @@
 
 # Quarto slides
 2026-05/slides/intro_files/
+2026-05/slides/_site/
+
 *.html
 
 # Model output
@@ -13,6 +15,5 @@
 
 # Plots
 *.png
-*.svg
 *.gif
 *.mp4
