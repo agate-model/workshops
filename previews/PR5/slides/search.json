@@ -77,25 +77,25 @@
     "text": "What does Agate.jl stand for?\n\n\n\n\n\n\n\n\nTerm\nMeaning\n\n\n\n\nAquatic\nAquatic ecosystem and biogeochemical model components.\n\n\nGCM-agnostic\nComponents should not be tied to one circulation model or physical host.\n\n\nTunable\nLong-term goal: components that can be calibrated, optimized, differentiated, and tested systematically.\n\n\nEcosystems\nCommunities, traits, interactions, and process structure.\n\n\n\n\n\n\n\nThe Agate.jl acronym connects scope, portability, tuning, and ecosystems."
   },
   {
-    "objectID": "intro.html#what-agate.jl-should-give-the-user",
-    "href": "intro.html#what-agate.jl-should-give-the-user",
+    "objectID": "intro.html#trait-based-approaches",
+    "href": "intro.html#trait-based-approaches",
     "title": "Agate.jl Workshop: Motivation and Orientation",
-    "section": "What Agate.jl should give the user",
-    "text": "What Agate.jl should give the user\n\n\nA way to specify ecosystem model structure at a higher level.\nA way to construct model variants from ecological assumptions.\nA way to separate the scientific question from low-level implementation details.\nA path toward reusable ecosystem components across physical contexts.\n\n\n\n\n\nAgate.jl as a higher-level interface for constructing model variants."
+    "section": "Trait-based approaches",
+    "text": "Trait-based approaches\n\n\nXX species in ocean\nTrait based frameworks provide first-principles constraints\n\n\n\n\n\nAgate.jl as a higher-level interface for constructing model variants."
   },
   {
-    "objectID": "intro.html#models-as-controlled-ecological-arguments",
-    "href": "intro.html#models-as-controlled-ecological-arguments",
+    "objectID": "intro.html#emergent-ecosystems",
+    "href": "intro.html#emergent-ecosystems",
     "title": "Agate.jl Workshop: Motivation and Orientation",
-    "section": "Models as controlled ecological arguments",
-    "text": "Models as controlled ecological arguments\n\n\nModels are not copies of nature; they are simplified arguments about mechanisms.\nA useful model edit should correspond to a clear assumption.\nA useful experiment compares alternatives, not just isolated runs.\nInterpretation requires a diagnostic: what output would show whether the assumption mattered?\n\n\n\n\n\nModel edits as explicit ecological assumptions and comparisons."
+    "section": "Emergent ecosystems",
+    "text": "Emergent ecosystems\n\n\nModels are not copies of nature; they are simplified arguments about mechanisms.\nA useful model edit should correspond to a clear assumption.\nA useful experiment compares alternatives, not just isolated runs.\nInterpretation requires a diagnostic: what output would show whether the assumption mattered?\n\n\n\n\n\nModel edits as explicit ecological assumptions and comparisons."
   },
   {
-    "objectID": "intro.html#why-trait-based-modelling",
-    "href": "intro.html#why-trait-based-modelling",
+    "objectID": "intro.html#allometry",
+    "href": "intro.html#allometry",
     "title": "Agate.jl Workshop: Motivation and Orientation",
-    "section": "Why trait-based modelling?",
-    "text": "Why trait-based modelling?\n\n\nPlankton communities are diverse and difficult to represent species by species.\nTrait-based models represent ecological strategies rather than every named organism.\nTraits connect biological differences to model processes.\nThis makes it easier to construct families of model variants.\n\n\n\n\n\nTraits provide handles for representing ecological strategies."
+    "section": "Allometry",
+    "text": "Allometry\n\n\nPlankton communities are diverse and difficult to represent species by species.\nTrait-based models represent ecological strategies rather than every named organism.\nTraits connect biological differences to model processes.\nThis makes it easier to construct families of model variants.\n\n\n\n\n\nTraits provide handles for representing ecological strategies."
   },
   {
     "objectID": "intro.html#why-allometry",
