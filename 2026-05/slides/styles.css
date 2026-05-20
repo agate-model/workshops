@@ -1,12 +1,12 @@
 /* Basic 1920x1080 Reveal.js layout for the Agate.jl opening lecture. */
 
 :root {
-  --content-top: 160px;
-  --content-left: 80px;
-  --content-right: 80px;
-  --copy-width: 820px;
-  --image-max-width: 800px;
-  --image-max-height: 720px;
+  --content-top: 155px;
+  --content-left: 40px;
+  --content-gap: 100px;
+  --copy-width: 700px;
+  --figure-max-width: 950px;
+  --figure-max-height: 800px;
   --panel-radius: 18px;
 }
 
@@ -17,7 +17,8 @@
 .reveal h2 {
   font-size: 1.65em;
   line-height: 1.08;
-  margin-bottom: 0.6em;
+  margin-top: 0;
+  margin-bottom: 0.45em;
 }
 
 .reveal .slide-copy {
@@ -43,19 +44,39 @@
   vertical-align: top;
 }
 
-.reveal .slide-image {
+.reveal .slide-figure {
   position: absolute;
-  right: var(--content-right);
+  left: calc(var(--content-left) + var(--copy-width) + var(--content-gap));
   top: var(--content-top);
-  max-width: var(--image-max-width);
-  max-height: var(--image-max-height);
+  width: var(--figure-width);
+  text-align: center;
+}
+
+.reveal .slide-figure img {
+  display: block;
+  max-width: var(--figure-max-width);
+  max-height: var(--figure-max-height);
   width: auto;
   height: auto;
+  margin: 0 auto;
   object-fit: contain;
   background: none;
   border-radius: 0;
   box-shadow: none;
   padding: 0;
+}
+
+.reveal .slide-figure .caption {
+  display: inline-block;
+  margin: 0.5em auto 0;
+  max-width: 95%;
+  padding: 0.35em 0.55em;
+  font-size: 0.55em;
+  line-height: 1.25;
+  color: #111;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 10px;
 }
 
 .reveal .title-slide h1,

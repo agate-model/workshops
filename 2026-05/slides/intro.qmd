@@ -37,7 +37,10 @@ Downsides:
 
 :::
 
-![](images/slide-01.svg){.slide-image}
+::: {.slide-figure}
+![](images/slide-01.svg)
+<p class="caption">Legacy Earth system model infrastructure and FORTRAN-based scientific computing.</p>
+:::
 
 ## Julia programming language - a new frontier ? {background-image="images/background-placeholder.svg" background-size="cover"}
 
@@ -61,7 +64,10 @@ Downsides:
 
 :::
 
-![](images/slide-02.svg){.slide-image}
+::: {.slide-figure}
+![](images/slide-02.svg)
+<p class="caption">Julia as a bridge between expressive scientific code and high-performance simulation.</p>
+:::
 
 ## From monolithic models to composable components {background-image="images/background-placeholder.svg" background-size="cover"}
 
@@ -72,7 +78,10 @@ Downsides:
 - Composability supports a distributed climate model made from interoperable packages.
 :::
 
-![](images/slide-03.svg){.slide-image}
+::: {.slide-figure}
+![](images/slide-03.svg)
+<p class="caption">Composable components make model variants easier to assemble and compare.</p>
+:::
 
 ## The wider Julia climate and ocean ecosystem {background-image="images/background-placeholder.svg" background-size="cover"}
 
@@ -86,7 +95,10 @@ OceanBioME.jl: biogeochemistry and ecosystem coupling
 Agate.jl: aquatic ecosystem model construction
 :::
 
-![](images/slide-04.svg){.slide-image}
+::: {.slide-figure}
+![](images/slide-04.svg)
+<p class="caption">Agate.jl in the broader Julia climate and ocean software ecosystem.</p>
+:::
 
 ## Why Julia for this? {background-image="images/background-placeholder.svg" background-size="cover"}
 
@@ -98,7 +110,10 @@ Agate.jl: aquatic ecosystem model construction
 - Automatic differentiation: a long-term route toward tunable and calibratable model components.
 :::
 
-![](images/slide-05.svg){.slide-image}
+::: {.slide-figure}
+![](images/slide-05.svg)
+<p class="caption">Julia features relevant to ecosystem model development.</p>
+:::
 
 ## What does Agate.jl stand for? {background-image="images/background-placeholder.svg" background-size="cover"}
 
@@ -111,7 +126,10 @@ Agate.jl: aquatic ecosystem model construction
 | Ecosystems | Communities, traits, interactions, and process structure. |
 :::
 
-![](images/slide-06.svg){.slide-image}
+::: {.slide-figure}
+![](images/slide-06.svg)
+<p class="caption">The Agate.jl acronym connects scope, portability, tuning, and ecosystems.</p>
+:::
 
 ## What Agate.jl should give the user {background-image="images/background-placeholder.svg" background-size="cover"}
 
@@ -122,7 +140,10 @@ Agate.jl: aquatic ecosystem model construction
 - A path toward reusable ecosystem components across physical contexts.
 :::
 
-![](images/slide-07.svg){.slide-image}
+::: {.slide-figure}
+![](images/slide-07.svg)
+<p class="caption">Agate.jl as a higher-level interface for constructing model variants.</p>
+:::
 
 ## Models as controlled ecological arguments {background-image="images/background-placeholder.svg" background-size="cover"}
 
@@ -133,7 +154,10 @@ Agate.jl: aquatic ecosystem model construction
 - Interpretation requires a diagnostic: what output would show whether the assumption mattered?
 :::
 
-![](images/slide-08.svg){.slide-image}
+::: {.slide-figure}
+![](images/slide-08.svg)
+<p class="caption">Model edits as explicit ecological assumptions and comparisons.</p>
+:::
 
 ## Why trait-based modelling? {background-image="images/background-placeholder.svg" background-size="cover"}
 
@@ -144,7 +168,10 @@ Agate.jl: aquatic ecosystem model construction
 - This makes it easier to construct families of model variants.
 :::
 
-![](images/slide-09.svg){.slide-image}
+::: {.slide-figure}
+![](images/slide-09.svg)
+<p class="caption">Traits provide handles for representing ecological strategies.</p>
+:::
 
 ## Why allometry? {background-image="images/background-placeholder.svg" background-size="cover"}
 
@@ -155,7 +182,10 @@ Agate.jl: aquatic ecosystem model construction
 - It helps construct related model types from shared rules.
 :::
 
-![](images/slide-10.svg){.slide-image}
+::: {.slide-figure}
+![](images/slide-10.svg)
+<p class="caption">Allometric rules generate structured parameter variation from shared assumptions.</p>
+:::
 
 ## A simple workflow for the day {background-image="images/background-placeholder.svg" background-size="cover"}
 
@@ -171,7 +201,10 @@ Model run
 Diagnostic and interpretation
 :::
 
-![](images/slide-11.svg){.slide-image}
+::: {.slide-figure}
+![](images/slide-11.svg)
+<p class="caption">A common workflow from ecological question to diagnostic interpretation.</p>
+:::
 
 ## Roadmap without pre-teaching the modules {background-image="images/background-placeholder.svg" background-size="cover"}
 
@@ -184,7 +217,10 @@ Diagnostic and interpretation
 | Self-paced examples | Apply the workflow to a chosen ecological question. |
 :::
 
-![](images/slide-12.svg){.slide-image}
+::: {.slide-figure}
+![](images/slide-12.svg)
+<p class="caption">Workshop structure: short concepts followed by hands-on model construction.</p>
+:::
 
 ## Final takeaway {background-image="images/background-placeholder.svg" background-size="cover"}
 
@@ -195,4 +231,7 @@ Diagnostic and interpretation
 - The rest of the workshop will introduce concepts only when they are needed for the exercises.
 :::
 
-![](images/slide-13.svg){.slide-image}
+::: {.slide-figure}
+![](images/slide-13.svg)
+<p class="caption">The central workshop motivation: transferable, composable ecosystem models.</p>
+:::
