@@ -2,7 +2,7 @@
 
 The workshop slide decks are rendered from the Quarto sources in `2026-05/slides` and deployed with these Documenter pages.
 
-- [Opening lecture](slides/intro.html)
+- [Opening lecture](slides/01_intro.html)
 - [Module lecture 1](slides/02_module_lecture.html)
 - [Module lecture 2](slides/03_module_lecture.html)
 - [Module lecture 3](slides/04_module_lecture.html)

@@ -1,6 +1,7 @@
 ---
 title: "Agate.jl Workshop: Motivation and Orientation"
 author: ""
+output-file: 01_intro.html
 ---
 
 ## Welcome {background-image="images/background-placeholder.svg" background-size="cover"}

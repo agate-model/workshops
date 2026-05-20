@@ -12,7 +12,7 @@ author: ""
 :::
 
 ::: {.slide-figure}
-![](images/slide-02.svg)
+![](images/01_intro/slide-02.svg)
 <p class="caption">Replace with a module-specific figure caption.</p>
 :::
 
@@ -25,6 +25,6 @@ author: ""
 :::
 
 ::: {.slide-figure}
-![](images/slide-08.svg)
+![](images/01_intro/slide-08.svg)
 <p class="caption">Replace with the diagnostic or comparison for this module.</p>
 :::

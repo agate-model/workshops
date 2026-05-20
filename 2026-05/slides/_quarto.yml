@@ -2,7 +2,7 @@ project:
   type: website
   output-dir: _site
   render:
-    - intro.qmd
+    - 01_intro.qmd
     - 02_module_lecture.qmd
     - 03_module_lecture.qmd
     - 04_module_lecture.qmd
