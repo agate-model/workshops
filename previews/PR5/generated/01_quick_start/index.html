@@ -40,10 +40,10 @@ simulation.output_writers[:fields] = JLD2Writer(
 
 run!(simulation)
 </code></pre><pre><code class="nohighlight hljs">[ Info: Initializing simulation...
-[ Info:     ... simulation initialization complete (1.946 seconds)
+[ Info:     ... simulation initialization complete (1.902 seconds)
 [ Info: Executing initial time step...
-[ Info:     ... initial time step complete (543.950 ms).
-[ Info: Simulation is stopping after running for 6.560 seconds.
+[ Info:     ... initial time step complete (550.111 ms).
+[ Info: Simulation is stopping after running for 6.438 seconds.
 [ Info: Simulation time 1095 days equals or exceeds stop time 1095 days.
 </code></pre><h2 id="Reading-and-plotting-the-output"><a class="docs-heading-anchor" href="#Reading-and-plotting-the-output">Reading and plotting the output</a><a id="Reading-and-plotting-the-output-1"></a><a class="docs-heading-anchor-permalink" href="#Reading-and-plotting-the-output" title="Permalink"></a></h2><pre><code class="language-julia hljs">tracer_syms = tracer_names(bgc)
 timeseries = read_box_tracer_timeseries(quickstart_filename, tracer_syms)
@@ -74,10 +74,10 @@ fig_manual</code></pre><img width=1200 height=800 style='object-fit: contain; he
 
 wrapped_timeseries = read_box_tracer_timeseries(wrapped.filename, wrapped.tracer_syms)
 </code></pre><pre><code class="nohighlight hljs">[ Info: Initializing simulation...
-[ Info:     ... simulation initialization complete (2.050 ms)
+[ Info:     ... simulation initialization complete (2.004 ms)
 [ Info: Executing initial time step...
-[ Info:     ... initial time step complete (142.955 μs).
-[ Info: Simulation is stopping after running for 3.806 seconds.
+[ Info:     ... initial time step complete (120.255 μs).
+[ Info: Simulation is stopping after running for 3.728 seconds.
 [ Info: Simulation time 1095 days equals or exceeds stop time 1095 days.
 </code></pre><p>The wrapper is also useful when we change model complexity. Here we construct a larger NiPiZD community and use the same <code>run_box_model</code> function.</p><pre><code class="language-julia hljs">larger_bgc = Agate.Models.NiPiZD.construct(
     phyto_size_structure=(n=3, min_esd=1.0, max_esd=10.0, splitting=:log_splitting),
@@ -97,10 +97,10 @@ larger = run_box_model(
 
 println(larger.tracer_syms)
 </code></pre><pre><code class="nohighlight hljs">[ Info: Initializing simulation...
-[ Info:     ... simulation initialization complete (919.899 ms)
+[ Info:     ... simulation initialization complete (884.326 ms)
 [ Info: Executing initial time step...
-[ Info:     ... initial time step complete (819.187 ms).
-[ Info: Simulation is stopping after running for 2.826 seconds.
+[ Info:     ... initial time step complete (819.150 ms).
+[ Info: Simulation is stopping after running for 2.798 seconds.
 [ Info: Simulation time 365 days equals or exceeds stop time 365 days.
 [:N, :D, :Z1, :Z2, :Z3, :P1, :P2, :P3]
-</code></pre><h2 id="Exercises"><a class="docs-heading-anchor" href="#Exercises">Exercises</a><a id="Exercises-1"></a><a class="docs-heading-anchor-permalink" href="#Exercises" title="Permalink"></a></h2><ol><li>Change one initial condition in the manual Quick start. Which tracer changes first?</li><li>Change <code>stop_time</code> in the wrapper call from three years to one year.</li><li>Change the larger community to four phytoplankton classes. Which extra tracer name appears?</li><li>Add a new keyword to <code>run_box_model</code> for a different output interval.</li></ol></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../00_setup_check/">« 00 Setup Check</a><a class="docs-footer-nextpage" href="../02_diagnostics/">02 Diagnostics »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Thursday 21 May 2026 20:52">Thursday 21 May 2026</span>. Using Julia version 1.10.11.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+</code></pre><h2 id="Exercises"><a class="docs-heading-anchor" href="#Exercises">Exercises</a><a id="Exercises-1"></a><a class="docs-heading-anchor-permalink" href="#Exercises" title="Permalink"></a></h2><ol><li>Change one initial condition in the manual Quick start. Which tracer changes first?</li><li>Change <code>stop_time</code> in the wrapper call from three years to one year.</li><li>Change the larger community to four phytoplankton classes. Which extra tracer name appears?</li><li>Add a new keyword to <code>run_box_model</code> for a different output interval.</li></ol></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../00_setup_check/">« 00 Setup Check</a><a class="docs-footer-nextpage" href="../02_diagnostics/">02 Diagnostics »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Thursday 21 May 2026 21:03">Thursday 21 May 2026</span>. Using Julia version 1.10.11.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
