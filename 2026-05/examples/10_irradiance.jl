@@ -37,12 +37,13 @@ nothing #hide
 # Second, we define the model physical forcings. Diffusivity is held high throughout the water column, while PAR is held at a fixed surface value with depth-dependent attenuation.
 
 #diffusivity
-@inline diffusivity_profile(x, y, z, t) = 1e-2
+@inline diffusivity_profile(x, y, z, t) = 1e-4
 
 #irradiance
 @inline function constant_PAR(x, y, z, t)
     PAR⁰ = 80
-    return PAR⁰ * exp(0.2 * z)
+    attenuation = 0.04
+    return PAR⁰ * exp(attenuation * z)
 end
 
 #plots
@@ -146,3 +147,53 @@ end
 save("N2P2ZD_column.png", fig)
 
 fig  # Display the figure
+
+# Plot the final-time depth-bin value of every tracer as horizontal bars.
+n_profiles = length(all_keys)
+n_columns = min(3, n_profiles)
+n_rows = cld(n_profiles, n_columns)
+fig_profiles = Figure(; size=(350 * n_columns, 300 * n_rows), fontsize=16)
+
+profile_axes = Axis[]
+for (i, key) in enumerate(all_keys)
+    row = cld(i, n_columns)
+    column = mod1(i, n_columns)
+    x_nodes, y_nodes, z_nodes = nodes(timeseries[key])
+    z_centers = collect(z_nodes)
+    final_profile = vec(interior(timeseries[key], 1, 1, :, length(timeseries[key].times)))
+
+    z_edges = similar(z_centers, length(z_centers) + 1)
+    z_edges[2:end-1] .= (z_centers[1:end-1] .+ z_centers[2:end]) ./ 2
+    z_edges[1] = z_centers[1] - (z_centers[2] - z_centers[1]) / 2
+    z_edges[end] = z_centers[end] + (z_centers[end] - z_centers[end-1]) / 2
+
+    ax = Axis(
+        fig_profiles[row, column];
+        title=String(key),
+        xlabel="Concentration (mmol N / m³)",
+        ylabel=column == 1 ? "z (m)" : "",
+        limits=(nothing, (-200, 0)),
+    )
+
+    for j in eachindex(final_profile)
+        y0 = z_edges[j]
+        y1 = z_edges[j + 1]
+        x0 = min(0, final_profile[j])
+        width = abs(final_profile[j])
+        poly!(ax, Rect(x0, y0, width, y1 - y0); color=:dodgerblue, strokecolor=:dodgerblue)
+    end
+
+    push!(profile_axes, ax)
+end
+
+linkyaxes!(profile_axes...)
+for (i, ax) in enumerate(profile_axes)
+    column = mod1(i, n_columns)
+
+    if column > 1
+        hideydecorations!(ax; grid=false)
+    end
+end
+save("N2P2ZD_column_final_profiles.png", fig_profiles)
+
+fig_profiles
