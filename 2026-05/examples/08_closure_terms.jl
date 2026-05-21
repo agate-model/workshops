@@ -1,14 +1,11 @@
-# # [Exercise 05: Palatability] (@id palatability_exercise)
+# # [Exercise 08: Closure terms] (@id closure_terms_exercise)
 #
-# This is a placeholder for the palatability exercise.
+# This is a placeholder for the closure terms exercise.
 #
 # Planned content:
 #
-# - introduce predator-prey palatability matrices;
-# - connect palatability to trophic links and grazing pressure;
-# - compare a default trophic structure with one or more edited matrices;
+# - introduce closure, mortality, and loss terms;
+# - compare a default model configuration with one or more edited configurations;
 # - reuse diagnostics from `src/AgateWorkshop.jl` where useful.
 
-println("Exercise 05 placeholder: palatability")
-
-nothing #hide
+println("Exercise 08 placeholder: closure terms")

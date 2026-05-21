@@ -1,4 +1,4 @@
-# # [Exercise 04: Number and size] (@id number_and_size_exercise)
+# # [Exercise 04: Number size classes] (@id number_size_classes_exercise)
 #
 # !!! info
 #     This exercise uses [Oceananigans.jl](https://clima.github.io/OceananigansDocumentation/stable/) and [OceanBioME.jl](https://oceanbiome.github.io/OceanBioME.jl/stable/).

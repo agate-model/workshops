@@ -1,4 +1,4 @@
-# # [Exercise 01: Quick start and box-model wrapper] (@id quick_start_exercise)
+# # [Exercise 01: Quick start] (@id quick_start_exercise)
 #
 # This exercise follows the Agate.jl Quick start and then packages the repeated
 # box-model setup into a reusable workshop wrapper.

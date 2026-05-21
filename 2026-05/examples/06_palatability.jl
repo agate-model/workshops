@@ -1,14 +1,11 @@
-# # [Exercise 05: Palatability] (@id palatability_exercise)
+# # [Exercise 06: Palatability] (@id palatability_exercise)
 #
 # This is a placeholder for the palatability exercise.
 #
 # Planned content:
 #
 # - introduce predator-prey palatability matrices;
-# - connect palatability to trophic links and grazing pressure;
-# - compare a default trophic structure with one or more edited matrices;
+# - compare a default model configuration with one or more edited configurations;
 # - reuse diagnostics from `src/AgateWorkshop.jl` where useful.
 
-println("Exercise 05 placeholder: palatability")
-
-nothing #hide
+println("Exercise 06 placeholder: palatability")

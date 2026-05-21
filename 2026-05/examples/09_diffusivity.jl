@@ -1,4 +1,4 @@
-# # [Exercise 06: Diffusivity] (@id diffusivity_exercise)
+# # [Exercise 09: Diffusivity] (@id diffusivity_exercise)
 
 # !!! info
 #     This example uses [Oceananigans.jl](https://clima.github.io/OceananigansDocumentation/stable/) and [OceanBioME.jl](https://oceanbiome.github.io/OceanBioME.jl/stable/).

@@ -1,4 +1,4 @@
-# # [Exercise 07: Irradiance] (@id irradiance_exercise)
+# # [Exercise 10: Irradiance] (@id irradiance_exercise)
 
 # !!! info
 #     This example uses [Oceananigans.jl](https://clima.github.io/OceananigansDocumentation/stable/) and [OceanBioME.jl](https://oceanbiome.github.io/OceanBioME.jl/stable/).
