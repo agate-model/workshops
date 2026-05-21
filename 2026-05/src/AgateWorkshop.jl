@@ -128,6 +128,23 @@ function _save_if_requested(fig, figure_path)
     return fig
 end
 
+function _case_palette(n)
+    colors = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00", "#F0E442"]
+    return [colors[mod1(i, length(colors))] for i in 1:n]
+end
+
+function _shared_line_legend!(fig, row, columns, colors, labels)
+    elements = [LineElement(; color=color, linewidth=2) for color in colors]
+    Legend(
+        fig[row, columns],
+        elements,
+        labels;
+        orientation=:horizontal,
+        tellwidth=false,
+        tellheight=true,
+        framevisible=false,
+    )
+end
 
 function _parameter_tracers_and_values(bgc, parameter_name::Symbol)
     groups = plankton_groups(bgc)
@@ -245,10 +262,17 @@ function plot_box_timeseries(
     n_variables = length(variables)
     n_columns = min(2, n_variables)
     n_rows = cld(n_variables, n_columns)
-    fig = Figure(; size=(360 * n_columns, 180 * n_rows), fontsize=12)
+    has_comparison = length(series) > 1
+    legend_rows = has_comparison ? 1 : 0
+    colors = _case_palette(length(series))
+    fig = Figure(; size=(360 * n_columns, 180 * n_rows + 44 * legend_rows), fontsize=12)
+
+    if has_comparison
+        _shared_line_legend!(fig, 1, 1:n_columns, colors, labels)
+    end
 
     for (idx, variable) in enumerate(variables)
-        row = cld(idx, n_columns)
+        row = cld(idx, n_columns) + legend_rows
         col = mod1(idx, n_columns)
         ax = Axis(
             fig[row, col];
@@ -260,10 +284,8 @@ function plot_box_timeseries(
         for (series_idx, ts) in enumerate(series)
             data = _data(ts)
             haskey(data, variable) || continue
-            lines!(ax, _times(ts), data[variable]; label=labels[series_idx], linewidth=2)
+            lines!(ax, _times(ts), data[variable]; color=colors[series_idx], linewidth=2)
         end
-
-        length(series) > 1 && axislegend(ax; position=:rt)
     end
 
     return _save_if_requested(fig, figure_path)
@@ -388,11 +410,19 @@ function plot_cwm_size(
 
     length(labels) == length(series) || error("labels must have one entry per box-model time series.")
 
-    fig = Figure(; size=(560, 420), fontsize=12)
+    has_comparison = length(series) > 1
+    legend_rows = has_comparison ? 1 : 0
+    colors = _case_palette(length(series))
+    fig = Figure(; size=(560, 420 + 44 * legend_rows), fontsize=12)
+
+    if has_comparison
+        _shared_line_legend!(fig, 1, 1, colors, labels)
+    end
+
     axes = [
-        Axis(fig[1, 1]; title="All plankton", xlabel="Days", ylabel="CWM ESD (μm)"),
-        Axis(fig[2, 1]; title="Phytoplankton", xlabel="Days", ylabel="CWM ESD (μm)"),
-        Axis(fig[3, 1]; title="Zooplankton", xlabel="Days", ylabel="CWM ESD (μm)"),
+        Axis(fig[1 + legend_rows, 1]; title="All plankton", xlabel="Days", ylabel="CWM ESD (μm)"),
+        Axis(fig[2 + legend_rows, 1]; title="Phytoplankton", xlabel="Days", ylabel="CWM ESD (μm)"),
+        Axis(fig[3 + legend_rows, 1]; title="Zooplankton", xlabel="Days", ylabel="CWM ESD (μm)"),
     ]
 
     for (idx, (ts, bgc)) in enumerate(zip(series, bgcs))
@@ -400,15 +430,9 @@ function plot_cwm_size(
         diameters = _plankton_diameters_by_tracer(bgc)
         phyto, zoo, plankton = _plankton_keys(data)
 
-        lines!(axes[1], _times(ts), _cwm_or_nan(data, diameters, plankton); label=labels[idx], linewidth=2)
-        lines!(axes[2], _times(ts), _cwm_or_nan(data, diameters, phyto); label=labels[idx], linewidth=2)
-        lines!(axes[3], _times(ts), _cwm_or_nan(data, diameters, zoo); label=labels[idx], linewidth=2)
-    end
-
-    if length(series) > 1
-        for ax in axes
-            axislegend(ax; position=:rt)
-        end
+        lines!(axes[1], _times(ts), _cwm_or_nan(data, diameters, plankton); color=colors[idx], linewidth=2)
+        lines!(axes[2], _times(ts), _cwm_or_nan(data, diameters, phyto); color=colors[idx], linewidth=2)
+        lines!(axes[3], _times(ts), _cwm_or_nan(data, diameters, zoo); color=colors[idx], linewidth=2)
     end
 
     return _save_if_requested(fig, figure_path)
