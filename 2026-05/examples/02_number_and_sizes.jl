@@ -163,7 +163,7 @@ function run_box_model(bgc; filename)
 
     simulation.output_writers[:fields] = JLD2Writer(
         full_model,
-        full_model.tracers;
+        full_model.fields;
         filename,
         schedule = TimeInterval(1day),
         overwrite_existing = true,
