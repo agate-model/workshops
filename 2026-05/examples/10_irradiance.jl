@@ -52,12 +52,14 @@ x, y, z = 0.0, 0.0, 0.0
 κₜ_values = [diffusivity_profile(x, y, z, t) for t in t_range, z in z_range]
 PAR_values = [constant_PAR(x, y, z, t) for t in t_range, z in z_range]
 
-fig_forcing = Figure(; resolution=(800, 600), fontsize=14)
+fig_forcing = Figure(; size=(800, 600), fontsize=14)
 ax1 = Axis(fig_forcing[1, 1]; xlabel="Time (days)", ylabel="Depth (m)", title="irradiance")
-CairoMakie.heatmap!(ax1, t_range ./ days, z_range, PAR_values; colormap=:viridis)
+hm1 = CairoMakie.heatmap!(ax1, t_range ./ days, z_range, PAR_values; colormap=:viridis)
+Colorbar(fig_forcing[1, 2], hm1)
 
 ax2 = Axis(fig_forcing[2, 1]; xlabel="Time (days)", ylabel="Depth (m)", title="diffusivity")
-CairoMakie.heatmap!(ax2, t_range ./ days, z_range, κₜ_values; colormap=:viridis)
+hm2 = CairoMakie.heatmap!(ax2, t_range ./ days, z_range, κₜ_values; colormap=:viridis)
+Colorbar(fig_forcing[2, 2], hm2)
 
 fig_forcing
 
