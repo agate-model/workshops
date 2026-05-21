@@ -1,9 +1,9 @@
 ---
-title: "Module Lecture 3"
+title: "Physical forcings: irradiance and mixing"
 author: ""
 ---
 
-## Module 3 framing {background-image="images/background-placeholder.svg" background-size="cover"}
+## Photosynthesis {background-image="images/background-placeholder.svg" background-size="cover"}
 
 ::: {.slide-copy}
 - Replace this text with the concept lecture for the third hands-on module.
@@ -12,19 +12,33 @@ author: ""
 :::
 
 ::: {.slide-figure}
-![](images/01_intro/slide-03.svg)
+![](images/03_physics/slide-01.svg)
 <p class="caption">Replace with a module-specific figure caption.</p>
 :::
 
-## Module 3 takeaway {background-image="images/background-placeholder.svg" background-size="cover"}
+
+## Light attenuation {background-image="images/background-placeholder.svg" background-size="cover"}
 
 ::: {.slide-copy}
-- What should participants understand before the exercise starts?
-- What result should they be able to interpret afterward?
-- How does this module connect back to composable ecosystem model construction?
+- Replace this text with the concept lecture for the third hands-on module.
+- State the modelling question clearly.
+- Identify the assumption or parameterization participants will modify.
 :::
 
 ::: {.slide-figure}
-![](images/01_intro/slide-13.svg)
-<p class="caption">Replace with the key takeaway for this module.</p>
+![](images/03_physics/slide-01.svg)
+<p class="caption">Replace with a module-specific figure caption.</p>
+:::
+
+## Mixing {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Replace this text with the concept lecture for the third hands-on module.
+- State the modelling question clearly.
+- Identify the assumption or parameterization participants will modify.
+:::
+
+::: {.slide-figure}
+![](images/03_physics/slide-01.svg)
+<p class="caption">Lindemann and John, 2014 (Frontiers in Marine Science).</p>
 :::
