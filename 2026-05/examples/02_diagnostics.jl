@@ -77,9 +77,9 @@ fig_comparison
 
 # ## Relative nitrogen contributions
 #
-# `plot_contributions` shows three coordinated stacked-area diagnostics:
-# individual tracer contributions, living versus non-living nitrogen, and
-# phytoplankton versus zooplankton contributions to living biomass.
+# `plot_contributions` shows two coordinated stacked-area diagnostics:
+# living versus non-living nitrogen, and phytoplankton versus zooplankton
+# contributions to living biomass.
 
 nitrogen_contributions_figure_path = joinpath("figures", "02_diagnostic_relative_nitrogen_contributions.png")
 fig_nitrogen = plot_contributions(times, data)

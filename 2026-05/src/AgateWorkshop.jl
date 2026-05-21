@@ -307,33 +307,6 @@ function _stacked_area!(ax, times, values, labels, colors)
     return ax
 end
 
-function _contribution_palette(keys)
-    phyto_colors = ["#7FC97F", "#4DAF4A", "#1B7837", "#00441B"]
-    zoo_colors = ["#FDB863", "#E08214", "#B35806", "#7F3B08"]
-
-    colors = String[]
-    phyto_index = 0
-    zoo_index = 0
-
-    for key in keys
-        if key == :N
-            push!(colors, "#4C78A8")
-        elseif key == :D
-            push!(colors, "#B279A2")
-        elseif startswith(String(key), "P")
-            phyto_index += 1
-            push!(colors, phyto_colors[mod1(phyto_index, length(phyto_colors))])
-        elseif startswith(String(key), "Z")
-            zoo_index += 1
-            push!(colors, zoo_colors[mod1(zoo_index, length(zoo_colors))])
-        else
-            push!(colors, "#9D9D9D")
-        end
-    end
-
-    return colors
-end
-
 function plot_contributions(times, data; figure_path=nothing)
     phyto, zoo, _ = _plankton_keys(data)
     nutrient = haskey(data, :N) ? data[:N] : zeros(length(times))
@@ -344,26 +317,42 @@ function plot_contributions(times, data; figure_path=nothing)
     nonliving = nutrient .+ detritus
     total = living .+ nonliving
 
-    tracer_keys = Symbol[]
-    haskey(data, :N) && push!(tracer_keys, :N)
-    append!(tracer_keys, phyto)
-    append!(tracer_keys, zoo)
-    haskey(data, :D) && push!(tracer_keys, :D)
+    fig = Figure(; size=(580, 410), fontsize=12)
 
-    tracer_values = [_safe_fraction(data[key], total) for key in tracer_keys]
-    tracer_colors = _contribution_palette(tracer_keys)
-
-    fig = Figure(; size=(580, 540), fontsize=12)
-    axes = [
-        Axis(fig[1, 1]; title="All tracers", xlabel="Days", ylabel="Fraction of total nitrogen", limits=(nothing, nothing, 0, 1)),
-        Axis(fig[2, 1]; title="Living vs non-living nitrogen", xlabel="Days", ylabel="Fraction of total nitrogen", limits=(nothing, nothing, 0, 1)),
-        Axis(fig[3, 1]; title="Phytoplankton vs zooplankton", xlabel="Days", ylabel="Fraction of living biomass", limits=(nothing, nothing, 0, 1)),
+    legend_elements = [
+        PolyElement(; color="#54A24B"),
+        PolyElement(; color="#9D9D9D"),
+        PolyElement(; color="#54A24B"),
+        PolyElement(; color="#E08214"),
     ]
+    Legend(
+        fig[1, 1],
+        legend_elements,
+        ["living", "non-living", "phytoplankton", "zooplankton"];
+        orientation=:horizontal,
+        tellwidth=false,
+        tellheight=true,
+        framevisible=false,
+    )
 
-    _stacked_area!(axes[1], times, tracer_values, string.(tracer_keys), tracer_colors)
+    ax_living = Axis(
+        fig[2, 1];
+        title="Living vs non-living nitrogen",
+        xlabel="Days",
+        ylabel="Fraction of total nitrogen",
+        limits=(nothing, nothing, 0, 1),
+    )
+
+    ax_plankton = Axis(
+        fig[3, 1];
+        title="Phytoplankton vs zooplankton",
+        xlabel="Days",
+        ylabel="Fraction of living biomass",
+        limits=(nothing, nothing, 0, 1),
+    )
 
     _stacked_area!(
-        axes[2],
+        ax_living,
         times,
         [_safe_fraction(living, total), _safe_fraction(nonliving, total)],
         ["living", "non-living"],
@@ -371,16 +360,12 @@ function plot_contributions(times, data; figure_path=nothing)
     )
 
     _stacked_area!(
-        axes[3],
+        ax_plankton,
         times,
         [_safe_fraction(phyto_total, living), _safe_fraction(zoo_total, living)],
         ["phytoplankton", "zooplankton"],
         ["#54A24B", "#E08214"],
     )
-
-    for ax in axes
-        axislegend(ax; position=:rb)
-    end
 
     return _save_if_requested(fig, figure_path)
 end
