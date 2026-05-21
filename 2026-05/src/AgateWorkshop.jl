@@ -8,6 +8,13 @@ using Oceananigans.Units: day, minute
 
 const DEFAULT_INITIAL_CONDITIONS = (N=7.0, P1=0.01, Z1=0.01, P2=0.1, Z2=0.01, D=0.01)
 
+const WORKSHOP_COLORS = (
+    living = "#2A9D8F",
+    nonliving = "#7A7A7A",
+    phytoplankton = "#54A24B",
+    zooplankton = "#E08214",
+)
+
 default_quickstart_bgc() = Agate.Models.NiPiZD.construct()
 
 default_quickstart_initial_conditions() = DEFAULT_INITIAL_CONDITIONS
@@ -320,10 +327,10 @@ function plot_contributions(times, data; figure_path=nothing)
     fig = Figure(; size=(580, 410), fontsize=12)
 
     legend_elements = [
-        PolyElement(; color="#54A24B"),
-        PolyElement(; color="#9D9D9D"),
-        PolyElement(; color="#54A24B"),
-        PolyElement(; color="#E08214"),
+        PolyElement(; color=WORKSHOP_COLORS.living),
+        PolyElement(; color=WORKSHOP_COLORS.nonliving),
+        PolyElement(; color=WORKSHOP_COLORS.phytoplankton),
+        PolyElement(; color=WORKSHOP_COLORS.zooplankton),
     ]
     Legend(
         fig[1, 1],
@@ -356,7 +363,7 @@ function plot_contributions(times, data; figure_path=nothing)
         times,
         [_safe_fraction(living, total), _safe_fraction(nonliving, total)],
         ["living", "non-living"],
-        ["#54A24B", "#9D9D9D"],
+        [WORKSHOP_COLORS.living, WORKSHOP_COLORS.nonliving],
     )
 
     _stacked_area!(
@@ -364,7 +371,7 @@ function plot_contributions(times, data; figure_path=nothing)
         times,
         [_safe_fraction(phyto_total, living), _safe_fraction(zoo_total, living)],
         ["phytoplankton", "zooplankton"],
-        ["#54A24B", "#E08214"],
+        [WORKSHOP_COLORS.phytoplankton, WORKSHOP_COLORS.zooplankton],
     )
 
     return _save_if_requested(fig, figure_path)
