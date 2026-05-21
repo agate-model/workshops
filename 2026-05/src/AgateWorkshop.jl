@@ -185,46 +185,51 @@ function plot_plankton_parameter_bars(
     return _save_if_requested(fig, figure_path)
 end
 
-function plot_tracer_concentrations(times, data, tracer_syms=_keys_from_data(data); figure_path=nothing)
-    tracer_syms = collect(Symbol.(tracer_syms))
-    n_tracers = length(tracer_syms)
-    n_columns = min(2, n_tracers)
-    n_rows = cld(n_tracers, n_columns)
-    fig = Figure(; size=(360 * n_columns, 180 * n_rows), fontsize=12)
-
-    for (idx, tracer) in enumerate(tracer_syms)
-        row = cld(idx, n_columns)
-        col = mod1(idx, n_columns)
-        ax = Axis(
-            fig[row, col];
-            title="$(tracer) concentration",
-            xlabel="Days",
-            ylabel="mmol N m⁻³",
-        )
-        lines!(ax, times, data[tracer]; linewidth=2)
+function _as_timeseries_vector(timeseries)
+    if hasproperty(timeseries, :times) && hasproperty(timeseries, :data)
+        return [timeseries]
+    elseif timeseries isa AbstractVector || timeseries isa Tuple
+        series = collect(timeseries)
+        !isempty(series) || error("At least one box-model time series is required.")
+        all(ts -> hasproperty(ts, :times) && hasproperty(ts, :data), series) ||
+            error("Each entry must have times and data fields.")
+        return series
+    else
+        error("Expected a box-model time series or a collection of box-model time series.")
     end
-
-    return _save_if_requested(fig, figure_path)
 end
 
-function plot_timeseries_comparison(series...; labels=nothing, variables=nothing, ylabels=nothing, figure_path=nothing)
-    length(series) >= 2 || error("At least two time series are required for a comparison.")
+function _box_timeseries_variables(series, variables)
+    if variables !== nothing
+        return collect(Symbol.(variables))
+    end
+
+    keys_in_all = Set(keys(_data(first(series))))
+    for ts in series[2:end]
+        intersect!(keys_in_all, keys(_data(ts)))
+    end
+
+    return sort!(collect(keys_in_all); by=string)
+end
+
+function plot_box_timeseries(
+    timeseries;
+    labels=nothing,
+    variables=nothing,
+    ylabels=nothing,
+    figure_path=nothing,
+)
+    series = _as_timeseries_vector(timeseries)
+    variables = _box_timeseries_variables(series, variables)
 
     if labels === nothing
-        labels = ["series $i" for i in eachindex(series)]
+        labels = length(series) == 1 ? ["box model"] : ["series $i" for i in eachindex(series)]
     end
 
-    length(labels) == length(series) || error("labels must have one entry per time series.")
-
-    first_data = _data(first(series))
-    if variables === nothing
-        variables = _keys_from_data(first_data)
-    else
-        variables = collect(Symbol.(variables))
-    end
+    length(labels) == length(series) || error("labels must have one entry per box-model time series.")
 
     if ylabels === nothing
-        ylabels = Dict(variable => string(variable) for variable in variables)
+        ylabels = Dict(variable => "Concentration (mmol N m⁻³)" for variable in variables)
     else
         ylabels = Dict(Symbol(key) => value for (key, value) in pairs(ylabels))
     end
@@ -250,16 +255,10 @@ function plot_timeseries_comparison(series...; labels=nothing, variables=nothing
             lines!(ax, _times(ts), data[variable]; label=labels[series_idx], linewidth=2)
         end
 
-        axislegend(ax; position=:rt)
+        length(series) > 1 && axislegend(ax; position=:rt)
     end
 
     return _save_if_requested(fig, figure_path)
-end
-
-function plot_tracer_concentrations_comparison(series...; labels=nothing, tracer_syms=nothing, figure_path=nothing)
-    variables = tracer_syms === nothing ? nothing : collect(Symbol.(tracer_syms))
-    ylabels = variables === nothing ? nothing : Dict(variable => "Concentration (mmol N m⁻³)" for variable in variables)
-    return plot_timeseries_comparison(series...; labels=labels, variables=variables, ylabels=ylabels, figure_path=figure_path)
 end
 
 function _safe_fraction(numerator, denominator)
