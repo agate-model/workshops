@@ -45,7 +45,7 @@ nothing #hide
 
 tracer_concentrations_figure_path = joinpath("figures", "02_diagnostic_tracer_concentrations.png")
 fig_tracers = plot_tracer_concentrations(times, data, run.tracer_syms)
-save(tracer_concentrations_figure_path, fig_tracers)
+save(tracer_concentrations_figure_path, fig_tracers; px_per_unit=1)
 fig_tracers
 
 # ## Relative nitrogen contributions
@@ -57,7 +57,7 @@ fig_tracers
 
 nitrogen_contributions_figure_path = joinpath("figures", "02_diagnostic_relative_nitrogen_contributions.png")
 fig_nitrogen = plot_contributions(times, data)
-save(nitrogen_contributions_figure_path, fig_nitrogen)
+save(nitrogen_contributions_figure_path, fig_nitrogen; px_per_unit=1)
 fig_nitrogen
 
 # ## Community-weighted mean size
@@ -71,7 +71,7 @@ fig_nitrogen
 
 size_spectrum_figure_path = joinpath("figures", "02_diagnostic_size_spectrum.png")
 fig_size = plot_size_spectrum(times, data, bgc)
-save(size_spectrum_figure_path, fig_size)
+save(size_spectrum_figure_path, fig_size; px_per_unit=1)
 fig_size
 
 # ### Comparison
@@ -104,8 +104,24 @@ fig_comparison = plot_timeseries_comparison(
         :D => "D concentration (mmol N m⁻³)",
     ),
 )
-save(comparison_figure_path, fig_comparison)
+save(comparison_figure_path, fig_comparison; px_per_unit=1)
 fig_comparison
+
+
+# ## Parameter bars
+#
+# The same helper can also inspect model parameters directly. Here we plot the default
+# maximum phytoplankton growth-rate values for the plankton types represented in the model.
+
+parameter_bar_figure_path = joinpath("figures", "02_diagnostic_mumax_parameter_bars.png")
+fig_mumax_parameter = plot_plankton_parameter_bars(
+    bgc,
+    :maximum_growth_rate;
+    ylabel = "maximum_growth_rate",
+    title = "Maximum growth rate by phytoplankton type",
+)
+save(parameter_bar_figure_path, fig_mumax_parameter; px_per_unit=1)
+fig_mumax_parameter
 
 # ## Exercises
 #

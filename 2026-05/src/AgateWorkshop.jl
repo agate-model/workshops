@@ -1,5 +1,5 @@
 using Agate
-using Agate.Introspection: plankton_diameters, plankton_tracers, tracer_names
+using Agate.Introspection: plankton_diameters, plankton_groups, plankton_tracers, tracer_names
 using Agate.Library.Light
 using CairoMakie
 using OceanBioME: Biogeochemistry, BoxModel, BoxModelGrid
@@ -116,8 +116,73 @@ function _cwm(data, diameters, keys)
 end
 
 function _save_if_requested(fig, figure_path)
-    figure_path !== nothing && save(figure_path, fig)
+    figure_path !== nothing && save(figure_path, fig; px_per_unit=1)
     return fig
+end
+
+
+function _parameter_tracers_and_values(bgc, parameter_name::Symbol)
+    groups = plankton_groups(bgc)
+    plankton = collect(plankton_tracers(bgc))
+    values = collect(getproperty(bgc.parameters, parameter_name))
+
+    if length(values) == length(groups.P)
+        return collect(groups.P), values, "Phytoplankton"
+    elseif length(values) == length(groups.Z)
+        return collect(groups.Z), values, "Zooplankton"
+    elseif length(values) == length(plankton)
+        return plankton, values, "Plankton"
+    else
+        error("Cannot align parameter $parameter_name with plankton tracers.")
+    end
+end
+
+function plot_plankton_parameter_bars(
+    bgcs,
+    parameter_name::Symbol;
+    labels=nothing,
+    ylabel=string(parameter_name),
+    title=string(parameter_name),
+    figure_path=nothing,
+)
+    bgcs = bgcs isa Tuple || bgcs isa AbstractVector ? collect(bgcs) : [bgcs]
+    !isempty(bgcs) || error("At least one biogeochemistry object is required.")
+
+    labels === nothing && (labels = ["case $i" for i in eachindex(bgcs)])
+    length(labels) == length(bgcs) || error("labels must have one entry per biogeochemistry object.")
+
+    tracers, first_values, group_label = _parameter_tracers_and_values(first(bgcs), parameter_name)
+    value_sets = [first_values]
+
+    for bgc in bgcs[2:end]
+        case_tracers, values, case_group_label = _parameter_tracers_and_values(bgc, parameter_name)
+        case_tracers == tracers || error("All cases must use the same tracer names for $parameter_name.")
+        case_group_label == group_label || error("All cases must align $parameter_name with the same plankton group.")
+        push!(value_sets, values)
+    end
+
+    n_tracers = length(tracers)
+    n_cases = length(bgcs)
+    centers = collect(1:n_tracers)
+    width = min(0.8 / n_cases, 0.28)
+    offsets = ((1:n_cases) .- (n_cases + 1) / 2) .* width
+
+    fig = Figure(; size=(max(420, 80 * n_tracers), 260), fontsize=12)
+    ax = Axis(
+        fig[1, 1];
+        xlabel=group_label,
+        ylabel,
+        title,
+        xticks=(centers, string.(tracers)),
+    )
+
+    for (case_idx, values) in enumerate(value_sets)
+        barplot!(ax, centers .+ offsets[case_idx], values; width, label=labels[case_idx])
+    end
+
+    n_cases > 1 && axislegend(ax; position=:rt)
+
+    return _save_if_requested(fig, figure_path)
 end
 
 function plot_tracer_concentrations(times, data, tracer_syms=_keys_from_data(data); figure_path=nothing)
@@ -125,7 +190,7 @@ function plot_tracer_concentrations(times, data, tracer_syms=_keys_from_data(dat
     n_tracers = length(tracer_syms)
     n_columns = min(2, n_tracers)
     n_rows = cld(n_tracers, n_columns)
-    fig = Figure(; size=(600 * n_columns, 280 * n_rows), fontsize=16)
+    fig = Figure(; size=(360 * n_columns, 180 * n_rows), fontsize=12)
 
     for (idx, tracer) in enumerate(tracer_syms)
         row = cld(idx, n_columns)
@@ -136,7 +201,7 @@ function plot_tracer_concentrations(times, data, tracer_syms=_keys_from_data(dat
             xlabel="Days",
             ylabel="mmol N m⁻³",
         )
-        lines!(ax, times, data[tracer]; linewidth=3)
+        lines!(ax, times, data[tracer]; linewidth=2)
     end
 
     return _save_if_requested(fig, figure_path)
@@ -167,7 +232,7 @@ function plot_timeseries_comparison(series...; labels=nothing, variables=nothing
     n_variables = length(variables)
     n_columns = min(2, n_variables)
     n_rows = cld(n_variables, n_columns)
-    fig = Figure(; size=(600 * n_columns, 280 * n_rows), fontsize=16)
+    fig = Figure(; size=(360 * n_columns, 180 * n_rows), fontsize=12)
 
     for (idx, variable) in enumerate(variables)
         row = cld(idx, n_columns)
@@ -182,7 +247,7 @@ function plot_timeseries_comparison(series...; labels=nothing, variables=nothing
         for (series_idx, ts) in enumerate(series)
             data = _data(ts)
             haskey(data, variable) || continue
-            lines!(ax, _times(ts), data[variable]; label=labels[series_idx], linewidth=3)
+            lines!(ax, _times(ts), data[variable]; label=labels[series_idx], linewidth=2)
         end
 
         axislegend(ax; position=:rt)
@@ -206,22 +271,22 @@ function plot_contributions(times, data; figure_path=nothing)
     living = phyto_total .+ zoo_total
     total = nutrient .+ detritus .+ living
 
-    fig = Figure(; size=(950, 760), fontsize=16)
+    fig = Figure(; size=(560, 520), fontsize=12)
 
     ax1 = Axis(fig[1, 1]; title="Relative nitrogen pools", xlabel="Days", ylabel="Fraction")
-    lines!(ax1, times, nutrient ./ total; label="N", linewidth=3)
-    lines!(ax1, times, detritus ./ total; label="D", linewidth=3)
-    lines!(ax1, times, living ./ total; label="living", linewidth=3)
+    lines!(ax1, times, nutrient ./ total; label="N", linewidth=2)
+    lines!(ax1, times, detritus ./ total; label="D", linewidth=2)
+    lines!(ax1, times, living ./ total; label="living", linewidth=2)
     axislegend(ax1; position=:rt)
 
     ax2 = Axis(fig[2, 1]; title="Living biomass", xlabel="Days", ylabel="mmol N m⁻³")
-    lines!(ax2, times, phyto_total; label="phytoplankton", linewidth=3)
-    lines!(ax2, times, zoo_total; label="zooplankton", linewidth=3)
+    lines!(ax2, times, phyto_total; label="phytoplankton", linewidth=2)
+    lines!(ax2, times, zoo_total; label="zooplankton", linewidth=2)
     axislegend(ax2; position=:rt)
 
     ax3 = Axis(fig[3, 1]; title="Phytoplankton vs zooplankton", xlabel="Days", ylabel="Fraction of living biomass")
-    lines!(ax3, times, phyto_total ./ living; label="phytoplankton", linewidth=3)
-    lines!(ax3, times, zoo_total ./ living; label="zooplankton", linewidth=3)
+    lines!(ax3, times, phyto_total ./ living; label="phytoplankton", linewidth=2)
+    lines!(ax3, times, zoo_total ./ living; label="zooplankton", linewidth=2)
     axislegend(ax3; position=:rt)
 
     return _save_if_requested(fig, figure_path)
@@ -231,16 +296,16 @@ function plot_size_spectrum(times, data, bgc; figure_path=nothing)
     diameters = Dict(plankton_tracers(bgc) .=> plankton_diameters(bgc))
     phyto, zoo, plankton = _plankton_keys(data)
 
-    fig = Figure(; size=(950, 760), fontsize=16)
+    fig = Figure(; size=(560, 520), fontsize=12)
     axes = [
         Axis(fig[1, 1]; title="All plankton", xlabel="Days", ylabel="CWM ESD (μm)"),
         Axis(fig[2, 1]; title="Phytoplankton", xlabel="Days", ylabel="CWM ESD (μm)"),
         Axis(fig[3, 1]; title="Zooplankton", xlabel="Days", ylabel="CWM ESD (μm)"),
     ]
 
-    !isempty(plankton) && lines!(axes[1], times, _cwm(data, diameters, plankton); linewidth=3)
-    !isempty(phyto) && lines!(axes[2], times, _cwm(data, diameters, phyto); linewidth=3)
-    !isempty(zoo) && lines!(axes[3], times, _cwm(data, diameters, zoo); linewidth=3)
+    !isempty(plankton) && lines!(axes[1], times, _cwm(data, diameters, plankton); linewidth=2)
+    !isempty(phyto) && lines!(axes[2], times, _cwm(data, diameters, phyto); linewidth=2)
+    !isempty(zoo) && lines!(axes[3], times, _cwm(data, diameters, zoo); linewidth=2)
 
     return _save_if_requested(fig, figure_path)
 end
