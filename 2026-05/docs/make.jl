@@ -33,6 +33,13 @@ example_files = [
     "07_irradiance.jl",
 ]
 
+function strip_jld2_warnings(content)
+    return replace(
+        content,
+        r"(?ms)^┌ Warning:.*?^└ @ JLD2 .*?/(writing_datatypes|reconstructing_datatypes)\.jl:\d+\n" => "",
+    )
+end
+
 # Run from the workshop root so relative paths in examples are predictable.
 cd(workshop_root) do
     mkpath("figures")
@@ -50,6 +57,7 @@ cd(workshop_root) do
             documenter=true,
             execute=true,
             credit=false,
+            postprocess=strip_jld2_warnings,
         )
     end
 end
