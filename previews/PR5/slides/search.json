@@ -35,6 +35,41 @@
     "text": "Maximum growth rate\n\n\nAllometric scaling a function of SA:V ratio\n\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
   },
   {
+    "objectID": "02_module_lecture.html#maximum-grazing-rate",
+    "href": "02_module_lecture.html#maximum-grazing-rate",
+    "title": "Module Lecture 1",
+    "section": "Maximum grazing rate",
+    "text": "Maximum grazing rate\n\n\ngrowth vs prey\n\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
+  },
+  {
+    "objectID": "02_module_lecture.html#nutrient-half-saturation",
+    "href": "02_module_lecture.html#nutrient-half-saturation",
+    "title": "Module Lecture 1",
+    "section": "Nutrient half saturation",
+    "text": "Nutrient half saturation\n\n\nnutrients vs growth\n\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
+  },
+  {
+    "objectID": "02_module_lecture.html#allometric-scaling",
+    "href": "02_module_lecture.html#allometric-scaling",
+    "title": "Module Lecture 1",
+    "section": "Allometric scaling",
+    "text": "Allometric scaling\n\n\naV^b\n\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
+  },
+  {
+    "objectID": "02_module_lecture.html#number-of-groups",
+    "href": "02_module_lecture.html#number-of-groups",
+    "title": "Module Lecture 1",
+    "section": "Number of groups",
+    "text": "Number of groups\n\n\nHow many are needed to capture diversity?\n\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
+  },
+  {
+    "objectID": "02_module_lecture.html#size-ranges",
+    "href": "02_module_lecture.html#size-ranges",
+    "title": "Module Lecture 1",
+    "section": "Size ranges",
+    "text": "Size ranges\n\n\nAre there physiological limitations?\nBiogeochemical ones?\nPhysics (e.g. sinking)?\n\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
+  },
+  {
     "objectID": "01_intro.html#welcome",
     "href": "01_intro.html#welcome",
     "title": "Agate.jl Workshop: Motivation and Orientation",
