@@ -27,10 +27,10 @@ function default_initial_conditions(
 end
 
 const WORKSHOP_COLORS = (
-    living = "#2A9D8F",
-    nonliving = "#7A7A7A",
-    phytoplankton = "#54A24B",
-    zooplankton = "#E08214",
+    living = "#1F77B4",
+    nonliving = "#D62728",
+    phytoplankton = "#6BAED6",
+    zooplankton = "#08519C",
 )
 
 default_quickstart_bgc() = Agate.Models.NiPiZD.construct()
