@@ -17,8 +17,8 @@ using OceanBioME: Biogeochemistry
 using Oceananigans
 using Oceananigans.Units
 using CairoMakie
+include(joinpath(@__DIR__, "..", "src", "load_workshop_scripts.jl"))
 
-include(joinpath(@__DIR__, "..", "src", "WorkshopSetup.jl"))
 
 mkpath(joinpath("outputs"))
 mkpath(joinpath("figures"))
@@ -96,8 +96,8 @@ fig_manual
 
 # ## A general workshop box-model wrapper
 #
-# The same setup will appear repeatedly in later exercises. The file
-# `src/WorkshopBoxModels.jl` therefore defines:
+# The same setup will appear repeatedly in later exercises. The workshop
+# helper scripts therefore define:
 #
 # - `build_box_model(bgc; light_attenuation, initial_conditions)`
 # - `run_box_model(bgc; filename, initial_conditions, Δt, stop_time, output_interval)`
