@@ -17,15 +17,7 @@ using OceanBioME: Biogeochemistry
 using Oceananigans
 using Oceananigans.Units
 using CairoMakie
-workshop_script = let dir = @__DIR__
-    while !isfile(joinpath(dir, "src", "AgateWorkshop.jl"))
-        parent = dirname(dir)
-        parent == dir && error("Could not find src/AgateWorkshop.jl")
-        dir = parent
-    end
-    joinpath(dir, "src", "AgateWorkshop.jl")
-end
-include(workshop_script)
+using AgateWorkshop
 
 stop_time = 3*365day # simulate for 3 years
 nothing #hide

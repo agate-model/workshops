@@ -40,6 +40,7 @@ jobs:
         shell: julia --color=yes --project=2026-05/docs {0}
         run: |
           using Pkg
+          Pkg.develop(Pkg.PackageSpec(path="2026-05"))
           Pkg.instantiate()
 
       - name: Render Quarto slides

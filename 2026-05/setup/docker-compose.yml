@@ -1,5 +1,8 @@
 services:
   agate-workshop:
+    build:
+      context: ..
+      dockerfile: setup/Dockerfile
     image: nanophyto/agate-workshops:2026-05
     container_name: agate-workshop
     ports:

@@ -1,3 +1,17 @@
+module AgateWorkshop
+
+export default_initial_conditions,
+       default_quickstart_bgc,
+       default_quickstart_initial_conditions,
+       build_box_model,
+       run_box_model,
+       read_box_tracer_timeseries,
+       plot_box_timeseries,
+       plot_contributions,
+       plot_cwm_size,
+       plot_plankton_parameter_bars,
+       WORKSHOP_COLORS
+
 using Agate
 using Agate.Introspection: plankton_diameters, plankton_groups, plankton_tracers, tracer_names
 using Agate.Library.Light
@@ -448,4 +462,6 @@ function plot_cwm_size(
     end
 
     return _save_if_requested(fig, figure_path)
+end
+
 end

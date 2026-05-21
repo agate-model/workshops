@@ -3,6 +3,7 @@ using Pkg
 Pkg.activate(@__DIR__)
 
 workshop_root = normpath(joinpath(@__DIR__, ".."))
+Pkg.develop(Pkg.PackageSpec(path=workshop_root))
 Pkg.instantiate()
 
 using Literate

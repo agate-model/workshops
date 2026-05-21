@@ -17,15 +17,7 @@ using OceanBioME: Biogeochemistry
 using Oceananigans
 using Oceananigans.Units
 using CairoMakie
-workshop_script = let dir = @__DIR__
-    while !isfile(joinpath(dir, "src", "AgateWorkshop.jl"))
-        parent = dirname(dir)
-        parent == dir && error("Could not find src/AgateWorkshop.jl")
-        dir = parent
-    end
-    joinpath(dir, "src", "AgateWorkshop.jl")
-end
-include(workshop_script)
+using AgateWorkshop
 
 
 mkpath(joinpath("outputs"))
@@ -56,10 +48,9 @@ full_model = BoxModel(; biogeochemistry=bgc_model)
 
 nothing #hide
 
-# Set the initial tracer concentrations. The names must match the tracer names
-# printed above.
+# Set the initial tracer concentrations. The helper distributes the total plankton biomass evenly across the plankton tracers in `bgc`.
 
-set!(full_model; N=7.0, P1=0.01, Z1=0.01, P2=0.1, Z2=0.01, D=0.01)
+set!(full_model; default_initial_conditions(bgc)...)
 
 nothing #hide
 
@@ -107,17 +98,17 @@ fig_manual
 # The same setup will appear repeatedly in later exercises. The workshop
 # helper script therefore defines:
 #
+# - `default_initial_conditions(bgc; total_plankton_biomass, nutrient, detritus)`
 # - `build_box_model(bgc; light_attenuation, initial_conditions)`
 # - `run_box_model(bgc; filename, initial_conditions, Δt, stop_time, output_interval)`
 # - `read_box_tracer_timeseries(filename, tracer_syms)`
 #
 # The wrapper takes `bgc` as an argument, so it can be reused with more complex
-# Agate models as long as the initial conditions cover that model's tracers.
+# Agate models without manually spelling out every plankton tracer.
 
 wrapped = run_box_model(
     bgc;
     filename=joinpath("outputs", "01_quick_start_wrapped.jld2"),
-    initial_conditions=(N=7.0, P1=0.01, Z1=0.01, P2=0.1, Z2=0.01, D=0.01),
     Δt=240minutes,
     stop_time=1095days,
     output_interval=1day,
@@ -135,12 +126,10 @@ larger_bgc = Agate.Models.NiPiZD.construct(
     zoo_size_structure=[10.0, 32.0, 100.0],
 )
 
-larger_initial_conditions = (N=7.0, D=0.01, P1=0.01, P2=0.01, P3=0.01, Z1=0.01, Z2=0.01, Z3=0.01)
-
 larger = run_box_model(
     larger_bgc;
     filename=joinpath("outputs", "01_quick_start_larger_community.jld2"),
-    initial_conditions=larger_initial_conditions,
+    initial_conditions=default_initial_conditions(larger_bgc; total_plankton_biomass=0.06),
     Δt=240minutes,
     stop_time=365days,
     output_interval=1day,

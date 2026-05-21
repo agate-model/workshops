@@ -8,15 +8,7 @@
 using CairoMakie
 using Agate
 using Oceananigans.Units: day
-workshop_script = let dir = @__DIR__
-    while !isfile(joinpath(dir, "src", "AgateWorkshop.jl"))
-        parent = dirname(dir)
-        parent == dir && error("Could not find src/AgateWorkshop.jl")
-        dir = parent
-    end
-    joinpath(dir, "src", "AgateWorkshop.jl")
-end
-include(workshop_script)
+using AgateWorkshop
 
 
 mkpath(joinpath("outputs"))
