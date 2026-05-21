@@ -47,6 +47,36 @@ nothing #hide
 end
 
 #plots
+
+function discrete_ticks(values)
+    labels = [v == 0 ? "0" : string(v) for v in values]
+    return (collect(1:length(values)), labels)
+end
+
+function forcing_heatmap!(fig, row, x, y, values; title, colormap=:viridis)
+    ax = Axis(fig[row, 1]; xlabel="Time (days)", ylabel="Depth (m)", title)
+    unique_values = sort(unique(vec(Float64.(values))))
+
+    if length(unique_values) <= 2
+        indices = map(v -> findfirst(isequal(Float64(v)), unique_values), values)
+        discrete_colormap = length(unique_values) == 1 ? [:gray] : cgrad(colormap, length(unique_values); categorical=true)
+        hm = CairoMakie.heatmap!(
+            ax,
+            x,
+            y,
+            indices;
+            colormap=discrete_colormap,
+            colorrange=(0.5, length(unique_values) + 0.5),
+        )
+        Colorbar(fig[row, 2], hm; ticks=discrete_ticks(unique_values))
+    else
+        hm = CairoMakie.heatmap!(ax, x, y, values; colormap)
+        Colorbar(fig[row, 2], hm)
+    end
+
+    return ax
+end
+
 t_range = 0.0:days:(365.0 * days)  # Time range from 0 to 365 days 
 z_range = -200.0:10.0:0.0  # Depth range from -200m to 0m 
 x, y, z = 0.0, 0.0, 0.0
@@ -54,13 +84,8 @@ x, y, z = 0.0, 0.0, 0.0
 PAR_values = [constant_PAR(x, y, z, t) for t in t_range, z in z_range]
 
 fig_forcing = Figure(; size=(800, 600), fontsize=14)
-ax1 = Axis(fig_forcing[1, 1]; xlabel="Time (days)", ylabel="Depth (m)", title="irradiance")
-hm1 = CairoMakie.heatmap!(ax1, t_range ./ days, z_range, PAR_values; colormap=:viridis)
-Colorbar(fig_forcing[1, 2], hm1)
-
-ax2 = Axis(fig_forcing[2, 1]; xlabel="Time (days)", ylabel="Depth (m)", title="diffusivity")
-hm2 = CairoMakie.heatmap!(ax2, t_range ./ days, z_range, κₜ_values; colormap=:viridis)
-Colorbar(fig_forcing[2, 2], hm2)
+forcing_heatmap!(fig_forcing, 1, t_range ./ days, z_range, PAR_values; title="irradiance")
+forcing_heatmap!(fig_forcing, 2, t_range ./ days, z_range, κₜ_values; title="diffusivity")
 
 fig_forcing
 

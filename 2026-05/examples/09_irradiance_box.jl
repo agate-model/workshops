@@ -39,11 +39,15 @@ end
 @inline seasonal_PAR(t) = seasonal_surface_PAR(t)
 
 t_range = 0.0:days:(365.0days)
-PAR_values = [seasonal_PAR(t) for t in t_range]
+default_PAR = 80
+seasonal_PAR_values = [seasonal_PAR(t) for t in t_range]
+default_PAR_values = fill(default_PAR, length(t_range))
 
 fig_forcing = Figure(; size=(800, 350), fontsize=14)
-ax = Axis(fig_forcing[1, 1]; xlabel="Time (days)", ylabel="PAR", title="seasonal irradiance")
-lines!(ax, t_range ./ days, PAR_values; linewidth=3)
+ax = Axis(fig_forcing[1, 1]; xlabel="Time (days)", ylabel="PAR", title="seasonal and default irradiance")
+lines!(ax, t_range ./ days, seasonal_PAR_values; linewidth=3, label="seasonal PAR")
+lines!(ax, t_range ./ days, default_PAR_values; linewidth=3, linestyle=:dash, label="default PAR")
+axislegend(ax; position=:rt)
 save(joinpath("figures", "09_irradiance_box_forcing.png"), fig_forcing)
 
 fig_forcing
