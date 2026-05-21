@@ -62,7 +62,7 @@ simulation = Simulation(full_model; Δt=240minutes, stop_time=1095days)
 
 simulation.output_writers[:fields] = JLD2Writer(
     full_model,
-    full_model.fields;
+    full_model.tracers;
     filename=quickstart_filename,
     schedule=TimeInterval(1day),
     overwrite_existing=true,
