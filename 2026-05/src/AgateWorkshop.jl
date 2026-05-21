@@ -99,20 +99,28 @@ function _plankton_keys(data)
     return phyto, zoo, vcat(phyto, zoo)
 end
 
-function _cwm(data, diameters, keys)
-    isempty(keys) && return zeros(length(first(values(data))))
+function _plankton_diameters_by_tracer(bgc)
+    return Dict(Symbol.(plankton_tracers(bgc)) .=> plankton_diameters(bgc))
+end
+
+function _keys_with_diameters(keys, diameters)
+    return filter(key -> haskey(diameters, key), keys)
+end
+
+function _cwm_or_nan(data, diameters, keys)
+    keys = _keys_with_diameters(keys, diameters)
+    isempty(keys) && return fill(NaN, length(first(values(data))))
 
     total = zero(data[first(keys)])
     weighted = zero(data[first(keys)])
 
     for key in keys
-        haskey(diameters, key) || error("Missing diameter for tracer $key.")
         values = data[key]
         total = total .+ values
         weighted = weighted .+ diameters[key] .* values
     end
 
-    return weighted ./ total
+    return weighted ./ ifelse.(total .> 0, total, NaN)
 end
 
 function _save_if_requested(fig, figure_path)
@@ -355,20 +363,53 @@ function plot_contributions(times, data; figure_path=nothing)
     return _save_if_requested(fig, figure_path)
 end
 
-function plot_size_spectrum(times, data, bgc; figure_path=nothing)
-    diameters = Dict(plankton_tracers(bgc) .=> plankton_diameters(bgc))
-    phyto, zoo, plankton = _plankton_keys(data)
+function _as_bgc_vector(bgcs, n_series)
+    if bgcs isa AbstractVector || bgcs isa Tuple
+        bgcs = collect(bgcs)
+        length(bgcs) == n_series || error("bgcs must have one entry per box-model time series.")
+        return bgcs
+    else
+        return fill(bgcs, n_series)
+    end
+end
 
-    fig = Figure(; size=(560, 520), fontsize=12)
+function plot_cwm_size(
+    timeseries,
+    bgcs;
+    labels=nothing,
+    figure_path=nothing,
+)
+    series = _as_timeseries_vector(timeseries)
+    bgcs = _as_bgc_vector(bgcs, length(series))
+
+    if labels === nothing
+        labels = length(series) == 1 ? ["box model"] : ["series $i" for i in eachindex(series)]
+    end
+
+    length(labels) == length(series) || error("labels must have one entry per box-model time series.")
+
+    fig = Figure(; size=(560, 420), fontsize=12)
     axes = [
         Axis(fig[1, 1]; title="All plankton", xlabel="Days", ylabel="CWM ESD (μm)"),
         Axis(fig[2, 1]; title="Phytoplankton", xlabel="Days", ylabel="CWM ESD (μm)"),
         Axis(fig[3, 1]; title="Zooplankton", xlabel="Days", ylabel="CWM ESD (μm)"),
     ]
 
-    !isempty(plankton) && lines!(axes[1], times, _cwm(data, diameters, plankton); linewidth=2)
-    !isempty(phyto) && lines!(axes[2], times, _cwm(data, diameters, phyto); linewidth=2)
-    !isempty(zoo) && lines!(axes[3], times, _cwm(data, diameters, zoo); linewidth=2)
+    for (idx, (ts, bgc)) in enumerate(zip(series, bgcs))
+        data = _data(ts)
+        diameters = _plankton_diameters_by_tracer(bgc)
+        phyto, zoo, plankton = _plankton_keys(data)
+
+        lines!(axes[1], _times(ts), _cwm_or_nan(data, diameters, plankton); label=labels[idx], linewidth=2)
+        lines!(axes[2], _times(ts), _cwm_or_nan(data, diameters, phyto); label=labels[idx], linewidth=2)
+        lines!(axes[3], _times(ts), _cwm_or_nan(data, diameters, zoo); label=labels[idx], linewidth=2)
+    end
+
+    if length(series) > 1
+        for ax in axes
+            axislegend(ax; position=:rt)
+        end
+    end
 
     return _save_if_requested(fig, figure_path)
 end

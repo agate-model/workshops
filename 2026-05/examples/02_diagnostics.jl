@@ -89,16 +89,29 @@ fig_nitrogen
 # ## Community-weighted mean size
 #
 # Agate.jl stores plankton equivalent spherical diameter (ESD) metadata on
-# constructed biogeochemistry objects. The size diagnostic takes the
-# biogeochemistry object directly, uses Agate introspection internally, and
-# keeps tracer labels and diameters aligned with the model definition. It plots
-# the community-weighted mean size for all plankton, then separates the
-# phytoplankton and zooplankton mean sizes into their own subplots.
+# constructed biogeochemistry objects. `plot_cwm_size` accepts a box-model time
+# series and the matching biogeochemistry object, then computes the
+# community-weighted mean size for all plankton, phytoplankton, and zooplankton.
 
-size_spectrum_figure_path = joinpath("figures", "02_diagnostic_size_spectrum.png")
-fig_size = plot_size_spectrum(times, data, bgc)
-save(size_spectrum_figure_path, fig_size; px_per_unit=1)
+cwm_size_figure_path = joinpath("figures", "02_diagnostic_cwm_size.png")
+fig_size = plot_cwm_size(timeseries, bgc)
+save(cwm_size_figure_path, fig_size; px_per_unit=1)
 fig_size
+
+# ## Community-weighted mean size comparison
+#
+# The same helper can compare multiple runs. Each time series is paired with a
+# biogeochemistry object because the plankton sizes are defined by the model,
+# and different models may have different plankton groups or size structures.
+
+cwm_size_comparison_figure_path = joinpath("figures", "02_diagnostic_cwm_size_comparison.png")
+fig_size_comparison = plot_cwm_size(
+    [timeseries, high_remineralization_timeseries],
+    [bgc, high_remineralization_bgc];
+    labels=["default", "detritus remineralization = 0.25 / day"],
+)
+save(cwm_size_comparison_figure_path, fig_size_comparison; px_per_unit=1)
+fig_size_comparison
 
 # ## Parameter bars
 #
@@ -118,6 +131,6 @@ fig_mumax_parameter
 # ## Exercises
 #
 # 1. Change the box-model community size and rerun the tracer concentration diagnostic.
-# 2. Change the model size structure and rerun the size diagnostic.
+# 2. Change the model size structure and rerun the CWM size diagnostic.
 # 3. Compare the phytoplankton and zooplankton CWM panels. Which community shifts more?
-# 4. Add another altered parameter set and compare the runs with `plot_box_timeseries`.
+# 4. Add another altered parameter set and compare the runs with `plot_box_timeseries` or `plot_cwm_size`.
