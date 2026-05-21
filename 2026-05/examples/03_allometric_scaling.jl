@@ -114,26 +114,11 @@ fig_gmax
 # The parameter plots show potential rates.
 # We now run the same three allometric cases in a well-mixed box model and compare the ecosystem dynamics.
 
-function plankton_initial_conditions(bgc; phyto = 0.03, zoo = 0.01)
-    groups = plankton_groups(bgc)
-    pairs = Pair{Symbol,Float64}[]
-
-    for tracer in groups.P
-        push!(pairs, tracer => phyto)
-    end
-
-    for tracer in groups.Z
-        push!(pairs, tracer => zoo)
-    end
-
-    return (; pairs...)
-end
-
 # Run the default case.
 default_run = run_box_model(
     bgc_default;
     filename = joinpath("outputs", "03_default.jld2"),
-    initial_conditions = (N = 8.0, D = 0.01, plankton_initial_conditions(bgc_default)...),
+    initial_conditions = default_initial_conditions(bgc_default; nutrient = 8.0, total_plankton_biomass = 0.08),
 )
 default_filename = default_run.filename
 
@@ -141,7 +126,7 @@ default_filename = default_run.filename
 flat_run = run_box_model(
     bgc_flat;
     filename = joinpath("outputs", "03_flat.jld2"),
-    initial_conditions = (N = 8.0, D = 0.01, plankton_initial_conditions(bgc_flat)...),
+    initial_conditions = default_initial_conditions(bgc_flat; nutrient = 8.0, total_plankton_biomass = 0.08),
 )
 flat_filename = flat_run.filename
 
@@ -149,7 +134,7 @@ flat_filename = flat_run.filename
 strong_run = run_box_model(
     bgc_strong_small_fast;
     filename = joinpath("outputs", "03_strong_small_fast.jld2"),
-    initial_conditions = (N = 8.0, D = 0.01, plankton_initial_conditions(bgc_strong_small_fast)...),
+    initial_conditions = default_initial_conditions(bgc_strong_small_fast; nutrient = 8.0, total_plankton_biomass = 0.08),
 )
 strong_filename = strong_run.filename
 

@@ -6,7 +6,25 @@ using OceanBioME: Biogeochemistry, BoxModel, BoxModelGrid
 using Oceananigans
 using Oceananigans.Units: day, minute
 
-const DEFAULT_INITIAL_CONDITIONS = (N=7.0, P1=0.01, Z1=0.01, P2=0.1, Z2=0.01, D=0.01)
+const DEFAULT_INITIAL_NUTRIENT = 7.0
+const DEFAULT_INITIAL_DETRITUS = 0.01
+const DEFAULT_INITIAL_PLANKTON_BIOMASS = 0.13
+
+function default_initial_conditions(
+    bgc;
+    nutrient=DEFAULT_INITIAL_NUTRIENT,
+    detritus=DEFAULT_INITIAL_DETRITUS,
+    total_plankton_biomass=DEFAULT_INITIAL_PLANKTON_BIOMASS,
+)
+    plankton = Symbol.(collect(plankton_tracers(bgc)))
+    !isempty(plankton) || error("Cannot set initial plankton biomass: no plankton tracers found.")
+
+    plankton_biomass = total_plankton_biomass / length(plankton)
+    names = (:N, plankton..., :D)
+    values = (nutrient, fill(plankton_biomass, length(plankton))..., detritus)
+
+    return NamedTuple{names}(values)
+end
 
 const WORKSHOP_COLORS = (
     living = "#2A9D8F",
@@ -17,13 +35,15 @@ const WORKSHOP_COLORS = (
 
 default_quickstart_bgc() = Agate.Models.NiPiZD.construct()
 
-default_quickstart_initial_conditions() = DEFAULT_INITIAL_CONDITIONS
+default_quickstart_initial_conditions(bgc=default_quickstart_bgc()) = default_initial_conditions(bgc)
 
 function build_box_model(
     bgc;
     light_attenuation=FunctionFieldPAR(; grid=BoxModelGrid()),
-    initial_conditions=DEFAULT_INITIAL_CONDITIONS,
+    initial_conditions=nothing,
 )
+    initial_conditions === nothing && (initial_conditions = default_initial_conditions(bgc))
+
     bgc_model = Biogeochemistry(bgc; light_attenuation)
     model = BoxModel(; biogeochemistry=bgc_model)
     set!(model; initial_conditions...)
@@ -33,7 +53,7 @@ end
 function run_box_model(
     bgc;
     filename=joinpath("outputs", "quick_start.jld2"),
-    initial_conditions=DEFAULT_INITIAL_CONDITIONS,
+    initial_conditions=nothing,
     Δt=240minute,
     stop_time=1095day,
     output_interval=1day,

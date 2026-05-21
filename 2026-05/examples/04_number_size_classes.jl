@@ -22,6 +22,15 @@ using Oceananigans
 using Oceananigans.Units
 using CairoMakie
 using Statistics
+workshop_script = let dir = @__DIR__
+    while !isfile(joinpath(dir, "src", "AgateWorkshop.jl"))
+        parent = dirname(dir)
+        parent == dir && error("Could not find src/AgateWorkshop.jl")
+        dir = parent
+    end
+    joinpath(dir, "src", "AgateWorkshop.jl")
+end
+include(workshop_script)
 
 mkpath("outputs")
 mkpath("figures")
@@ -132,32 +141,14 @@ fig_sizes
 # ## Run zero-dimensional ecosystem simulations
 #
 # We next run each community in a well-mixed box model.
-# Initial plankton biomass is distributed evenly within phytoplankton and zooplankton so that changing `n` does not automatically change total initial biomass.
+# Initial plankton biomass is distributed evenly across plankton tracers so that changing `n` does not automatically change total initial biomass.
 
-function initial_conditions(bgc; total_P = 0.12, total_Z = 0.03)
-    tracers = tracer_names(bgc)
-    P_tracers = filter(tracer -> startswith(String(tracer), "P"), tracers)
-    Z_tracers = filter(tracer -> startswith(String(tracer), "Z"), tracers)
-
-    values = Dict{Symbol, Float64}(:N => 8.0, :D => 0.01)
-
-    for tracer in P_tracers
-        values[tracer] = total_P / length(P_tracers)
-    end
-
-    for tracer in Z_tracers
-        values[tracer] = total_Z / length(Z_tracers)
-    end
-
-    return (; (tracer => values[tracer] for tracer in tracers)...)
-end
-
-function run_box_model(bgc; filename)
+function run_size_structure_box_model(bgc; filename)
     light_attenuation = FunctionFieldPAR(; grid = BoxModelGrid())
     bgc_model = Biogeochemistry(bgc; light_attenuation)
     full_model = BoxModel(; biogeochemistry = bgc_model)
 
-    set!(full_model; initial_conditions(bgc)...)
+    set!(full_model; default_initial_conditions(bgc; nutrient = 8.0, total_plankton_biomass = 0.15)...)
 
     simulation = Simulation(full_model; Δt = 240minutes, stop_time = 1095days)
 
@@ -174,7 +165,7 @@ function run_box_model(bgc; filename)
 end
 
 outputs = (; (
-    name => run_box_model(bgc; filename = joinpath("outputs", "04_$(name).jld2"))
+    name => run_size_structure_box_model(bgc; filename = joinpath("outputs", "04_$(name).jld2"))
     for (name, bgc) in pairs(bgcs)
 )...)
 

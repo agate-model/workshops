@@ -19,6 +19,15 @@ using OceanBioME: Biogeochemistry
 using Oceananigans
 using Oceananigans.Units
 using CairoMakie
+workshop_script = let dir = @__DIR__
+    while !isfile(joinpath(dir, "src", "AgateWorkshop.jl"))
+        parent = dirname(dir)
+        parent == dir && error("Could not find src/AgateWorkshop.jl")
+        dir = parent
+    end
+    joinpath(dir, "src", "AgateWorkshop.jl")
+end
+include(workshop_script)
 
 year = years = 365day
 nothing #hide
@@ -87,7 +96,7 @@ nothing #hide
 
 # ## Initial conditions
 
-set!(full_model; N=7.0, P1=0.01, P2=0.01, Z1=0.05, Z2=0.05, D=0.0) # mmol N / m³
+set!(full_model; default_initial_conditions(bgc; detritus = 0.0, total_plankton_biomass = 0.12)...) # mmol N / m³
 
 # ## Simulation
 filename = "N2P2ZD_column.jld2"
