@@ -29,7 +29,7 @@ example_files = [
     "03_allometric_scaling.jl",
     "04_number_size_classes.jl",
     "05_size_range.jl",
-    "O6_palatability.jl",
+    "06_palatability.jl",
     "07_assimilation_efficiency.jl",
     "08_closure_terms.jl",
     "09_diffusivity.jl",
