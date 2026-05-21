@@ -34,13 +34,15 @@ nothing #hide
 # `plot_tracer_concentrations` follows the per-tracer plotting pattern from the
 # Quick start exercise, but grows the figure vertically for larger communities.
 
+tracer_concentrations_figure_path = joinpath("figures", "02_diagnostic_tracer_concentrations.png")
 fig_tracers = plot_tracer_concentrations(
     times,
     data,
     run.tracer_syms;
-    figure_path=joinpath("figures", "02_diagnostic_tracer_concentrations.png"),
+    figure_path=tracer_concentrations_figure_path,
 )
-nothing #hide
+save(tracer_concentrations_figure_path, fig_tracers)
+fig_tracers
 
 # ![](figures/02_diagnostic_tracer_concentrations.png)
 
@@ -51,12 +53,14 @@ nothing #hide
 # detritus pools, separates dead and living biomass, and finally compares
 # phytoplankton and zooplankton with each other.
 
+nitrogen_contributions_figure_path = joinpath("figures", "02_diagnostic_relative_nitrogen_contributions.png")
 fig_nitrogen = plot_contributions(
     times,
     data;
-    figure_path=joinpath("figures", "02_diagnostic_relative_nitrogen_contributions.png"),
+    figure_path=nitrogen_contributions_figure_path,
 )
-nothing #hide
+save(nitrogen_contributions_figure_path, fig_nitrogen)
+fig_nitrogen
 
 # ![](figures/02_diagnostic_relative_nitrogen_contributions.png)
 
@@ -67,13 +71,15 @@ nothing #hide
 # This diagnostic plots the community-weighted mean size for all plankton, then
 # separates the phytoplankton and zooplankton mean sizes into their own subplots.
 
+size_spectrum_figure_path = joinpath("figures", "02_diagnostic_size_spectrum.png")
 fig_size = plot_size_spectrum(
     times,
     data;
     diameters=default_plankton_diameters(),
-    figure_path=joinpath("figures", "02_diagnostic_size_spectrum.png"),
+    figure_path=size_spectrum_figure_path,
 )
-nothing #hide
+save(size_spectrum_figure_path, fig_size)
+fig_size
 
 # ![](figures/02_diagnostic_size_spectrum.png)
 
@@ -87,12 +93,14 @@ predation = default_predation_matrix()
 summary = summarize_predation_matrix(predation.groups, predation.matrix)
 println(summary)
 
+trophic_interactions_figure_path = joinpath("figures", "02_diagnostic_trophic_interactions.png")
 fig_trophic = plot_trophic_interactions(
     predation.groups,
     predation.matrix;
-    figure_path=joinpath("figures", "02_diagnostic_trophic_interactions.png"),
+    figure_path=trophic_interactions_figure_path,
 )
-nothing #hide
+save(trophic_interactions_figure_path, fig_trophic)
+fig_trophic
 
 # ![](figures/02_diagnostic_trophic_interactions.png)
 
