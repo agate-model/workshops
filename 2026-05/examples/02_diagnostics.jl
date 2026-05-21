@@ -1,6 +1,6 @@
 # # [Exercise 02: Diagnostics] (@id diagnostics_exercise)
 #
-# This exercise introduces reusable diagnostics from helper scripts so later
+# This exercise introduces reusable diagnostics from the workshop helper script so later
 # exercises can load and reuse them directly.
 
 # ## Loading dependencies
@@ -8,7 +8,15 @@
 using CairoMakie
 using Agate
 using Oceananigans.Units: day
-include(joinpath(@__DIR__, "..", "src", "load_workshop_scripts.jl"))
+workshop_script = let dir = @__DIR__
+    while !isfile(joinpath(dir, "src", "AgateWorkshop.jl"))
+        parent = dirname(dir)
+        parent == dir && error("Could not find src/AgateWorkshop.jl")
+        dir = parent
+    end
+    joinpath(dir, "src", "AgateWorkshop.jl")
+end
+include(workshop_script)
 
 
 mkpath(joinpath("outputs"))

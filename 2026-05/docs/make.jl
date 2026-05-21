@@ -1,26 +1,18 @@
 using Pkg
 
 Pkg.activate(@__DIR__)
+
+workshop_root = normpath(joinpath(@__DIR__, ".."))
 Pkg.instantiate()
 
 using Literate
 using Documenter
-
-workshop_root = normpath(joinpath(@__DIR__, ".."))
 
 examples_dir = joinpath(workshop_root, "examples")
 docs_src_dir = joinpath(@__DIR__, "src")
 docs_exercises_dir = joinpath(docs_src_dir, "generated")
 mkpath(docs_exercises_dir)
 
-# Literate executes generated pages from docs/src/exercises. This small shim
-# lets the examples keep the simple path they use when run from examples/.
-docs_support_src_dir = joinpath(docs_src_dir, "src")
-mkpath(docs_support_src_dir)
-write(
-    joinpath(docs_support_src_dir, "WorkshopSetup.jl"),
-    "include(joinpath(@__DIR__, \"..\", \"..\", \"..\", \"src\", \"WorkshopSetup.jl\"))\n",
-)
 
 example_files = [
     "00_setup_check.jl",

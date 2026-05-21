@@ -7,7 +7,7 @@
 # - introduce predator-prey palatability matrices;
 # - connect palatability to trophic links and grazing pressure;
 # - compare a default trophic structure with one or more edited matrices;
-# - reuse diagnostics from `src/WorkshopDiagnostics.jl` where useful.
+# - reuse diagnostics from `src/AgateWorkshop.jl` where useful.
 
 println("Exercise 05 placeholder: palatability")
 

@@ -17,7 +17,15 @@ using OceanBioME: Biogeochemistry
 using Oceananigans
 using Oceananigans.Units
 using CairoMakie
-include(joinpath(@__DIR__, "..", "src", "load_workshop_scripts.jl"))
+workshop_script = let dir = @__DIR__
+    while !isfile(joinpath(dir, "src", "AgateWorkshop.jl"))
+        parent = dirname(dir)
+        parent == dir && error("Could not find src/AgateWorkshop.jl")
+        dir = parent
+    end
+    joinpath(dir, "src", "AgateWorkshop.jl")
+end
+include(workshop_script)
 
 
 mkpath(joinpath("outputs"))
@@ -97,7 +105,7 @@ fig_manual
 # ## A general workshop box-model wrapper
 #
 # The same setup will appear repeatedly in later exercises. The workshop
-# helper scripts therefore define:
+# helper script therefore defines:
 #
 # - `build_box_model(bgc; light_attenuation, initial_conditions)`
 # - `run_box_model(bgc; filename, initial_conditions, Δt, stop_time, output_interval)`
