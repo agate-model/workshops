@@ -32,8 +32,10 @@ example_files = [
     "06_palatability.jl",
     "07_assimilation_efficiency.jl",
     "08_closure_terms.jl",
-    "09_diffusivity.jl",
-    "10_irradiance.jl",
+    "09_irradiance_box.jl",
+    "10_irradiance_column.jl",
+    "11_diffusivity_stratified.jl",
+    "12_diffusivity_seasonal.jl",
 ]
 
 function strip_jld2_warnings(content)
@@ -101,8 +103,10 @@ makedocs(
             "06 Palatability" => "generated/06_palatability.md",
             "07 Assimilation Efficiency" => "generated/07_assimilation_efficiency.md",
             "08 Closure Terms" => "generated/08_closure_terms.md",
-            "09 Diffusivity" => "generated/09_diffusivity.md",
-            "10 Irradiance" => "generated/10_irradiance.md",
+            "09 Irradiance Box" => "generated/09_irradiance_box.md",
+            "10 Irradiance Column" => "generated/10_irradiance_column.md",
+            "11 Diffusivity Stratified" => "generated/11_diffusivity_stratified.md",
+            "12 Diffusivity Seasonal" => "generated/12_diffusivity_seasonal.md",
         ],
     ],
 )
