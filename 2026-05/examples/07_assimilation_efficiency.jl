@@ -127,18 +127,9 @@ data = timeseries.data
 
 nothing #hide
 
-# ## Tracer concentrations
-#
-# First inspect the default configuration by itself.
-
-tracer_concentrations_figure_path = joinpath("figures", "07_assimilation_tracer_concentrations.png")
-fig_tracers = plot_box_timeseries(timeseries)
-save(tracer_concentrations_figure_path, fig_tracers; px_per_unit = 1)
-fig_tracers
-
 # ## Tracer concentration comparison
 #
-# The same diagnostic compares all three assimilation-efficiency configurations.
+# The concentration diagnostic compares all three assimilation-efficiency configurations.
 
 comparison_figure_path = joinpath("figures", "07_assimilation_timeseries_comparison.png")
 fig_comparison = plot_box_timeseries(
@@ -148,36 +139,26 @@ fig_comparison = plot_box_timeseries(
 save(comparison_figure_path, fig_comparison; px_per_unit = 1)
 fig_comparison
 
-# ## Relative nitrogen contributions
-#
-# Assimilation efficiency affects how grazed material is partitioned between
-# zooplankton growth and non-living nitrogen pools. We compare the same
-# contribution diagnostic for each configuration.
+# ## Relative nitrogen contributions: default assimilation
 
 nitrogen_default_figure_path = joinpath("figures", "07_assimilation_relative_nitrogen_default.png")
 fig_nitrogen_default = plot_contributions(timeseries.times, timeseries.data)
 save(nitrogen_default_figure_path, fig_nitrogen_default; px_per_unit = 1)
 fig_nitrogen_default
 
+# ## Relative nitrogen contributions: high assimilation
+
 nitrogen_high_figure_path = joinpath("figures", "07_assimilation_relative_nitrogen_high.png")
 fig_nitrogen_high = plot_contributions(high_timeseries.times, high_timeseries.data)
 save(nitrogen_high_figure_path, fig_nitrogen_high; px_per_unit = 1)
 fig_nitrogen_high
 
+# ## Relative nitrogen contributions: manual matrix
+
 nitrogen_manual_figure_path = joinpath("figures", "07_assimilation_relative_nitrogen_manual_matrix.png")
 fig_nitrogen_manual = plot_contributions(manual_timeseries.times, manual_timeseries.data)
 save(nitrogen_manual_figure_path, fig_nitrogen_manual; px_per_unit = 1)
 fig_nitrogen_manual
-
-# ## Community-weighted mean size
-#
-# The default run gives a baseline view of how community-weighted mean size
-# evolves through time.
-
-cwm_size_figure_path = joinpath("figures", "07_assimilation_cwm_size.png")
-fig_size = plot_cwm_size(timeseries, bgc)
-save(cwm_size_figure_path, fig_size; px_per_unit = 1)
-fig_size
 
 # ## Community-weighted mean size comparison
 #
@@ -193,29 +174,11 @@ fig_size_comparison = plot_cwm_size(
 save(cwm_size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
 fig_size_comparison
 
-# ## Parameter bars
-#
-# The high-assimilation case changes the zooplankton trait used to derive the
-# matrix. The manual-matrix case supplies the matrix directly, so its
-# `assimilation_efficiency` parameter remains at the default even though the
-# realized interaction matrix is different.
-
-parameter_bar_figure_path = joinpath("figures", "07_assimilation_efficiency_parameter_bars.png")
-fig_assimilation_parameter = plot_plankton_parameter_bars(
-    bgcs,
-    :assimilation_efficiency;
-    labels = case_labels,
-    ylabel = "assimilation efficiency",
-    title = "Assimilation efficiency by zooplankton type",
-)
-save(parameter_bar_figure_path, fig_assimilation_parameter; px_per_unit = 1)
-fig_assimilation_parameter
-
 # ## Exercises
 #
 # 1. Change the high-assimilation values for only one zooplankton type and rerun
 #    the comparison plots.
 # 2. Change one entry in the manual assimilation matrix. Which tracer responds
 #    most strongly?
-# 3. Compare the parameter bars with the matrix heatmaps. Why does the manual
-#    matrix case have default parameter values but a different realized matrix?
+# 3. Compare the matrix heatmaps with the diagnostic plots. Which differences
+#    appear in the realized ecosystem trajectories?

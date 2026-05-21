@@ -140,59 +140,56 @@ strong_filename = strong_run.filename
 
 nothing #hide
 
-# ## Plot ecosystem dynamics
+# ## Diagnostic plots
 #
-# We summarize each simulation by plotting nutrient, total phytoplankton, total zooplankton, and detritus.
-# The P and Z totals use the model's plankton group metadata, so the plotting still works if the size structure changes.
+# The simulations are compared with the reusable diagnostics introduced in Exercise 02.
+# `plot_box_timeseries` compares tracer concentrations, `plot_contributions` shows
+# relative nitrogen partitioning for each allometric configuration, and
+# `plot_cwm_size` compares community-weighted mean plankton sizes.
 
-function read_box_totals(filename, bgc)
-    P = plankton_groups(bgc).P
-    Z = plankton_groups(bgc).Z
-    times = FieldTimeSeries(filename, "N").times ./ day
-    N = FieldTimeSeries(filename, "N")[1, 1, 1, :]
-    D = FieldTimeSeries(filename, "D")[1, 1, 1, :]
+default_timeseries = read_box_tracer_timeseries(default_run.filename, default_run.tracer_syms)
+flat_timeseries = read_box_tracer_timeseries(flat_run.filename, flat_run.tracer_syms)
+strong_timeseries = read_box_tracer_timeseries(strong_run.filename, strong_run.tracer_syms)
 
-    total_tracer_group(tracers) = sum(FieldTimeSeries(filename, string(tracer))[1, 1, 1, :] for tracer in tracers)
+comparison_figure_path = joinpath("figures", "03_allometry_timeseries_comparison.png")
+fig_comparison = plot_box_timeseries(
+    [default_timeseries, flat_timeseries, strong_timeseries];
+    labels = bgc_case_labels,
+)
+save(comparison_figure_path, fig_comparison; px_per_unit = 1)
+fig_comparison
 
-    return (;
-        times = collect(times),
-        N = collect(N),
-        P = collect(total_tracer_group(P)),
-        Z = collect(total_tracer_group(Z)),
-        D = collect(D),
-    )
-end
+# ### Relative nitrogen contributions: default allometry
 
-default_dynamics = read_box_totals(default_filename, bgc_default)
-flat_dynamics = read_box_totals(flat_filename, bgc_flat)
-strong_dynamics = read_box_totals(strong_filename, bgc_strong_small_fast)
+nitrogen_default_figure_path = joinpath("figures", "03_allometry_relative_nitrogen_default.png")
+fig_nitrogen_default = plot_contributions(default_timeseries.times, default_timeseries.data)
+save(nitrogen_default_figure_path, fig_nitrogen_default; px_per_unit = 1)
+fig_nitrogen_default
 
-fig_dynamics = Figure(; size = (600, 480), fontsize = 12)
+# ### Relative nitrogen contributions: flat allometry
 
-axN = Axis(fig_dynamics[1, 1]; xlabel = "Time (days)", ylabel = "N (mmol N m⁻³)", title = "Nutrient")
-axP = Axis(fig_dynamics[1, 2]; xlabel = "Time (days)", ylabel = "P (mmol N m⁻³)", title = "Total phytoplankton")
-axZ = Axis(fig_dynamics[2, 1]; xlabel = "Time (days)", ylabel = "Z (mmol N m⁻³)", title = "Total zooplankton")
-axD = Axis(fig_dynamics[2, 2]; xlabel = "Time (days)", ylabel = "D (mmol N m⁻³)", title = "Detritus")
+nitrogen_flat_figure_path = joinpath("figures", "03_allometry_relative_nitrogen_flat.png")
+fig_nitrogen_flat = plot_contributions(flat_timeseries.times, flat_timeseries.data)
+save(nitrogen_flat_figure_path, fig_nitrogen_flat; px_per_unit = 1)
+fig_nitrogen_flat
 
-lines!(axN, default_dynamics.times, default_dynamics.N; label = "Default")
-lines!(axN, flat_dynamics.times, flat_dynamics.N; label = "Flat")
-lines!(axN, strong_dynamics.times, strong_dynamics.N; label = "Strong small-fast")
+# ### Relative nitrogen contributions: strong small-fast allometry
 
-lines!(axP, default_dynamics.times, default_dynamics.P; label = "Default")
-lines!(axP, flat_dynamics.times, flat_dynamics.P; label = "Flat")
-lines!(axP, strong_dynamics.times, strong_dynamics.P; label = "Strong small-fast")
+nitrogen_strong_figure_path = joinpath("figures", "03_allometry_relative_nitrogen_strong_small_fast.png")
+fig_nitrogen_strong = plot_contributions(strong_timeseries.times, strong_timeseries.data)
+save(nitrogen_strong_figure_path, fig_nitrogen_strong; px_per_unit = 1)
+fig_nitrogen_strong
 
-lines!(axZ, default_dynamics.times, default_dynamics.Z; label = "Default")
-lines!(axZ, flat_dynamics.times, flat_dynamics.Z; label = "Flat")
-lines!(axZ, strong_dynamics.times, strong_dynamics.Z; label = "Strong small-fast")
+# ### Community-weighted mean size comparison
 
-lines!(axD, default_dynamics.times, default_dynamics.D; label = "Default")
-lines!(axD, flat_dynamics.times, flat_dynamics.D; label = "Flat")
-lines!(axD, strong_dynamics.times, strong_dynamics.D; label = "Strong small-fast")
-
-axislegend(axN; position = :rt)
-save(joinpath("figures", "03_ecosystem_dynamics.png"), fig_dynamics; px_per_unit=1)
-fig_dynamics
+cwm_size_comparison_figure_path = joinpath("figures", "03_allometry_cwm_size_comparison.png")
+fig_size_comparison = plot_cwm_size(
+    [default_timeseries, flat_timeseries, strong_timeseries],
+    bgc_cases;
+    labels = bgc_case_labels,
+)
+save(cwm_size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
+fig_size_comparison
 
 # ## Exercises
 #

@@ -117,18 +117,9 @@ data = timeseries.data
 
 nothing #hide
 
-# ## Tracer concentrations
-#
-# First inspect the default configuration by itself.
-
-tracer_concentrations_figure_path = joinpath("figures", "06_palatability_tracer_concentrations.png")
-fig_tracers = plot_box_timeseries(timeseries)
-save(tracer_concentrations_figure_path, fig_tracers; px_per_unit = 1)
-fig_tracers
-
 # ## Tracer concentration comparison
 #
-# The same diagnostic compares all three palatability configurations.
+# The concentration diagnostic compares all three palatability configurations.
 
 comparison_figure_path = joinpath("figures", "06_palatability_timeseries_comparison.png")
 fig_comparison = plot_box_timeseries(
@@ -138,25 +129,26 @@ fig_comparison = plot_box_timeseries(
 save(comparison_figure_path, fig_comparison; px_per_unit = 1)
 fig_comparison
 
-# ## Relative nitrogen contributions
-#
-# The contribution diagnostic summarizes the default palatability run as living
-# versus non-living nitrogen and phytoplankton versus zooplankton biomass.
+# ## Relative nitrogen contributions: default palatability
 
-nitrogen_contributions_figure_path = joinpath("figures", "06_palatability_relative_nitrogen_contributions.png")
-fig_nitrogen = plot_contributions(times, data)
-save(nitrogen_contributions_figure_path, fig_nitrogen; px_per_unit = 1)
-fig_nitrogen
+nitrogen_default_figure_path = joinpath("figures", "06_palatability_relative_nitrogen_default.png")
+fig_nitrogen_default = plot_contributions(timeseries.times, timeseries.data)
+save(nitrogen_default_figure_path, fig_nitrogen_default; px_per_unit = 1)
+fig_nitrogen_default
 
-# ## Community-weighted mean size
-#
-# Palatability changes predator-prey coupling, so it can also shift the size
-# structure of the simulated community.
+# ## Relative nitrogen contributions: Vopt = 5
 
-cwm_size_figure_path = joinpath("figures", "06_palatability_cwm_size.png")
-fig_size = plot_cwm_size(timeseries, bgc)
-save(cwm_size_figure_path, fig_size; px_per_unit = 1)
-fig_size
+nitrogen_vopt_figure_path = joinpath("figures", "06_palatability_relative_nitrogen_vopt5.png")
+fig_nitrogen_vopt = plot_contributions(vopt_timeseries.times, vopt_timeseries.data)
+save(nitrogen_vopt_figure_path, fig_nitrogen_vopt; px_per_unit = 1)
+fig_nitrogen_vopt
+
+# ## Relative nitrogen contributions: custom palatability
+
+nitrogen_custom_figure_path = joinpath("figures", "06_palatability_relative_nitrogen_custom.png")
+fig_nitrogen_custom = plot_contributions(custom_timeseries.times, custom_timeseries.data)
+save(nitrogen_custom_figure_path, fig_nitrogen_custom; px_per_unit = 1)
+fig_nitrogen_custom
 
 # ## Community-weighted mean size comparison
 #
@@ -171,24 +163,6 @@ fig_size_comparison = plot_cwm_size(
 )
 save(cwm_size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
 fig_size_comparison
-
-# ## Parameter bars
-#
-# `Vopt` is a zooplankton parameter used to derive the allometric palatability
-# matrix. The custom-matrix case supplies palatability directly, so its `Vopt`
-# values remain at their defaults even though its realized interaction matrix is
-# different.
-
-parameter_bar_figure_path = joinpath("figures", "06_palatability_vopt_parameter_bars.png")
-fig_vopt_parameter = plot_plankton_parameter_bars(
-    bgcs,
-    :optimum_predator_prey_ratio;
-    labels = case_labels,
-    ylabel = "optimum_predator_prey_ratio",
-    title = "Preferred predator:prey size ratio by zooplankton type",
-)
-save(parameter_bar_figure_path, fig_vopt_parameter; px_per_unit = 1)
-fig_vopt_parameter
 
 # ## Exercises
 #
