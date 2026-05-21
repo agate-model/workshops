@@ -50,10 +50,9 @@ fig_tracers
 
 # ## Relative nitrogen contributions
 #
-# `plot_contributions` sums phytoplankton and zooplankton
-# tracers, then compares their relative contributions with nutrient and
-# detritus pools, separates dead and living biomass, and finally compares
-# phytoplankton and zooplankton with each other.
+# `plot_contributions` shows three coordinated stacked-area diagnostics:
+# individual tracer contributions, living versus non-living nitrogen, and
+# phytoplankton versus zooplankton contributions to living biomass.
 
 nitrogen_contributions_figure_path = joinpath("figures", "02_diagnostic_relative_nitrogen_contributions.png")
 fig_nitrogen = plot_contributions(times, data)
