@@ -1,4 +1,4 @@
-# # [Exercise 02: Number and sizes of plankton] (@id number_and_sizes_exercise)
+# # [Exercise 04: Number and size] (@id number_and_size_exercise)
 #
 # !!! info
 #     This exercise uses [Oceananigans.jl](https://clima.github.io/OceananigansDocumentation/stable/) and [OceanBioME.jl](https://oceanbiome.github.io/OceanBioME.jl/stable/).
@@ -33,7 +33,7 @@ nothing #hide
 # Agate.jl accepts either a generated size range,
 #
 # ```julia
-# (n = 3, min_esd = 1, max_esd = 10, splitting = :log_splitting)
+# (n = 3, min_esd = 1.0, max_esd = 10.0, splitting = :log_splitting)
 # ```
 #
 # or an explicit vector of equivalent spherical diameters,
@@ -70,13 +70,13 @@ nothing #hide
 communities = (
     size_structure = (
         title = "Size-structure example",
-        phyto_size_structure = (n = 3, min_esd = 1, max_esd = 10, splitting = :log_splitting),
+        phyto_size_structure = (n = 3, min_esd = 1.0, max_esd = 10.0, splitting = :log_splitting),
         zoo_size_structure = [10.0, 32.0, 100.0],
     ),
     more_classes = (
         title = "More classes",
-        phyto_size_structure = (n = 5, min_esd = 0.8, max_esd = 20, splitting = :log_splitting),
-        zoo_size_structure = (n = 4, min_esd = 8, max_esd = 160, splitting = :log_splitting),
+        phyto_size_structure = (n = 5, min_esd = 0.8, max_esd = 20.0, splitting = :log_splitting),
+        zoo_size_structure = (n = 4, min_esd = 8.0, max_esd = 160.0, splitting = :log_splitting),
     ),
     explicit_sizes = (
         title = "Explicit sizes",
@@ -126,7 +126,7 @@ end
 
 ax_sizes.yticks = (1:length(communities), [community.title for community in communities])
 axislegend(ax_sizes; position = :rb)
-save("figures/02_size_classes.png", fig_sizes)
+save(joinpath("figures", "04_size_classes.png"), fig_sizes)
 fig_sizes
 
 # ## Run zero-dimensional ecosystem simulations
@@ -174,7 +174,7 @@ function run_box_model(bgc; filename)
 end
 
 outputs = (; (
-    name => run_box_model(bgc; filename = joinpath("outputs", "02_$(name).jld2"))
+    name => run_box_model(bgc; filename = joinpath("outputs", "04_$(name).jld2"))
     for (name, bgc) in pairs(bgcs)
 )...)
 
@@ -189,16 +189,34 @@ nothing #hide
 # - the biomass-weighted median size, which is the size at which half the living plankton biomass is smaller and half is larger.
 
 function weighted_median_size(sizes, biomass)
-    total = sum(biomass)
+    valid = isfinite.(sizes) .& isfinite.(biomass) .& (biomass .> 0)
+    any(valid) || return NaN
+
+    valid_sizes = sizes[valid]
+    valid_biomass = biomass[valid]
+    total = sum(valid_biomass)
     total <= 0 && return NaN
 
-    order = sortperm(sizes)
-    sorted_sizes = sizes[order]
-    sorted_biomass = biomass[order]
+    order = sortperm(valid_sizes)
+    sorted_sizes = valid_sizes[order]
+    sorted_biomass = valid_biomass[order]
     cumulative = cumsum(sorted_biomass) ./ total
 
-    idx = findfirst(>=(0.5), cumulative)
+    idx = findfirst(c -> c >= 0.5, cumulative)
+    isnothing(idx) && return sorted_sizes[end]
     return sorted_sizes[idx]
+end
+
+function weighted_mean_size(sizes, biomass)
+    valid = isfinite.(sizes) .& isfinite.(biomass) .& (biomass .> 0)
+    any(valid) || return NaN
+
+    valid_sizes = sizes[valid]
+    valid_biomass = biomass[valid]
+    total = sum(valid_biomass)
+    total <= 0 && return NaN
+
+    return sum(valid_sizes .* valid_biomass) / total
 end
 
 function read_size_summary(output, community)
@@ -215,7 +233,7 @@ function read_size_summary(output, community)
     biomass = reduce(hcat, [collect(FieldTimeSeries(filename, string(tracer))[1, 1, 1, :]) for tracer in plankton])
     total_biomass = vec(sum(biomass; dims = 2))
 
-    mean_size = [sum(biomass[i, j] * sizes[j] for j in eachindex(sizes)) / (total_biomass[i] + eps()) for i in axes(biomass, 1)]
+    mean_size = [weighted_mean_size(sizes, biomass[i, :]) for i in axes(biomass, 1)]
     median_size = [weighted_median_size(sizes, biomass[i, :]) for i in axes(biomass, 1)]
 
     final_biomass = biomass[end, :]
@@ -247,7 +265,7 @@ for (name, summary) in pairs(summaries)
 end
 
 axislegend(ax_final; position = :rt)
-save("figures/02_size_dynamics.png", fig_summary)
+save(joinpath("figures", "04_size_dynamics.png"), fig_summary)
 fig_summary
 
 # ## Compare linear and logarithmic splitting
@@ -256,8 +274,8 @@ fig_summary
 # Logarithmic splitting places equal distance between the logarithms of diameters.
 # The latter is often more useful when size spans orders of magnitude.
 
-linear_phyto = (n = 5, min_esd = 0.8, max_esd = 20, splitting = :linear_splitting)
-log_phyto = (n = 5, min_esd = 0.8, max_esd = 20, splitting = :log_splitting)
+linear_phyto = (n = 5, min_esd = 0.8, max_esd = 20.0, splitting = :linear_splitting)
+log_phyto = (n = 5, min_esd = 0.8, max_esd = 20.0, splitting = :log_splitting)
 
 fig_splitting = Figure(; size = (800, 420), fontsize = 16)
 ax_split = Axis(fig_splitting[1, 1]; xlabel = "Class index", ylabel = "Diameter (μm ESD)", title = "Linear versus logarithmic splitting", yscale = log10)
@@ -269,7 +287,7 @@ lines!(ax_split, 1:log_phyto.n, size_vector(log_phyto); label = "log_splitting")
 scatter!(ax_split, 1:log_phyto.n, size_vector(log_phyto))
 
 axislegend(ax_split; position = :lt)
-save("figures/02_linear_vs_log_splitting.png", fig_splitting)
+save(joinpath("figures", "04_linear_vs_log_splitting.png"), fig_splitting)
 fig_splitting
 
 # ## Exercises

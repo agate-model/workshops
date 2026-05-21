@@ -34,36 +34,14 @@ nothing #hide
 
 # ## Forcings
 
-# Second, we define the model physical forcings. In this example, mixed layer depth (MLD) forces the physical mixing (diffusivity), while PAR influences plankton photosynthesis.
+# Second, we define the model physical forcings. Diffusivity is held high throughout the water column, while PAR is held at a fixed surface value with depth-dependent attenuation.
+
 #diffusivity
-@inline seasonal_window(t, t₀, t₁) = ifelse(t₀ < t < t₁, 1.0, 0.0)
-
-@inline function mld_factor(t)
-    return seasonal_window(t, 50days, year) *
-           (1 / (1 + exp(-(t - 100days) / 5days))) *
-           (1 / (1 + exp((t - 330days) / 25days)))
-end
-
-@inline function mixed_layer_depth(t)
-    return -(
-        10 +
-        340 * (
-            1 - mld_factor(year - eps(year)) * exp(-mod(t, year) / 25days) -
-            mld_factor(mod(t, year))
-        )
-    )
-end
-
-@inline function diffusivity_profile(x, y, z, t)
-    return 1e-2 * (1 + tanh((z - mixed_layer_depth(t)) / 10)) / 2 + 1e-4
-end
+@inline diffusivity_profile(x, y, z, t) = 1e-2
 
 #irradiance
-@inline function seasonal_PAR(x, y, z, t)
-    PAR⁰ =
-        60 *
-        (1 - cos((t + 15days) * 2π / year)) *
-        (1 / (1 + 0.2 * exp(-((mod(t, year) - 200days) / 50days)^2))) + 2
+@inline function constant_PAR(x, y, z, t)
+    PAR⁰ = 80
     return PAR⁰ * exp(0.2 * z)
 end
 
@@ -72,7 +50,7 @@ t_range = 0.0:days:(365.0 * days)  # Time range from 0 to 365 days
 z_range = -200.0:10.0:0.0  # Depth range from -200m to 0m 
 x, y, z = 0.0, 0.0, 0.0
 κₜ_values = [diffusivity_profile(x, y, z, t) for t in t_range, z in z_range]
-PAR_values = [seasonal_PAR(x, y, z, t) for t in t_range, z in z_range]
+PAR_values = [constant_PAR(x, y, z, t) for t in t_range, z in z_range]
 
 fig_forcing = Figure(; resolution=(800, 600), fontsize=14)
 ax1 = Axis(fig_forcing[1, 1]; xlabel="Time (days)", ylabel="Depth (m)", title="irradiance")
@@ -89,7 +67,7 @@ grid = RectilinearGrid(; size=(1, 1, 20), extent=(20meters, 20meters, 200meters)
 nothing #hide
 
 bgc_model = Biogeochemistry(
-    bgc; light_attenuation=FunctionFieldPAR(; grid, PAR_f=seasonal_PAR)
+    bgc; light_attenuation=FunctionFieldPAR(; grid, PAR_f=constant_PAR)
 )
 nothing #hide
 
