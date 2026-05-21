@@ -168,17 +168,45 @@
     "text": "Final takeaway\n\n\nAgate.jl is motivated by transferable, GCM-agnostic ecosystem model components.\nJulia supports a composable, high-performance, and eventually tunable modelling ecosystem.\nTrait-based and allometric abstractions help turn ecological assumptions into reusable model structure.\nThe rest of the workshop will introduce concepts only when they are needed for the exercises.\n\n\n\n\n\nThe central workshop motivation: transferable, composable ecosystem models."
   },
   {
-    "objectID": "03_module_lecture.html#module-2-framing",
-    "href": "03_module_lecture.html#module-2-framing",
+    "objectID": "03_module_lecture.html#predation-and-trophic-structure",
+    "href": "03_module_lecture.html#predation-and-trophic-structure",
     "title": "Module Lecture 2",
-    "section": "Module 2 framing",
-    "text": "Module 2 framing\n\n\nReplace this text with the concept lecture for the second hands-on module.\nKeep the framing focused on the assumption being changed.\nAdd only the background needed for participants to run and interpret the exercise.\n\n\n\n\n\nReplace with a module-specific figure caption."
+    "section": "Predation and trophic structure",
+    "text": "Predation and trophic structure\n\n\n\n\n\n\n\n\nImage from Dutkiewicz et al., 2024 (L&O)."
   },
   {
-    "objectID": "03_module_lecture.html#module-2-diagnostic",
-    "href": "03_module_lecture.html#module-2-diagnostic",
+    "objectID": "03_module_lecture.html#palatability",
+    "href": "03_module_lecture.html#palatability",
     "title": "Module Lecture 2",
-    "section": "Module 2 diagnostic",
-    "text": "Module 2 diagnostic\n\n\nWhat output should participants inspect?\nWhat change would indicate that the assumption mattered?\nWhat comparison is most useful?\n\n\n\n\n\nReplace with the diagnostic or comparison for this module."
+    "section": "Palatability",
+    "text": "Palatability\n\n\n\n\n\n\n\n\nReplace with the diagnostic or comparison for this module."
+  },
+  {
+    "objectID": "03_module_lecture.html#size-optima",
+    "href": "03_module_lecture.html#size-optima",
+    "title": "Module Lecture 2",
+    "section": "Size optima",
+    "text": "Size optima\n\n\n\n\n\n\n\n\nHansen 1994, and from Garcia-Oliva and Wirtz 2022."
+  },
+  {
+    "objectID": "03_module_lecture.html#assimilation-efficiency",
+    "href": "03_module_lecture.html#assimilation-efficiency",
+    "title": "Module Lecture 2",
+    "section": "Assimilation efficiency",
+    "text": "Assimilation efficiency\n\n\nAlso known as Gross Growth Efficiency (GGE)\n\n\n\n\n\nData replotted from Straile 1997."
+  },
+  {
+    "objectID": "03_module_lecture.html#unresolved-higher-predation",
+    "href": "03_module_lecture.html#unresolved-higher-predation",
+    "title": "Module Lecture 2",
+    "section": "Unresolved higher predation",
+    "text": "Unresolved higher predation\n\n\n\n\n\n\n\n\nImage from Follows and Dutkiewicz, 2011 (Annu. Rev. Mar. Sci)."
+  },
+  {
+    "objectID": "03_module_lecture.html#trade-offs",
+    "href": "03_module_lecture.html#trade-offs",
+    "title": "Module Lecture 2",
+    "section": "Trade-offs",
+    "text": "Trade-offs\n\n\n\n\n\n\n\n\nReplace with the diagnostic or comparison for this module."
   }
 ]
