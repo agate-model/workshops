@@ -12,7 +12,7 @@
 # ## Loading dependencies
 
 using Agate
-using Agate.Introspection: plankton_groups, tracer_names
+using Agate.Introspection: tracer_names
 using CairoMakie
 
 using AgateWorkshop
@@ -29,26 +29,20 @@ nothing #hide
 # ranges and logarithmic spacing, but increase both groups to five and ten
 # classes.
 
-bgc_default = default_quickstart_bgc()
-
-default_diameters = _plankton_diameters_by_tracer(bgc_default)
-default_groups = plankton_groups(bgc_default)
-
-function size_range_for(tracers)
-    sizes = [default_diameters[Symbol(tracer)] for tracer in tracers]
-    return (minimum(sizes), maximum(sizes))
-end
-
-phyto_min_esd, phyto_max_esd = size_range_for(default_groups.P)
-zoo_min_esd, zoo_max_esd = size_range_for(default_groups.Z)
+default_phyto_size_structure = (n = 2, min_esd = 2, max_esd = 10, splitting = :log_splitting)
+default_zoo_size_structure = (n = 2, min_esd = 20, max_esd = 100, splitting = :linear_splitting)
 
 function construct_size_class_bgc(n)
     return Agate.Models.NiPiZD.construct(;
-        phyto_size_structure = (n = n, min_esd = phyto_min_esd, max_esd = phyto_max_esd, splitting = :log_splitting),
-        zoo_size_structure = (n = n, min_esd = zoo_min_esd, max_esd = zoo_max_esd, splitting = :log_splitting),
+        phyto_size_structure = (; default_phyto_size_structure..., n),
+        zoo_size_structure = (; default_zoo_size_structure..., n),
     )
 end
 
+bgc_default = Agate.Models.NiPiZD.construct(;
+    phyto_size_structure = default_phyto_size_structure,
+    zoo_size_structure = default_zoo_size_structure,
+)
 bgc_5_each = construct_size_class_bgc(5)
 bgc_10_each = construct_size_class_bgc(10)
 
