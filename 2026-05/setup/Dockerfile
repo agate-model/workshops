@@ -41,10 +41,15 @@ RUN test -x /usr/local/julia/bin/julia \
     && /usr/local/julia/bin/julia --version \
     && /usr/local/bin/julia --version
 
-# Create the Julia workshop environment from the repository Project.toml.
-COPY Project.toml /opt/agate-workshop-env/Project.toml
+# Create the Julia workshop environment and install the workshop helper package.
+# Build this Dockerfile with the workshop root as the context, for example:
+#   docker build -f setup/Dockerfile .
+COPY setup/Project.toml /opt/agate-workshop-env/Project.toml
+COPY Project.toml /opt/AgateWorkshop/Project.toml
+COPY src /opt/AgateWorkshop/src
 
 RUN julia --project=/opt/agate-workshop-env -e 'using Pkg; \
+    Pkg.develop(path="/opt/AgateWorkshop"); \
     Pkg.instantiate(); \
     Pkg.precompile()'
 
