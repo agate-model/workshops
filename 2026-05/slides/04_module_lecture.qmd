@@ -1,0 +1,44 @@
+---
+title: "Physical forcings: irradiance and mixing"
+author: ""
+---
+
+## Photosynthesis {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Replace this text with the concept lecture for the third hands-on module.
+- State the modelling question clearly.
+- Identify the assumption or parameterization participants will modify.
+:::
+
+::: {.slide-figure}
+![](images/03_physics/slide-01.svg)
+<p class="caption">Replace with a module-specific figure caption.</p>
+:::
+
+
+## Light attenuation {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Replace this text with the concept lecture for the third hands-on module.
+- State the modelling question clearly.
+- Identify the assumption or parameterization participants will modify.
+:::
+
+::: {.slide-figure}
+![](images/03_physics/slide-01.svg)
+<p class="caption">Replace with a module-specific figure caption.</p>
+:::
+
+## Mixing {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Replace this text with the concept lecture for the third hands-on module.
+- State the modelling question clearly.
+- Identify the assumption or parameterization participants will modify.
+:::
+
+::: {.slide-figure}
+![](images/03_physics/slide-01.svg)
+<p class="caption">Lindemann and John, 2014 (Frontiers in Marine Science).</p>
+:::

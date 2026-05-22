@@ -1,0 +1,76 @@
+---
+title: "Module Lecture 2"
+author: ""
+---
+
+## Predation and trophic structure {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- 
+:::
+
+::: {.slide-figure}
+![](images/03_predation/slide-01.svg)
+<p class="caption">Image from Dutkiewicz et al., 2024 (L&O).</p>
+:::
+
+## Palatability {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- 
+:::
+
+::: {.slide-figure}
+![](images/03_predation/slide-02.svg)
+<p class="caption">Replace with the diagnostic or comparison for this module.</p>
+:::
+
+
+## Size optima {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- 
+:::
+
+::: {.slide-figure}
+![](images/03_predation/slide-03.svg)
+<p class="caption">Hansen 1994, and from Garcia-Oliva and Wirtz 2022.</p>
+:::
+
+
+
+## Assimilation efficiency {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Also known as Gross Growth Efficiency (GGE)
+:::
+
+::: {.slide-figure}
+![](images/03_predation/slide-04.svg)
+<p class="caption">Data replotted from Straile 1997.</p>
+:::
+
+
+## Unresolved higher predation {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- 
+:::
+
+::: {.slide-figure}
+![](images/03_predation/slide-05.svg)
+<p class="caption">Image from Follows and Dutkiewicz, 2011 (Annu. Rev. Mar. Sci).</p>
+:::
+
+
+## Trade-offs {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- 
+:::
+
+::: {.slide-figure}
+![](images/03_predation/slide-06.svg)
+<p class="caption">Replace with the diagnostic or comparison for this module.</p>
+:::
+

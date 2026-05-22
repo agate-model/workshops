@@ -1,0 +1,254 @@
+---
+title: "Agate.jl Workshop: Motivation and Orientation"
+author: ""
+output-file: 01_intro.html
+---
+
+## Welcome {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+
+| Time | Session |
+|---|---|
+| 09:30–10:00 | *Docker setup (optional, this can be done before the workshop)* |
+| 10:00–10:30 | Welcome and workshop overview |
+| 10:30–11:10 | Session 1: Size, allometry, and plankton traits |
+| 11:10–11:25 | Break |
+| 11:25–12:05 | Session 2: Predation and trophic structure |
+| 12:05–12:45 | Session 3: Physical forcing: light and diffusivity  |
+| 12:45–13:45 | Lunch |
+| 13:45–14:35 | Group exercise |
+| 14:35–15:10 | Own-work block 1 |
+| 15:10–15:40 | Break |
+| 15:40–16:30 | Own-work block 2 |
+| 16:30–16:55 | Show-and-tell (optional) and feedback |
+| 16:55–17:00 | Wrap-up |
+| 17:00       | Pub |
+
+:::
+
+::: {.slide-figure}
+![](images/01_intro/slide-00.svg)
+<p class="caption">Map of 8-10 Berkley Square (from [mazemap](https://use.mazemap.com/#v=1&config=UoBCampuses&campusid=843&center=-2.606670,51.454875&zoom=20&zlevel=2)).</p>
+:::
+
+## Current state of the art {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+
+All major Earth System Models (ESMs) use FORTRAN.
+- First appeared in 1957; 69 years ago
+- Highly optimized and battle tested
+- Large user base / existing expertise
+- Physical system well calibrated (circulation, boundary conditions)
+
+Downsides:
+
+- Ocean biogeochemistry often secondary
+- Non-composable -> iron cycling for PISCES can't be used in DARWIN
+- Hard to Automatically Differentiate -> makes Bayesian inference and machine learning expensive!
+- Difficult to utilize GPUs (but increasingly feasible)
+
+:::
+
+::: {.slide-figure}
+![](images/01_intro/slide-01.svg)
+<p class="caption">FORTRAN on punched card from Wikimedia Commons, TIOBE May 2026 rankings from tiobe.com.</p>
+:::
+
+## Julia programming language - a new frontier ? {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+
+Benefits:
+
+- Similar performance to FORTRAN but easier to program (like Python, R, MATLAB)
+- Designed to be composable (at least in theory)
+- Strong Automatic Differentiation infrastructure
+- GPUs well supported
+- Existing physical oceanography model (Oceananigans.jl) and an active Earth System Modelling community (NumericalEarth.jl)
+
+Downsides:
+
+- Effectively starting from scratch (ESMs are complex(!))
+- Small user base / expertise
+- Plotting etc. is still behind Python/R
+- Senior PI's are often hesitant to learn a new language
+- FORTRAN has stood the test of time, will Julia?
+
+:::
+
+::: {.slide-figure}
+![](images/01_intro/slide-02.svg)
+<p class="caption">Figure from Silverstri et al., 2023 (ArXiv preprint)</p>
+:::
+
+## From monolithic models to composable components {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Current Earth System and Ocean Models are modular (e.g. NEMO and PISCES/ MITgcm and DARWIN) but not composable with each other (no MITgcm-PISCES)
+- NumericalEarth.jl aims to provide an composable alternative (at least in theory)
+- For example: atmospheric physics can be resolved by Breeze.jl, SpeedyWeather.jl or data products (JRA5/ERA5)
+- Only one ocean physics model (Oceananigans.jl) - so far (!)
+- Automatic Differentiation a key objective
+
+:::
+
+::: {.slide-figure}
+![](images/01_intro/slide-03.svg)
+<p class="caption">NumericalEarth.jl provides a coupling frameworks to make Julia composable earth system models.</p>
+:::
+
+## Oceananigans.jl and OceanBioME.jl {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+Oceananigans.jl:
+
+- initial commit Oct 2018
+- published Dec 2019
+- ~ 90 contributors
+
+OceanBioME.jl:
+
+- initial commit Jul 2022
+- published Oct 2023
+- ~ 14 contributors
+
+:::
+
+::: {.slide-figure}
+![](images/01_intro/slide-04.svg)
+<p class="caption">Oceans in Julia: Oceananigans.jl provides physics and infrastructure such as solvers, OceanBioME.jl provides biogeochemistry</p>
+:::
+
+## Where does Agate.jl fit in? {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- **A**quatic **G**CM **A**gnostic **T**rait-based **E**cosystems
+- Couples with OceanBioME.jl
+- Used to implement high-complexity trait-based ecosystems of arbitrary complexity
+- First commit Nov 2018, manuscript in prep...
+
+
+:::
+
+::: {.slide-figure}
+![](images/01_intro/slide-05.svg)
+<p class="caption">Agate.jl couples with OceanBioME and is solved by Oceananigans.jl.</p>
+:::
+
+## Intermediate vs High complexity ecosystems {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+
+- Low complexity ecosystems: NPZD models 
+- Intermediate complexity: multiple P and Z functional types (e.g. PISCES, MARBL)
+- High complexity: size structured plus functional types (e.g. DARWIN, ecoGENIE)
+
+
+:::
+
+::: {.slide-figure}
+![](images/01_intro/slide-06.svg)
+<p class="caption">Simplified representation of model complexity. Some models favour biogeochemical complexity (e.g. PISCES) while others favour ecosystems (DARWIN). </p>
+:::
+
+## Trait-based approaches {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- ~ 110,000 eukaryotic OTU's (de Vargas et al., 2015)
+- modelling even 1% of this is too expensive 
+- Large majority uncultured and can't be easily parameterized
+- Trait based frameworks provide first-principles framework to capture this diversity
+
+:::
+
+::: {.slide-figure}
+![](images/01_intro/slide-07.svg)
+<p class="caption"> Overview of key traits from Litchman and Klaushmeier, 2008 (Ann. Rev. Ecol. Evol. Syst. ).</p>
+:::
+
+## Trait trade-offs {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Complex emergent ecossytems can be created by seeding the system with many types
+- Competitive types will survive in relevant niches
+- idea requires trait trade-offs, if one type is too advantageous it will dominate (Darwinian demon)
+- trade-off: "every benefit comes at a cost
+
+:::
+
+::: {.slide-figure}
+![](images/01_intro/slide-08.svg)
+<p class="caption">Trait trade-offs. Only some combinations are energetically feasible, and a subset is selected by the environment</p>
+:::
+
+## Allometry {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Allometry (size) is a funamental trait that applies to all organisms on ERA5
+- For plankton it determines, growth rates and nutrient requirements
+- Prey selection is also largely size dependant 
+
+:::
+
+::: {.slide-figure}
+![](images/01_intro/slide-09.svg)
+<p class="caption">Division rate vs size from Follows and Dutkiewicz, 2011. Prey:predator size ratios from Hansen 1994</p>
+:::
+
+## Global emergent ecosystems {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Trait-based models successfully used in global context
+- MITgcm-DARWIN (modern and climate change simulations of carbon cycle and diversity)
+- ecoGENIE (paleo and future climate simulations of carbon cycle and diversity)
+
+:::
+
+::: {.slide-figure}
+![](images/01_intro/slide-10.svg)
+<p class="caption">Global applications of trait-based models. MITgcm-DARWIN figure from Dutkiewicz and EcoGENIE from Bagwell</p>
+:::
+
+## Setup for today: box models {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+- Global trait-based models are too expensive to run
+- We will be using "0D" box models and 1D water columns instead
+- We will use these to explore the impacts of traits and physical processes (mixing and light)
+
+:::
+
+::: {.slide-figure}
+![](images/01_intro/slide-11.svg)
+<p class="caption">Overview of box-model reproduced from dar_one docs.</p>
+:::
+
+## Schedule {background-image="images/background-placeholder.svg" background-size="cover"}
+
+::: {.slide-copy}
+
+| Time | Session |
+|---|---|
+| 09:30–10:00 | *Docker setup (optional, this can be done before the workshop)* |
+| 10:00–10:30 | Welcome and workshop overview |
+| 10:30–11:10 | Session 1: Size, allometry, and plankton traits |
+| 11:10–11:25 | Break |
+| 11:25–12:05 | Session 2: Predation and trophic structure |
+| 12:05–12:45 | Session 3: Physical forcing: light and diffusivity  |
+| 12:45–13:45 | Lunch |
+| 13:45–14:35 | Group exercise |
+| 14:35–15:10 | Own-work block 1 |
+| 15:10–15:40 | Break |
+| 15:40–16:30 | Own-work block 2 |
+| 16:30–16:55 | Show-and-tell (optional) and feedback |
+| 16:55–17:00 | Wrap-up |
+| 17:00       | Pub |
+
+:::
+
+::: {.slide-figure}
+![](images/01_intro/slide-00.svg)
+<p class="caption">Map of 8-10 Berkley Square (from [mazemap](https://use.mazemap.com/#v=1&config=UoBCampuses&campusid=843&center=-2.606670,51.454875&zoom=20&zlevel=2)).</p>
+:::
