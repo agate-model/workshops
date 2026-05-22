@@ -214,32 +214,26 @@
 <div class="slide-figure">
 <img data-src="images/01_intro/slide-00.svg">
 <p class="caption">
-Map of Berkley Square 8-10 (from <a href="https://use.mazemap.com/#v=1&amp;config=UoBCampuses&amp;campusid=843&amp;center=-2.606670,51.454875&amp;zoom=20&amp;zlevel=2">mazemap</a>).
+Map of 8-10 Berkley Square (from <a href="https://use.mazemap.com/#v=1&amp;config=UoBCampuses&amp;campusid=843&amp;center=-2.606670,51.454875&amp;zoom=20&amp;zlevel=2">mazemap</a>).
 </p>
 </div>
 </section>
 <section id="current-state-of-the-art" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
 <h2>Current state of the art</h2>
 <div class="slide-copy">
-<p>All major Earth System Models (ESMs) use FORTRAN.</p>
-<ul>
-<li>Highly optimized and battle tested</li>
-<li>Large user base / existing expertise</li>
-<li>Physical system well calibrated (circulation, boundary conditions)</li>
-</ul>
+<p>All major Earth System Models (ESMs) use FORTRAN. - First appeared in 1957; 69 years ago - Highly optimized and battle tested - Large user base / existing expertise - Physical system well calibrated (circulation, boundary conditions)</p>
 <p>Downsides:</p>
 <ul>
-<li>First appeared in 1957; 69 years ago</li>
-<li>Ocean biogeochemistry often secondary/tertiary</li>
+<li>Ocean biogeochemistry often secondary</li>
 <li>Non-composable -&gt; iron cycling for PISCES can’t be used in DARWIN</li>
 <li>Hard to Automatically Differentiate -&gt; makes Bayesian inference and machine learning expensive!</li>
-<li>Difficult to utilize GPUs (but increasingly possible)</li>
+<li>Difficult to utilize GPUs (but increasingly feasible)</li>
 </ul>
 </div>
 <div class="slide-figure">
 <img data-src="images/01_intro/slide-01.svg">
 <p class="caption">
-Legacy Earth system model infrastructure and FORTRAN-based scientific computing.
+FORTRAN on punched card from Wikimedia Commons, TIOBE May 2026 rankings from tiobe.com.
 </p>
 </div>
 </section>
@@ -258,15 +252,15 @@ Legacy Earth system model infrastructure and FORTRAN-based scientific computing.
 <ul>
 <li>Effectively starting from scratch (ESMs are complex(!))</li>
 <li>Small user base / expertise</li>
-<li>While theoretically easy to use, plotting etc. is still behind Python/R</li>
-<li>Senior PI’s are hesitant to learn a new language</li>
+<li>Plotting etc. is still behind Python/R</li>
+<li>Senior PI’s are often hesitant to learn a new language</li>
 <li>FORTRAN has stood the test of time, will Julia?</li>
 </ul>
 </div>
 <div class="slide-figure">
 <img data-src="images/01_intro/slide-02.svg">
 <p class="caption">
-Julia as a bridge between expressive scientific code and high-performance simulation.
+Figure from Silverstri et al., 2023 (ArXiv preprint)
 </p>
 </div>
 </section>
@@ -274,93 +268,73 @@ Julia as a bridge between expressive scientific code and high-performance simula
 <h2>From monolithic models to composable components</h2>
 <div class="slide-copy">
 <ul>
-<li>Monolithic workflow: physical model, numerics, ecosystem equations, parameters, and diagnostics are tightly coupled.</li>
-<li>Composable workflow: ecosystem components are specified through interfaces and coupled to different contexts.</li>
-<li>Reusable components make model variants easier to compare.</li>
-<li>Composability supports a distributed climate model made from interoperable packages.</li>
+<li>Current Earth System and Ocean Models are modular (e.g.&nbsp;NEMO and PISCES/ MITgcm and DARWIN) but not composable with each other (no MITgcm-PISCES)</li>
+<li>NumericalEarth.jl aims to provide an composable alternative (at least in theory)</li>
+<li>For example: atmospheric physics can be resolved by Breeze.jl, SpeedyWeather.jl or data products (JRA5/ERA5)</li>
+<li>Only one ocean physics model (Oceananigans.jl) - so far (!)</li>
+<li>Automatic Differentiation a key objective</li>
 </ul>
 </div>
 <div class="slide-figure">
 <img data-src="images/01_intro/slide-03.svg">
 <p class="caption">
-Composable components make model variants easier to assemble and compare.
+NumericalEarth.jl provides a coupling frameworks to make Julia composable earth system models.
 </p>
 </div>
 </section>
-<section id="the-wider-julia-climate-and-ocean-ecosystem" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
-<h2>The wider Julia climate and ocean ecosystem</h2>
+<section id="oceananigans.jl-and-oceanbiome.jl" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Oceananigans.jl and OceanBioME.jl</h2>
 <div class="slide-copy">
-<p>Clima and NumericalEarth.jl ecosystem<br>
-↓<br>
-Oceananigans.jl: ocean physics and simulation<br>
-↓<br>
-OceanBioME.jl: biogeochemistry and ecosystem coupling<br>
-↓<br>
-Agate.jl: aquatic ecosystem model construction</p>
+<p>Oceananigans.jl:</p>
+<ul>
+<li>initial commit Oct 2018</li>
+<li>published Dec 2019</li>
+<li>~ 90 contributors</li>
+</ul>
+<p>OceanBioME.jl:</p>
+<ul>
+<li>initial commit Jul 2022</li>
+<li>published Oct 2023</li>
+<li>~ 14 contributors</li>
+</ul>
 </div>
 <div class="slide-figure">
 <img data-src="images/01_intro/slide-04.svg">
 <p class="caption">
-Agate.jl in the broader Julia climate and ocean software ecosystem.
+Oceans in Julia: Oceananigans.jl provides physics and infrastructure such as solvers, OceanBioME.jl provides biogeochemistry
 </p>
 </div>
 </section>
-<section id="why-julia-for-this" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
-<h2>Why Julia for this?</h2>
+<section id="where-does-agate.jl-fit-in" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Where does Agate.jl fit in?</h2>
 <div class="slide-copy">
 <ul>
-<li>High-level expression: model ideas can be written close to the scientific abstraction.</li>
-<li>Performance: numerical code can run efficiently without moving to a separate implementation language.</li>
-<li>Multiple dispatch: components can share interfaces while specializing behavior.</li>
-<li>GPU support: important for high-resolution ocean and climate simulations.</li>
-<li>Automatic differentiation: a long-term route toward tunable and calibratable model components.</li>
+<li><strong>A</strong>quatic <strong>G</strong>CM <strong>A</strong>gnostic <strong>T</strong>rait-based <strong>E</strong>cosystems</li>
+<li>Couples with OceanBioME.jl</li>
+<li>Used to implement high-complexity trait-based ecosystems of arbitrary complexity</li>
+<li>First commit Nov 2018, manuscript in prep…</li>
 </ul>
 </div>
 <div class="slide-figure">
 <img data-src="images/01_intro/slide-05.svg">
 <p class="caption">
-Julia features relevant to ecosystem model development.
+Agate.jl couples with OceanBioME and is solved by Oceananigans.jl.
 </p>
 </div>
 </section>
-<section id="what-does-agate.jl-stand-for" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
-<h2>What does Agate.jl stand for?</h2>
+<section id="intermediate-vs-high-complexity-ecosystems" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Intermediate vs High complexity ecosystems</h2>
 <div class="slide-copy">
-<table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Term</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Aquatic</td>
-<td>Aquatic ecosystem and biogeochemical model components.</td>
-</tr>
-<tr class="even">
-<td>GCM-agnostic</td>
-<td>Components should not be tied to one circulation model or physical host.</td>
-</tr>
-<tr class="odd">
-<td>Tunable</td>
-<td>Long-term goal: components that can be calibrated, optimized, differentiated, and tested systematically.</td>
-</tr>
-<tr class="even">
-<td>Ecosystems</td>
-<td>Communities, traits, interactions, and process structure.</td>
-</tr>
-</tbody>
-</table>
+<ul>
+<li>Low complexity ecosystems: NPZD models</li>
+<li>Intermediate complexity: multiple P and Z functional types (e.g.&nbsp;PISCES, MARBL)</li>
+<li>High complexity: size structured plus functional types (e.g.&nbsp;DARWIN, ecoGENIE)</li>
+</ul>
 </div>
 <div class="slide-figure">
 <img data-src="images/01_intro/slide-06.svg">
 <p class="caption">
-The Agate.jl acronym connects scope, portability, tuning, and ecosystems.
+Simplified representation of model complexity. Some models favour biogeochemical complexity (e.g.&nbsp;PISCES) while others favour ecosystems (DARWIN).
 </p>
 </div>
 </section>
@@ -368,31 +342,33 @@ The Agate.jl acronym connects scope, portability, tuning, and ecosystems.
 <h2>Trait-based approaches</h2>
 <div class="slide-copy">
 <ul>
-<li>XX species in ocean</li>
-<li>Trait based frameworks provide first-principles constraints</li>
+<li>~ 110,000 eukaryotic OTU’s (de Vargas et al., 2015)</li>
+<li>modelling even 1% of this is too expensive</li>
+<li>Large majority uncultured and can’t be easily parameterized</li>
+<li>Trait based frameworks provide first-principles framework to capture this diversity</li>
 </ul>
 </div>
 <div class="slide-figure">
 <img data-src="images/01_intro/slide-07.svg">
 <p class="caption">
-Agate.jl as a higher-level interface for constructing model variants.
+Overview of key traits from Litchman and Klaushmeier, 2008 (Ann. Rev.&nbsp;Ecol. Evol. Syst. ).
 </p>
 </div>
 </section>
-<section id="emergent-ecosystems" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
-<h2>Emergent ecosystems</h2>
+<section id="trait-trade-offs" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Trait trade-offs</h2>
 <div class="slide-copy">
 <ul>
-<li>Models are not copies of nature; they are simplified arguments about mechanisms.</li>
-<li>A useful model edit should correspond to a clear assumption.</li>
-<li>A useful experiment compares alternatives, not just isolated runs.</li>
-<li>Interpretation requires a diagnostic: what output would show whether the assumption mattered?</li>
+<li>Complex emergent ecossytems can be created by seeding the system with many types</li>
+<li>Competitive types will survive in relevant niches</li>
+<li>idea requires trait trade-offs, if one type is too advantageous it will dominate (Darwinian demon)</li>
+<li>trade-off: “every benefit comes at a cost</li>
 </ul>
 </div>
 <div class="slide-figure">
 <img data-src="images/01_intro/slide-08.svg">
 <p class="caption">
-Model edits as explicit ecological assumptions and comparisons.
+Trait trade-offs. Only some combinations are energetically feasible, and a subset is selected by the environment
 </p>
 </div>
 </section>
@@ -400,58 +376,52 @@ Model edits as explicit ecological assumptions and comparisons.
 <h2>Allometry</h2>
 <div class="slide-copy">
 <ul>
-<li>Plankton communities are diverse and difficult to represent species by species.</li>
-<li>Trait-based models represent ecological strategies rather than every named organism.</li>
-<li>Traits connect biological differences to model processes.</li>
-<li>This makes it easier to construct families of model variants.</li>
+<li>Allometry (size) is a funamental trait that applies to all organisms on ERA5</li>
+<li>For plankton it determines, growth rates and nutrient requirements</li>
+<li>Prey selection is also largely size dependant</li>
 </ul>
 </div>
 <div class="slide-figure">
 <img data-src="images/01_intro/slide-09.svg">
 <p class="caption">
-Traits provide handles for representing ecological strategies.
+Division rate vs size from Follows and Dutkiewicz, 2011. Prey:predator size ratios from Hansen 1994
 </p>
 </div>
 </section>
-<section id="why-allometry" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
-<h2>Why allometry?</h2>
+<section id="global-emergent-ecosystems" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Global emergent ecosystems</h2>
 <div class="slide-copy">
 <ul>
-<li>Allometry describes how biological quantities scale with organism size or other traits.</li>
-<li>It reduces the number of independent parameters that must be assigned manually.</li>
-<li>It makes modelling assumptions explicit and reusable.</li>
-<li>It helps construct related model types from shared rules.</li>
+<li>Trait-based models successfully used in global context</li>
+<li>MITgcm-DARWIN (modern and climate change simulations of carbon cycle and diversity)</li>
+<li>ecoGENIE (paleo and future climate simulations of carbon cycle and diversity)</li>
 </ul>
 </div>
 <div class="slide-figure">
 <img data-src="images/01_intro/slide-10.svg">
 <p class="caption">
-Allometric rules generate structured parameter variation from shared assumptions.
+Global applications of trait-based models. MITgcm-DARWIN figure from Dutkiewicz and EcoGENIE from Bagwell
 </p>
 </div>
 </section>
-<section id="a-simple-workflow-for-the-day" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
-<h2>A simple workflow for the day</h2>
+<section id="setup-for-today-box-models" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Setup for today: box models</h2>
 <div class="slide-copy">
-<p>Ecological question<br>
-↓<br>
-Model assumption<br>
-↓<br>
-Agate.jl constructor or setup choice<br>
-↓<br>
-Model run<br>
-↓<br>
-Diagnostic and interpretation</p>
+<ul>
+<li>Global trait-based models are too expensive to run</li>
+<li>We will be using “0D” box models and 1D water columns instead</li>
+<li>We will use these to explore the impacts of traits and physical processes (mixing and light)</li>
+</ul>
 </div>
 <div class="slide-figure">
 <img data-src="images/01_intro/slide-11.svg">
 <p class="caption">
-A common workflow from ecological question to diagnostic interpretation.
+Overview of box-model reproduced from dar_one docs.
 </p>
 </div>
 </section>
-<section id="roadmap-without-pre-teaching-the-modules" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
-<h2>Roadmap without pre-teaching the modules</h2>
+<section id="schedule" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
+<h2>Schedule</h2>
 <div class="slide-copy">
 <table class="caption-top">
 <colgroup>
@@ -460,51 +430,74 @@ A common workflow from ecological question to diagnostic interpretation.
 </colgroup>
 <thead>
 <tr class="header">
-<th>Part of workshop</th>
-<th>Role in the day</th>
+<th>Time</th>
+<th>Session</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Opening lecture</td>
-<td>Why this software and modelling approach exists.</td>
+<td>09:30–10:00</td>
+<td><em>Docker setup (optional, this can be done before the workshop)</em></td>
 </tr>
 <tr class="even">
-<td>Short module lectures</td>
-<td>Introduce the concepts needed for each hands-on exercise.</td>
+<td>10:00–10:30</td>
+<td>Welcome and workshop overview</td>
 </tr>
 <tr class="odd">
-<td>Hands-on modules</td>
-<td>Practice constructing and modifying model variants.</td>
+<td>10:30–11:10</td>
+<td>Session 1: Size, allometry, and plankton traits</td>
 </tr>
 <tr class="even">
-<td>Self-paced examples</td>
-<td>Apply the workflow to a chosen ecological question.</td>
+<td>11:10–11:25</td>
+<td>Break</td>
+</tr>
+<tr class="odd">
+<td>11:25–12:05</td>
+<td>Session 2: Predation and trophic structure</td>
+</tr>
+<tr class="even">
+<td>12:05–12:45</td>
+<td>Session 3: Physical forcing: light and diffusivity</td>
+</tr>
+<tr class="odd">
+<td>12:45–13:45</td>
+<td>Lunch</td>
+</tr>
+<tr class="even">
+<td>13:45–14:35</td>
+<td>Group exercise</td>
+</tr>
+<tr class="odd">
+<td>14:35–15:10</td>
+<td>Own-work block 1</td>
+</tr>
+<tr class="even">
+<td>15:10–15:40</td>
+<td>Break</td>
+</tr>
+<tr class="odd">
+<td>15:40–16:30</td>
+<td>Own-work block 2</td>
+</tr>
+<tr class="even">
+<td>16:30–16:55</td>
+<td>Show-and-tell (optional) and feedback</td>
+</tr>
+<tr class="odd">
+<td>16:55–17:00</td>
+<td>Wrap-up</td>
+</tr>
+<tr class="even">
+<td>17:00</td>
+<td>Pub</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="slide-figure">
-<img data-src="images/01_intro/slide-12.svg">
+<img data-src="images/01_intro/slide-00.svg">
 <p class="caption">
-Workshop structure: short concepts followed by hands-on model construction.
-</p>
-</div>
-</section>
-<section id="final-takeaway" class="slide level2" data-background-image="images/background-placeholder.svg" data-background-size="cover">
-<h2>Final takeaway</h2>
-<div class="slide-copy">
-<ul>
-<li>Agate.jl is motivated by transferable, GCM-agnostic ecosystem model components.</li>
-<li>Julia supports a composable, high-performance, and eventually tunable modelling ecosystem.</li>
-<li>Trait-based and allometric abstractions help turn ecological assumptions into reusable model structure.</li>
-<li>The rest of the workshop will introduce concepts only when they are needed for the exercises.</li>
-</ul>
-</div>
-<div class="slide-figure">
-<img data-src="images/01_intro/slide-13.svg">
-<p class="caption">
-The central workshop motivation: transferable, composable ecosystem models.
+Map of 8-10 Berkley Square (from <a href="https://use.mazemap.com/#v=1&amp;config=UoBCampuses&amp;campusid=843&amp;center=-2.606670,51.454875&amp;zoom=20&amp;zlevel=2">mazemap</a>).
 </p>
 </div>
 
