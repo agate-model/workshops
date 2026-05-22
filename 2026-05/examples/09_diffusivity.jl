@@ -1,9 +1,5 @@
 # # [Exercise 09: Diffusivity] (@id diffusivity_exercise)
 
-# !!! info
-#     This example uses [Oceananigans.jl](https://clima.github.io/OceananigansDocumentation/stable/) and [OceanBioME.jl](https://oceanbiome.github.io/OceanBioME.jl/stable/).
-#     We recommend familiarizing yourself with their user interface if you intend to make changes to the physical model setup.
-
 # This exercise introduces vertical diffusivity in a simple two-layer water-column model.
 
 # ## Loading dependencies

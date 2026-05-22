@@ -127,10 +127,3 @@ fig_mumax_parameter = plot_plankton_parameter_bars(
 )
 save(parameter_bar_figure_path, fig_mumax_parameter; px_per_unit=1)
 fig_mumax_parameter
-
-# ## Exercises
-#
-# 1. Change the box-model community size and rerun the tracer concentration diagnostic.
-# 2. Change the model size structure and rerun the CWM size diagnostic.
-# 3. Compare the phytoplankton and zooplankton CWM panels. Which community shifts more?
-# 4. Add another altered parameter set and compare the runs with `plot_box_timeseries` or `plot_cwm_size`.

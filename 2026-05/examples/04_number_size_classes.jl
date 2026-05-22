@@ -1,10 +1,6 @@
 # # [Exercise 04: Number size classes] (@id number_size_classes_exercise)
 #
-# !!! info
-#     This exercise uses [Oceananigans.jl](https://clima.github.io/OceananigansDocumentation/stable/) and [OceanBioME.jl](https://oceanbiome.github.io/OceanBioME.jl/stable/).
-#     We recommend familiarizing yourself with their user interface if you intend to make changes to the physical model setup.
-#
-# This exercise changes only the number of phytoplankton and zooplankton size
+# This exercise changes the number of phytoplankton and zooplankton size
 # classes in the Agate.jl NiPiZD model. The total initial plankton biomass is
 # held fixed and split evenly across the available plankton tracers, so the
 # comparison isolates the effect of resolving more size classes.
@@ -12,7 +8,7 @@
 # ## Loading dependencies
 
 using Agate
-using Agate.Introspection: plankton_groups, tracer_names
+using Agate.Introspection: tracer_names
 using CairoMakie
 
 workshop_script = let dir = @__DIR__
@@ -37,26 +33,20 @@ nothing #hide
 # ranges and logarithmic spacing, but increase both groups to five and ten
 # classes.
 
-bgc_default = default_quickstart_bgc()
-
-default_diameters = _plankton_diameters_by_tracer(bgc_default)
-default_groups = plankton_groups(bgc_default)
-
-function size_range_for(tracers)
-    sizes = [default_diameters[Symbol(tracer)] for tracer in tracers]
-    return (minimum(sizes), maximum(sizes))
-end
-
-phyto_min_esd, phyto_max_esd = size_range_for(default_groups.P)
-zoo_min_esd, zoo_max_esd = size_range_for(default_groups.Z)
+default_phyto_size_structure = (n = 2, min_esd = 2, max_esd = 10, splitting = :log_splitting)
+default_zoo_size_structure = (n = 2, min_esd = 20, max_esd = 100, splitting = :linear_splitting)
 
 function construct_size_class_bgc(n)
     return Agate.Models.NiPiZD.construct(;
-        phyto_size_structure = (n = n, min_esd = phyto_min_esd, max_esd = phyto_max_esd, splitting = :log_splitting),
-        zoo_size_structure = (n = n, min_esd = zoo_min_esd, max_esd = zoo_max_esd, splitting = :log_splitting),
+        phyto_size_structure = (; default_phyto_size_structure..., n),
+        zoo_size_structure = (; default_zoo_size_structure..., n),
     )
 end
 
+bgc_default = Agate.Models.NiPiZD.construct(;
+    phyto_size_structure = default_phyto_size_structure,
+    zoo_size_structure = default_zoo_size_structure,
+)
 bgc_5_each = construct_size_class_bgc(5)
 bgc_10_each = construct_size_class_bgc(10)
 
@@ -125,9 +115,3 @@ size_comparison_figure_path = joinpath("figures", "04_number_size_classes_cwm_si
 fig_size_comparison = plot_cwm_size(timeseries, bgcs; labels = case_labels)
 save(size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
 fig_size_comparison
-
-# ## Exercises
-#
-# 1. Which concentration panels change most as the number of size classes increases?
-# 2. Does increasing resolution shift the phytoplankton or zooplankton CWM size more?
-# 3. Rerun the exercise with a different total initial plankton biomass. Does the ranking among cases change?

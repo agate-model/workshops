@@ -1,10 +1,6 @@
 # # [Exercise 05: Size range] (@id size_range_exercise)
 #
-# !!! info
-#     This exercise uses [Oceananigans.jl](https://clima.github.io/OceananigansDocumentation/stable/) and [OceanBioME.jl](https://oceanbiome.github.io/OceanBioME.jl/stable/).
-#     We recommend familiarizing yourself with their user interface if you intend to make changes to the physical model setup.
-#
-# This exercise changes only the size ranges represented by the Agate.jl NiPiZD
+# This exercise changes the size ranges represented by the Agate.jl NiPiZD
 # model. We compare the default two-phytoplankton, two-zooplankton community
 # with a wider but physiologically realistic range for both trophic groups.
 
@@ -97,9 +93,3 @@ size_comparison_figure_path = joinpath("figures", "05_size_range_cwm_size_compar
 fig_size_comparison = plot_cwm_size(timeseries, bgcs; labels = case_labels)
 save(size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
 fig_size_comparison
-
-# ## Exercises
-#
-# 1. Which tracers respond most strongly when the size range is widened?
-# 2. Does the wide range mainly change phytoplankton CWM size, zooplankton CWM size, or both?
-# 3. Try a narrower but still realistic range and compare it with the default.

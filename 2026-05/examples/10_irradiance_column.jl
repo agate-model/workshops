@@ -1,9 +1,5 @@
 # # [Exercise 10: Irradiance column] (@id irradiance_column_exercise)
 
-# !!! info
-#     This example uses [Oceananigans.jl](https://clima.github.io/OceananigansDocumentation/stable/) and [OceanBioME.jl](https://oceanbiome.github.io/OceanBioME.jl/stable/).
-#     We recommend familiarizing yourself with their user interface if you intend to make changes to the physical model setup.
-
 # This exercise focuses on constant irradiance forcing with depth-dependent attenuation in a simple 1D water-column model.
 # The physical model setup is based on an example provided in the OceanBioME.jl documentation and represents an idealized 200m deep North Atlantic time series.
 
@@ -146,7 +142,7 @@ timeseries = NamedTuple{keys(full_model.tracers)}(
     FieldTimeSeries(filename, "$field") for field in keys(full_model.tracers)
 )
 
-# Use Agate's introspection helpers to recover the structural tracer layout
+#Use Agate's introspection helpers to recover the structural tracer layout
 all_keys = [groups.plankton..., groups.nonplankton...]
 nothing #hide
 
