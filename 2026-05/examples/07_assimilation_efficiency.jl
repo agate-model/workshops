@@ -106,6 +106,7 @@ plot_interaction_matrix!(fig_assimilation, (1, 3), assimilation_tables[3]; title
 Colorbar(fig_assimilation[1, 4], hm; label = "assimilation efficiency")
 
 save(assimilation_figure_path, fig_assimilation; px_per_unit = 1)
+display(fig_assimilation)
 fig_assimilation
 
 # ## Run box models
@@ -136,6 +137,7 @@ fig_comparison = plot_box_timeseries(
     labels = case_labels,
 )
 save(comparison_figure_path, fig_comparison; px_per_unit = 1)
+display(fig_comparison)
 fig_comparison
 
 # ## Relative nitrogen contributions: default assimilation
@@ -143,6 +145,7 @@ fig_comparison
 nitrogen_default_figure_path = joinpath("figures", "07_assimilation_relative_nitrogen_default.png")
 fig_nitrogen_default = plot_contributions(timeseries.times, timeseries.data)
 save(nitrogen_default_figure_path, fig_nitrogen_default; px_per_unit = 1)
+display(fig_nitrogen_default)
 fig_nitrogen_default
 
 # ## Relative nitrogen contributions: high assimilation
@@ -150,6 +153,7 @@ fig_nitrogen_default
 nitrogen_high_figure_path = joinpath("figures", "07_assimilation_relative_nitrogen_high.png")
 fig_nitrogen_high = plot_contributions(high_timeseries.times, high_timeseries.data)
 save(nitrogen_high_figure_path, fig_nitrogen_high; px_per_unit = 1)
+display(fig_nitrogen_high)
 fig_nitrogen_high
 
 # ## Relative nitrogen contributions: manual matrix
@@ -157,6 +161,7 @@ fig_nitrogen_high
 nitrogen_manual_figure_path = joinpath("figures", "07_assimilation_relative_nitrogen_manual_matrix.png")
 fig_nitrogen_manual = plot_contributions(manual_timeseries.times, manual_timeseries.data)
 save(nitrogen_manual_figure_path, fig_nitrogen_manual; px_per_unit = 1)
+display(fig_nitrogen_manual)
 fig_nitrogen_manual
 
 # ## Community-weighted mean size comparison
@@ -171,4 +176,5 @@ fig_size_comparison = plot_cwm_size(
     labels = case_labels,
 )
 save(cwm_size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
+display(fig_size_comparison)
 fig_size_comparison

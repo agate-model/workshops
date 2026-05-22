@@ -46,6 +46,7 @@ nothing #hide
 tracer_concentrations_figure_path = joinpath("figures", "02_diagnostic_tracer_concentrations.png")
 fig_tracers = plot_box_timeseries(timeseries)
 save(tracer_concentrations_figure_path, fig_tracers; px_per_unit=1)
+display(fig_tracers)
 fig_tracers
 
 # ### Comparison
@@ -73,6 +74,7 @@ fig_comparison = plot_box_timeseries(
     labels=["default", "detritus remineralization = 0.25 / day"],
 )
 save(comparison_figure_path, fig_comparison; px_per_unit=1)
+display(fig_comparison)
 fig_comparison
 
 # ## Relative nitrogen contributions
@@ -84,6 +86,7 @@ fig_comparison
 nitrogen_contributions_figure_path = joinpath("figures", "02_diagnostic_relative_nitrogen_contributions.png")
 fig_nitrogen = plot_contributions(times, data)
 save(nitrogen_contributions_figure_path, fig_nitrogen; px_per_unit=1)
+display(fig_nitrogen)
 fig_nitrogen
 
 # ## Community-weighted mean size
@@ -96,6 +99,7 @@ fig_nitrogen
 cwm_size_figure_path = joinpath("figures", "02_diagnostic_cwm_size.png")
 fig_size = plot_cwm_size(timeseries, bgc)
 save(cwm_size_figure_path, fig_size; px_per_unit=1)
+display(fig_size)
 fig_size
 
 # ## Community-weighted mean size comparison
@@ -111,6 +115,7 @@ fig_size_comparison = plot_cwm_size(
     labels=["default", "detritus remineralization = 0.25 / day"],
 )
 save(cwm_size_comparison_figure_path, fig_size_comparison; px_per_unit=1)
+display(fig_size_comparison)
 fig_size_comparison
 
 # ## Parameter bars
@@ -126,4 +131,5 @@ fig_mumax_parameter = plot_plankton_parameter_bars(
     title = "Maximum growth rate by phytoplankton type",
 )
 save(parameter_bar_figure_path, fig_mumax_parameter; px_per_unit=1)
+display(fig_mumax_parameter)
 fig_mumax_parameter

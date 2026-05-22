@@ -97,6 +97,7 @@ plot_interaction_matrix!(fig_palatability, (1, 3), palatability_tables[3]; title
 Colorbar(fig_palatability[1, 4], hm; label = "palatability")
 
 save(palatability_figure_path, fig_palatability; px_per_unit = 1)
+display(fig_palatability)
 fig_palatability
 
 # ## Run box models
@@ -127,6 +128,7 @@ fig_comparison = plot_box_timeseries(
     labels = case_labels,
 )
 save(comparison_figure_path, fig_comparison; px_per_unit = 1)
+display(fig_comparison)
 fig_comparison
 
 # ## Relative nitrogen contributions: default palatability
@@ -134,6 +136,7 @@ fig_comparison
 nitrogen_default_figure_path = joinpath("figures", "06_palatability_relative_nitrogen_default.png")
 fig_nitrogen_default = plot_contributions(timeseries.times, timeseries.data)
 save(nitrogen_default_figure_path, fig_nitrogen_default; px_per_unit = 1)
+display(fig_nitrogen_default)
 fig_nitrogen_default
 
 # ## Relative nitrogen contributions: Vopt = 5
@@ -141,6 +144,7 @@ fig_nitrogen_default
 nitrogen_vopt_figure_path = joinpath("figures", "06_palatability_relative_nitrogen_vopt5.png")
 fig_nitrogen_vopt = plot_contributions(vopt_timeseries.times, vopt_timeseries.data)
 save(nitrogen_vopt_figure_path, fig_nitrogen_vopt; px_per_unit = 1)
+display(fig_nitrogen_vopt)
 fig_nitrogen_vopt
 
 # ## Relative nitrogen contributions: custom palatability
@@ -148,6 +152,7 @@ fig_nitrogen_vopt
 nitrogen_custom_figure_path = joinpath("figures", "06_palatability_relative_nitrogen_custom.png")
 fig_nitrogen_custom = plot_contributions(custom_timeseries.times, custom_timeseries.data)
 save(nitrogen_custom_figure_path, fig_nitrogen_custom; px_per_unit = 1)
+display(fig_nitrogen_custom)
 fig_nitrogen_custom
 
 # ## Community-weighted mean size comparison
@@ -162,4 +167,5 @@ fig_size_comparison = plot_cwm_size(
     labels = case_labels,
 )
 save(cwm_size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
+display(fig_size_comparison)
 fig_size_comparison

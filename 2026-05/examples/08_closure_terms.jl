@@ -74,6 +74,7 @@ fig_comparison = plot_box_timeseries(
     labels = case_labels,
 )
 save(comparison_figure_path, fig_comparison; px_per_unit = 1)
+display(fig_comparison)
 fig_comparison
 
 # ## Community-weighted mean size comparison
@@ -88,6 +89,7 @@ fig_size_comparison = plot_cwm_size(
     labels = case_labels,
 )
 save(cwm_size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
+display(fig_size_comparison)
 fig_size_comparison
 
 # ## Relative nitrogen contributions: default closure
@@ -95,6 +97,7 @@ fig_size_comparison
 nitrogen_default_figure_path = joinpath("figures", "08_closure_relative_nitrogen_default.png")
 fig_nitrogen_default = plot_contributions(timeseries.times, timeseries.data)
 save(nitrogen_default_figure_path, fig_nitrogen_default; px_per_unit = 1)
+display(fig_nitrogen_default)
 fig_nitrogen_default
 
 # ## Relative nitrogen contributions: without linear mortality
@@ -102,6 +105,7 @@ fig_nitrogen_default
 nitrogen_no_linear_figure_path = joinpath("figures", "08_closure_relative_nitrogen_no_linear.png")
 fig_nitrogen_no_linear = plot_contributions(no_linear_timeseries.times, no_linear_timeseries.data)
 save(nitrogen_no_linear_figure_path, fig_nitrogen_no_linear; px_per_unit = 1)
+display(fig_nitrogen_no_linear)
 fig_nitrogen_no_linear
 
 # ## Relative nitrogen contributions: without quadratic mortality
@@ -109,4 +113,5 @@ fig_nitrogen_no_linear
 nitrogen_no_quadratic_figure_path = joinpath("figures", "08_closure_relative_nitrogen_no_quadratic.png")
 fig_nitrogen_no_quadratic = plot_contributions(no_quadratic_timeseries.times, no_quadratic_timeseries.data)
 save(nitrogen_no_quadratic_figure_path, fig_nitrogen_no_quadratic; px_per_unit = 1)
+display(fig_nitrogen_no_quadratic)
 fig_nitrogen_no_quadratic

@@ -83,6 +83,7 @@ ax2 = Axis(fig_forcing[2, 1]; xlabel="Time (days)", ylabel="Depth (m)", title="d
 hm2 = CairoMakie.heatmap!(ax2, t_range ./ days, z_range, κₜ_values; colormap=:viridis)
 Colorbar(fig_forcing[2, 2], hm2)
 
+display(fig_forcing)
 fig_forcing
 
 # ## Physical model
@@ -167,4 +168,5 @@ end
 #Save figure
 save("12_diffusivity_seasonal.png", fig)
 
+display(fig)
 fig  # Display the figure

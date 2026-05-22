@@ -87,6 +87,7 @@ fig_mumax = plot_plankton_parameter_bars(
     title = "Maximum growth rate by phytoplankton type",
     figure_path = joinpath("figures", "03_mumax_parameter_bars.png"),
 )
+display(fig_mumax)
 fig_mumax
 
 fig_kN = plot_plankton_parameter_bars(
@@ -97,6 +98,7 @@ fig_kN = plot_plankton_parameter_bars(
     title = "Nutrient half-saturation by phytoplankton type",
     figure_path = joinpath("figures", "03_kN_parameter_bars.png"),
 )
+display(fig_kN)
 fig_kN
 
 fig_gmax = plot_plankton_parameter_bars(
@@ -107,6 +109,7 @@ fig_gmax = plot_plankton_parameter_bars(
     title = "Maximum predation rate by zooplankton type",
     figure_path = joinpath("figures", "03_gmax_parameter_bars.png"),
 )
+display(fig_gmax)
 fig_gmax
 
 # ## Zero-dimensional ecosystem simulations
@@ -157,6 +160,7 @@ fig_comparison = plot_box_timeseries(
     labels = bgc_case_labels,
 )
 save(comparison_figure_path, fig_comparison; px_per_unit = 1)
+display(fig_comparison)
 fig_comparison
 
 # ### Relative nitrogen contributions: default allometry
@@ -164,6 +168,7 @@ fig_comparison
 nitrogen_default_figure_path = joinpath("figures", "03_allometry_relative_nitrogen_default.png")
 fig_nitrogen_default = plot_contributions(default_timeseries.times, default_timeseries.data)
 save(nitrogen_default_figure_path, fig_nitrogen_default; px_per_unit = 1)
+display(fig_nitrogen_default)
 fig_nitrogen_default
 
 # ### Relative nitrogen contributions: flat allometry
@@ -171,6 +176,7 @@ fig_nitrogen_default
 nitrogen_flat_figure_path = joinpath("figures", "03_allometry_relative_nitrogen_flat.png")
 fig_nitrogen_flat = plot_contributions(flat_timeseries.times, flat_timeseries.data)
 save(nitrogen_flat_figure_path, fig_nitrogen_flat; px_per_unit = 1)
+display(fig_nitrogen_flat)
 fig_nitrogen_flat
 
 # ### Relative nitrogen contributions: strong small-fast allometry
@@ -178,6 +184,7 @@ fig_nitrogen_flat
 nitrogen_strong_figure_path = joinpath("figures", "03_allometry_relative_nitrogen_strong_small_fast.png")
 fig_nitrogen_strong = plot_contributions(strong_timeseries.times, strong_timeseries.data)
 save(nitrogen_strong_figure_path, fig_nitrogen_strong; px_per_unit = 1)
+display(fig_nitrogen_strong)
 fig_nitrogen_strong
 
 # ### Community-weighted mean size comparison
@@ -189,4 +196,5 @@ fig_size_comparison = plot_cwm_size(
     labels = bgc_case_labels,
 )
 save(cwm_size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
+display(fig_size_comparison)
 fig_size_comparison

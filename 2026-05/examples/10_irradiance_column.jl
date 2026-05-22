@@ -92,6 +92,7 @@ fig_forcing = Figure(; size=(800, 600), fontsize=14)
 forcing_heatmap!(fig_forcing, 1, t_range ./ days, z_range, PAR_values; title="irradiance")
 forcing_heatmap!(fig_forcing, 2, t_range ./ days, z_range, κₜ_values; title="diffusivity")
 
+display(fig_forcing)
 fig_forcing
 
 # ## Physical model
@@ -176,6 +177,7 @@ end
 #Save figure
 save("10_irradiance_column.png", fig)
 
+display(fig)
 fig  # Display the figure
 
 # Plot the final-time depth-bin value of every tracer as horizontal bars.
@@ -226,4 +228,5 @@ for (i, ax) in enumerate(profile_axes)
 end
 save("10_irradiance_column_final_profiles.png", fig_profiles)
 
+display(fig_profiles)
 fig_profiles

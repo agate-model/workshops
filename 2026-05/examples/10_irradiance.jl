@@ -71,6 +71,7 @@ ax2 = Axis(fig_forcing[2, 1]; xlabel="Time (days)", ylabel="Depth (m)", title="d
 hm2 = CairoMakie.heatmap!(ax2, t_range ./ days, z_range, κₜ_values; colormap=:viridis)
 Colorbar(fig_forcing[2, 2], hm2)
 
+display(fig_forcing)
 fig_forcing
 
 # ## Physical model
@@ -155,6 +156,7 @@ end
 #Save figure
 save("N2P2ZD_column.png", fig)
 
+display(fig)
 fig  # Display the figure
 
 # Plot the final-time depth-bin value of every tracer as horizontal bars.
@@ -205,4 +207,5 @@ for (i, ax) in enumerate(profile_axes)
 end
 save("N2P2ZD_column_final_profiles.png", fig_profiles)
 
+display(fig_profiles)
 fig_profiles

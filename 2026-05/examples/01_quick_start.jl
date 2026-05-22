@@ -96,6 +96,7 @@ for (idx, sym) in enumerate(tracer_syms)
 end
 
 save(joinpath("figures", "01_quick_start_manual.png"), fig_manual)
+display(fig_manual)
 fig_manual
 
 # ## A general workshop box-model wrapper

@@ -86,6 +86,7 @@ comparison_variables = sort!(unique(vcat([collect(keys(ts.data)) for ts in times
 comparison_figure_path = joinpath("figures", "04_number_size_classes_timeseries_comparison.png")
 fig_comparison = plot_box_timeseries(timeseries; labels = case_labels, variables = comparison_variables)
 save(comparison_figure_path, fig_comparison; px_per_unit = 1)
+display(fig_comparison)
 fig_comparison
 
 # ## Relative nitrogen contributions: default size classes
@@ -93,6 +94,7 @@ fig_comparison
 nitrogen_default_figure_path = joinpath("figures", "04_number_size_classes_relative_nitrogen_default.png")
 fig_nitrogen_default = plot_contributions(timeseries[1].times, timeseries[1].data)
 save(nitrogen_default_figure_path, fig_nitrogen_default; px_per_unit = 1)
+display(fig_nitrogen_default)
 fig_nitrogen_default
 
 # ## Relative nitrogen contributions: five classes each
@@ -100,6 +102,7 @@ fig_nitrogen_default
 nitrogen_5_figure_path = joinpath("figures", "04_number_size_classes_relative_nitrogen_5_each.png")
 fig_nitrogen_5 = plot_contributions(timeseries[2].times, timeseries[2].data)
 save(nitrogen_5_figure_path, fig_nitrogen_5; px_per_unit = 1)
+display(fig_nitrogen_5)
 fig_nitrogen_5
 
 # ## Relative nitrogen contributions: ten classes each
@@ -107,6 +110,7 @@ fig_nitrogen_5
 nitrogen_10_figure_path = joinpath("figures", "04_number_size_classes_relative_nitrogen_10_each.png")
 fig_nitrogen_10 = plot_contributions(timeseries[3].times, timeseries[3].data)
 save(nitrogen_10_figure_path, fig_nitrogen_10; px_per_unit = 1)
+display(fig_nitrogen_10)
 fig_nitrogen_10
 
 # ## Community-weighted mean size comparison
@@ -114,4 +118,5 @@ fig_nitrogen_10
 size_comparison_figure_path = joinpath("figures", "04_number_size_classes_cwm_size_comparison.png")
 fig_size_comparison = plot_cwm_size(timeseries, bgcs; labels = case_labels)
 save(size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
+display(fig_size_comparison)
 fig_size_comparison

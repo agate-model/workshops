@@ -71,6 +71,7 @@ nothing #hide
 comparison_figure_path = joinpath("figures", "05_size_range_timeseries_comparison.png")
 fig_comparison = plot_box_timeseries(timeseries; labels = case_labels)
 save(comparison_figure_path, fig_comparison; px_per_unit = 1)
+display(fig_comparison)
 fig_comparison
 
 # ## Relative nitrogen contributions: default size range
@@ -78,6 +79,7 @@ fig_comparison
 nitrogen_default_figure_path = joinpath("figures", "05_size_range_relative_nitrogen_default.png")
 fig_nitrogen_default = plot_contributions(timeseries[1].times, timeseries[1].data)
 save(nitrogen_default_figure_path, fig_nitrogen_default; px_per_unit = 1)
+display(fig_nitrogen_default)
 fig_nitrogen_default
 
 # ## Relative nitrogen contributions: wide realistic size range
@@ -85,6 +87,7 @@ fig_nitrogen_default
 nitrogen_wide_figure_path = joinpath("figures", "05_size_range_relative_nitrogen_wide.png")
 fig_nitrogen_wide = plot_contributions(timeseries[2].times, timeseries[2].data)
 save(nitrogen_wide_figure_path, fig_nitrogen_wide; px_per_unit = 1)
+display(fig_nitrogen_wide)
 fig_nitrogen_wide
 
 # ## Community-weighted mean size comparison
@@ -92,4 +95,5 @@ fig_nitrogen_wide
 size_comparison_figure_path = joinpath("figures", "05_size_range_cwm_size_comparison.png")
 fig_size_comparison = plot_cwm_size(timeseries, bgcs; labels = case_labels)
 save(size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
+display(fig_size_comparison)
 fig_size_comparison

@@ -57,6 +57,7 @@ lines!(ax, t_range ./ days, nonseasonal_PAR_values; linewidth=3, linestyle=:dash
 axislegend(ax; position=:rt)
 save(joinpath("figures", "09_irradiance_box_forcing.png"), fig_forcing; px_per_unit=1)
 
+display(fig_forcing)
 fig_forcing
 
 # ## Box-model simulations
@@ -102,6 +103,7 @@ fig_tracers = plot_box_timeseries(
     figure_path=tracer_comparison_path,
 )
 save(joinpath("figures", "09_irradiance_box.png"), fig_tracers; px_per_unit=1)
+display(fig_tracers)
 fig_tracers
 
 # ## Nitrogen contributions
@@ -115,6 +117,7 @@ fig_contributions = plot_contributions(
     seasonal_timeseries.data;
     figure_path=contributions_path,
 )
+display(fig_contributions)
 fig_contributions
 
 # ## Community-weighted mean size comparison
@@ -129,4 +132,5 @@ fig_cwm = plot_cwm_size(
     labels=["non-seasonal PAR", "seasonal PAR"],
     figure_path=cwm_comparison_path,
 )
+display(fig_cwm)
 fig_cwm
