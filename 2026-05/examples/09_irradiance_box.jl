@@ -9,6 +9,7 @@
 
 using Agate
 using Agate.Library.Light
+using OceanBioME: BoxModelGrid
 using Oceananigans.Units
 using CairoMakie
 using AgateWorkshop
