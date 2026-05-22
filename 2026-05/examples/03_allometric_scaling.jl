@@ -182,10 +182,3 @@ fig_size_comparison = plot_cwm_size(
 )
 save(cwm_size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
 fig_size_comparison
-
-# ## Exercises
-#
-# 1. In the parameter bar charts, which plankton types have the largest `mumax`, `kN`, and `gmax` values?
-# 2. In the flat allometry case, which differences remain among the plankton tracers, and which disappear?
-# 3. In the strong small-fast case, how do the selected parameter values change for the smallest and largest plankton?
-# 4. Compare the ecosystem dynamics. Which allometric choice produces the largest total phytoplankton biomass, and when?

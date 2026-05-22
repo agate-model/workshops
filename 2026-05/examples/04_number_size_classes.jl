@@ -1,10 +1,6 @@
 # # [Exercise 04: Number size classes] (@id number_size_classes_exercise)
 #
-# !!! info
-#     This exercise uses [Oceananigans.jl](https://clima.github.io/OceananigansDocumentation/stable/) and [OceanBioME.jl](https://oceanbiome.github.io/OceanBioME.jl/stable/).
-#     We recommend familiarizing yourself with their user interface if you intend to make changes to the physical model setup.
-#
-# This exercise changes only the number of phytoplankton and zooplankton size
+# This exercise changes the number of phytoplankton and zooplankton size
 # classes in the Agate.jl NiPiZD model. The total initial plankton biomass is
 # held fixed and split evenly across the available plankton tracers, so the
 # comparison isolates the effect of resolving more size classes.
@@ -111,9 +107,3 @@ size_comparison_figure_path = joinpath("figures", "04_number_size_classes_cwm_si
 fig_size_comparison = plot_cwm_size(timeseries, bgcs; labels = case_labels)
 save(size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
 fig_size_comparison
-
-# ## Exercises
-#
-# 1. Which concentration panels change most as the number of size classes increases?
-# 2. Does increasing resolution shift the phytoplankton or zooplankton CWM size more?
-# 3. Rerun the exercise with a different total initial plankton biomass. Does the ranking among cases change?

@@ -6,9 +6,7 @@
 #
 # - no linear mortality;
 # - no quadratic, density-dependent mortality.
-#
-# The second case corresponds to the nonlinear mortality term available in the
-# current Agate.jl NiPiZD API.
+
 
 # ## Loading dependencies
 
@@ -104,11 +102,3 @@ nitrogen_no_quadratic_figure_path = joinpath("figures", "08_closure_relative_nit
 fig_nitrogen_no_quadratic = plot_contributions(no_quadratic_timeseries.times, no_quadratic_timeseries.data)
 save(nitrogen_no_quadratic_figure_path, fig_nitrogen_no_quadratic; px_per_unit = 1)
 fig_nitrogen_no_quadratic
-
-# ## Exercises
-#
-# 1. Which tracer changes most when linear mortality is removed?
-# 2. Which part of the community responds most strongly when quadratic mortality
-#    is removed?
-# 3. Compare the concentration, CWM size, and nitrogen-contribution diagnostics.
-#    Which diagnostic makes the closure-term effect easiest to see?

@@ -1,9 +1,5 @@
 # # [Exercise 12: Seasonal diffusivity] (@id diffusivity_seasonal_exercise)
 
-# !!! info
-#     This example uses [Oceananigans.jl](https://clima.github.io/OceananigansDocumentation/stable/) and [OceanBioME.jl](https://oceanbiome.github.io/OceanBioME.jl/stable/).
-#     We recommend familiarizing yourself with their user interface if you intend to make changes to the physical model setup.
-
 # This exercise uses a seasonal mixed-layer-depth diffusivity profile in a simple 1D water-column model.
 # The physical model setup is based on an example provided in the OceanBioME.jl documentation and represents an idealized 200m deep North Atlantic time series.
 
@@ -163,4 +159,4 @@ end
 #Save figure
 save("12_diffusivity_seasonal.png", fig)
 
-fig  # Display the figureure
+fig  # Display the figure

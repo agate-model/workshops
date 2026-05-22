@@ -1,9 +1,6 @@
 # # [Exercise 09: Irradiance box model] (@id irradiance_box_exercise)
 #
-# This exercise introduces seasonal irradiance forcing in a zero-dimensional box model.
-# The box is well mixed, so the light forcing only varies through time. The tracer,
-# contribution, and community-size diagnostics reuse the workshop helper functions
-# introduced in Exercise 02.
+# This exercise introduces seasonal irradiance forcing in a zero-dimensional box model. 
 
 # ## Loading dependencies
 

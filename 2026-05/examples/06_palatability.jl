@@ -3,7 +3,7 @@
 # Predator-prey palatability controls how strongly each zooplankton type grazes
 # each phytoplankton type. This exercise follows the Agate.jl matrix example:
 # first inspect the palatability matrices, then run each configuration in a box
-# model and reuse the diagnostics introduced in Exercise 02.
+# model.
 
 # ## Loading dependencies
 
@@ -155,9 +155,3 @@ fig_size_comparison = plot_cwm_size(
 )
 save(cwm_size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
 fig_size_comparison
-
-# ## Exercises
-#
-# 1. Change the custom palatability matrix and rerun the comparison plots.
-# 2. Change only one zooplankton `Vopt` value. Which prey and consumer respond most?
-# 3. Compare the palatability matrix plot with the tracer and CWM diagnostics.

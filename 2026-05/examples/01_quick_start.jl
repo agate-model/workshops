@@ -1,11 +1,8 @@
 # # [Exercise 01: Quick start] (@id quick_start_exercise)
 #
-# This exercise follows the Agate.jl Quick start and then packages the repeated
-# box-model setup into a reusable workshop wrapper.
-#
-# The main idea is simple: construct any Agate-compatible biogeochemistry model,
-# wrap it in an OceanBioME `Biogeochemistry`, place it in an Oceananigans
-# `BoxModel`, set initial tracer values, and run a simulation.
+# This exercise constructs an Agate biogeochemistry model,
+# wraps it in an OceanBioME `Biogeochemistry`, places it in an Oceananigans
+# `BoxModel`, sets initial tracer values, and runs a simulation.
 
 # ## Loading dependencies
 
@@ -138,10 +135,3 @@ larger = run_box_model(
 println(larger.tracer_syms)
 
 nothing #hide
-
-# ## Exercises
-#
-# 1. Change one initial condition in the manual Quick start. Which tracer changes first?
-# 2. Change `stop_time` in the wrapper call from three years to one year.
-# 3. Change the larger community to four phytoplankton classes. Which extra tracer name appears?
-# 4. Add a new keyword to `run_box_model` for a different output interval.

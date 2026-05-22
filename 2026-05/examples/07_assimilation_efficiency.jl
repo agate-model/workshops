@@ -3,8 +3,7 @@
 # Assimilation efficiency controls how efficiently consumed prey biomass is
 # converted into zooplankton biomass. This exercise mirrors the palatability
 # matrix exercise: first inspect the derived assimilation matrices, then run each
-# configuration in a box model and compare the diagnostics introduced in
-# Exercise 02.
+# configuration in a box model.
 
 # ## Loading dependencies
 
@@ -165,12 +164,3 @@ fig_size_comparison = plot_cwm_size(
 )
 save(cwm_size_comparison_figure_path, fig_size_comparison; px_per_unit = 1)
 fig_size_comparison
-
-# ## Exercises
-#
-# 1. Change the high-assimilation values for only one zooplankton type and rerun
-#    the comparison plots.
-# 2. Change one entry in the manual assimilation matrix. Which tracer responds
-#    most strongly?
-# 3. Compare the matrix heatmaps with the diagnostic plots. Which differences
-#    appear in the realized ecosystem trajectories?
