@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <rect width="1200" height="800" rx="36" fill="#eef1f2"/>
+  <rect x="40" y="40" width="1120" height="720" rx="28" fill="none" stroke="#b8c0c2" stroke-width="4" stroke-dasharray="18 14"/>
+  <text x="600" y="380" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="42" fill="#7d898c">Slide 13 image placeholder</text>
+  <text x="600" y="445" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="28" fill="#9aa4a6">Replace images/slide-13.svg</text>
+</svg>
