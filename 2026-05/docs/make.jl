@@ -78,7 +78,7 @@ makedocs(
         prettyurls=get(ENV, "CI", "false") == "true",
         assets=String[],
         size_threshold_warn=1_000_000,
-        size_threshold=2_100_000,
+        size_threshold=2_500_000,
     ),
     modules=Module[],
     pages=[
