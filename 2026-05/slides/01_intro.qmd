@@ -214,7 +214,7 @@ OceanBioME.jl:
 ## Setup for today: box models {background-image="images/background-placeholder.svg" background-size="cover"}
 
 ::: {.slide-copy}
-- Global trait-based models are expensive too run
+- Global trait-based models are too expensive to run
 - We will be using "0D" box models and 1D water columns instead
 - We will use these to explore the impacts of traits and physical processes (mixing and light)
 
@@ -222,7 +222,7 @@ OceanBioME.jl:
 
 ::: {.slide-figure}
 ![](images/01_intro/slide-11.svg)
-<p class="caption">A common workflow from ecological question to diagnostic interpretation.</p>
+<p class="caption">Overview of box-model reproduced from dar_one docs.</p>
 :::
 
 ## Schedule {background-image="images/background-placeholder.svg" background-size="cover"}
