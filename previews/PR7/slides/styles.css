@@ -1,0 +1,93 @@
+/* Basic 1920x1080 Reveal.js layout for the Agate.jl opening lecture. */
+
+:root {
+  --content-top: 155px;
+  --content-left: 40px;
+  --content-gap: 100px;
+  --copy-width: 700px;
+  --figure-max-width: 950px;
+  --figure-max-height: 800px;
+  --panel-radius: 18px;
+}
+
+.reveal .slides section {
+  text-align: left;
+}
+
+.reveal h2 {
+  font-size: 1.65em;
+  line-height: 1.08;
+  margin-top: 0;
+  margin-bottom: 0.45em;
+}
+
+.reveal .slide-copy {
+  position: absolute;
+  left: var(--content-left);
+  top: var(--content-top);
+  width: var(--copy-width);
+  font-size: 0.78em;
+  line-height: 1.28;
+  padding: 0.7em 0.9em;
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: var(--panel-radius);
+}
+
+.reveal .slide-copy table {
+  font-size: 0.72em;
+  width: 100%;
+}
+
+.reveal .slide-copy th,
+.reveal .slide-copy td {
+  padding: 0.25em 0.35em;
+  vertical-align: top;
+}
+
+.reveal .slide-figure {
+  position: absolute;
+  left: calc(var(--content-left) + var(--copy-width) + var(--content-gap));
+  top: var(--content-top);
+  width: var(--figure-width);
+  text-align: center;
+}
+
+.reveal .slide-figure img {
+  display: block;
+  max-width: var(--figure-max-width);
+  max-height: var(--figure-max-height);
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+.reveal .slide-figure .caption {
+  display: inline-block;
+  margin: 0.5em auto 0;
+  max-width: 95%;
+  padding: 0.35em 0.55em;
+  font-size: 0.55em;
+  line-height: 1.25;
+  color: #111;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 10px;
+}
+
+.reveal .title-slide h1,
+.reveal .title-slide .title {
+  max-width: 1180px;
+  font-size: 1.9em;
+  line-height: 1.05;
+  color: #000;
+}
+
+.reveal .title-slide .quarto-title-authors,
+.reveal .title-slide .author {
+  color: #000;
+}

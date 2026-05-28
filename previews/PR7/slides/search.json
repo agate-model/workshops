@@ -1,0 +1,212 @@
+[
+  {
+    "objectID": "04_module_lecture.html#photosynthesis",
+    "href": "04_module_lecture.html#photosynthesis",
+    "title": "Physical forcings: irradiance and mixing",
+    "section": "Photosynthesis",
+    "text": "Photosynthesis\n\n\nReplace this text with the concept lecture for the third hands-on module.\nState the modelling question clearly.\nIdentify the assumption or parameterization participants will modify.\n\n\n\n\n\nReplace with a module-specific figure caption."
+  },
+  {
+    "objectID": "04_module_lecture.html#light-attenuation",
+    "href": "04_module_lecture.html#light-attenuation",
+    "title": "Physical forcings: irradiance and mixing",
+    "section": "Light attenuation",
+    "text": "Light attenuation\n\n\nReplace this text with the concept lecture for the third hands-on module.\nState the modelling question clearly.\nIdentify the assumption or parameterization participants will modify.\n\n\n\n\n\nReplace with a module-specific figure caption."
+  },
+  {
+    "objectID": "04_module_lecture.html#mixing",
+    "href": "04_module_lecture.html#mixing",
+    "title": "Physical forcings: irradiance and mixing",
+    "section": "Mixing",
+    "text": "Mixing\n\n\nReplace this text with the concept lecture for the third hands-on module.\nState the modelling question clearly.\nIdentify the assumption or parameterization participants will modify.\n\n\n\n\n\nLindemann and John, 2014 (Frontiers in Marine Science)."
+  },
+  {
+    "objectID": "02_module_lecture.html#size-as-fundamental-trait",
+    "href": "02_module_lecture.html#size-as-fundamental-trait",
+    "title": "Module Lecture 1",
+    "section": "Size as fundamental trait",
+    "text": "Size as fundamental trait\n\n\nUniversal trait (bacteria to whales)\nHuge size range of plankton in ocean\n\n\n\n\n\nModified from: Holland & McQuatters-Gollop (2024). mNCEA policy brief – The many scales of pelagic habitats. Defra mNCEA Programme – Pelagic Natural Capital. University of Plymouth."
+  },
+  {
+    "objectID": "02_module_lecture.html#surface-area-to-volume",
+    "href": "02_module_lecture.html#surface-area-to-volume",
+    "title": "Module Lecture 1",
+    "section": "Surface Area to Volume",
+    "text": "Surface Area to Volume\n\n\nAllometric scaling a function of SA:V ratio\n\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
+  },
+  {
+    "objectID": "02_module_lecture.html#maximum-growth-rate",
+    "href": "02_module_lecture.html#maximum-growth-rate",
+    "title": "Module Lecture 1",
+    "section": "Maximum growth rate",
+    "text": "Maximum growth rate\n\n\nAllometric scaling a function of SA:V ratio\n\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
+  },
+  {
+    "objectID": "02_module_lecture.html#maximum-grazing-rate",
+    "href": "02_module_lecture.html#maximum-grazing-rate",
+    "title": "Module Lecture 1",
+    "section": "Maximum grazing rate",
+    "text": "Maximum grazing rate\n\n\ngrowth vs prey\n\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
+  },
+  {
+    "objectID": "02_module_lecture.html#nutrient-half-saturation",
+    "href": "02_module_lecture.html#nutrient-half-saturation",
+    "title": "Module Lecture 1",
+    "section": "Nutrient half saturation",
+    "text": "Nutrient half saturation\n\n\nnutrients vs growth\n\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
+  },
+  {
+    "objectID": "02_module_lecture.html#allometric-scaling",
+    "href": "02_module_lecture.html#allometric-scaling",
+    "title": "Module Lecture 1",
+    "section": "Allometric scaling",
+    "text": "Allometric scaling\n\n\naV^b\n\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
+  },
+  {
+    "objectID": "02_module_lecture.html#number-of-groups",
+    "href": "02_module_lecture.html#number-of-groups",
+    "title": "Module Lecture 1",
+    "section": "Number of groups",
+    "text": "Number of groups\n\n\nHow many are needed to capture diversity?\n\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
+  },
+  {
+    "objectID": "02_module_lecture.html#size-ranges",
+    "href": "02_module_lecture.html#size-ranges",
+    "title": "Module Lecture 1",
+    "section": "Size ranges",
+    "text": "Size ranges\n\n\nAre there physiological limitations?\nBiogeochemical ones?\nPhysics (e.g. sinking)?\n\n\n\n\n\nReplace with the workflow or diagnostic used in this module."
+  },
+  {
+    "objectID": "01_intro.html#welcome",
+    "href": "01_intro.html#welcome",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Welcome",
+    "text": "Welcome\n\n\n\n\n\n\n\n\nTime\nSession\n\n\n\n\n09:30–10:00\nDocker setup (optional, this can be done before the workshop)\n\n\n10:00–10:30\nWelcome and workshop overview\n\n\n10:30–11:10\nSession 1: Size, allometry, and plankton traits\n\n\n11:10–11:25\nBreak\n\n\n11:25–12:05\nSession 2: Predation and trophic structure\n\n\n12:05–12:45\nSession 3: Physical forcing: light and diffusivity\n\n\n12:45–13:45\nLunch\n\n\n13:45–14:35\nGroup exercise\n\n\n14:35–15:10\nOwn-work block 1\n\n\n15:10–15:40\nBreak\n\n\n15:40–16:30\nOwn-work block 2\n\n\n16:30–16:55\nShow-and-tell (optional) and feedback\n\n\n16:55–17:00\nWrap-up\n\n\n17:00\nPub\n\n\n\n\n\n\n\nMap of 8-10 Berkley Square (from mazemap)."
+  },
+  {
+    "objectID": "01_intro.html#current-state-of-the-art",
+    "href": "01_intro.html#current-state-of-the-art",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Current state of the art",
+    "text": "Current state of the art\n\nAll major Earth System Models (ESMs) use FORTRAN. - First appeared in 1957; 69 years ago - Highly optimized and battle tested - Large user base / existing expertise - Physical system well calibrated (circulation, boundary conditions)\nDownsides:\n\nOcean biogeochemistry often secondary\nNon-composable -&gt; iron cycling for PISCES can’t be used in DARWIN\nHard to Automatically Differentiate -&gt; makes Bayesian inference and machine learning expensive!\nDifficult to utilize GPUs (but increasingly feasible)\n\n\n\n\n\nFORTRAN on punched card from Wikimedia Commons, TIOBE May 2026 rankings from tiobe.com."
+  },
+  {
+    "objectID": "01_intro.html#julia-programming-language---a-new-frontier",
+    "href": "01_intro.html#julia-programming-language---a-new-frontier",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Julia programming language - a new frontier ?",
+    "text": "Julia programming language - a new frontier ?\n\nBenefits:\n\nSimilar performance to FORTRAN but easier to program (like Python, R, MATLAB)\nDesigned to be composable (at least in theory)\nStrong Automatic Differentiation infrastructure\nGPUs well supported\nExisting physical oceanography model (Oceananigans.jl) and an active Earth System Modelling community (NumericalEarth.jl)\n\nDownsides:\n\nEffectively starting from scratch (ESMs are complex(!))\nSmall user base / expertise\nPlotting etc. is still behind Python/R\nSenior PI’s are often hesitant to learn a new language\nFORTRAN has stood the test of time, will Julia?\n\n\n\n\n\nFigure from Silverstri et al., 2023 (ArXiv preprint)"
+  },
+  {
+    "objectID": "01_intro.html#from-monolithic-models-to-composable-components",
+    "href": "01_intro.html#from-monolithic-models-to-composable-components",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "From monolithic models to composable components",
+    "text": "From monolithic models to composable components\n\n\nCurrent Earth System and Ocean Models are modular (e.g. NEMO and PISCES/ MITgcm and DARWIN) but not composable with each other (no MITgcm-PISCES)\nNumericalEarth.jl aims to provide an composable alternative (at least in theory)\nFor example: atmospheric physics can be resolved by Breeze.jl, SpeedyWeather.jl or data products (JRA5/ERA5)\nOnly one ocean physics model (Oceananigans.jl) - so far (!)\nAutomatic Differentiation a key objective\n\n\n\n\n\nNumericalEarth.jl provides a coupling frameworks to make Julia composable earth system models."
+  },
+  {
+    "objectID": "01_intro.html#oceananigans.jl-and-oceanbiome.jl",
+    "href": "01_intro.html#oceananigans.jl-and-oceanbiome.jl",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Oceananigans.jl and OceanBioME.jl",
+    "text": "Oceananigans.jl and OceanBioME.jl\n\nOceananigans.jl:\n\ninitial commit Oct 2018\npublished Dec 2019\n~ 90 contributors\n\nOceanBioME.jl:\n\ninitial commit Jul 2022\npublished Oct 2023\n~ 14 contributors\n\n\n\n\n\nOceans in Julia: Oceananigans.jl provides physics and infrastructure such as solvers, OceanBioME.jl provides biogeochemistry"
+  },
+  {
+    "objectID": "01_intro.html#where-does-agate.jl-fit-in",
+    "href": "01_intro.html#where-does-agate.jl-fit-in",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Where does Agate.jl fit in?",
+    "text": "Where does Agate.jl fit in?\n\n\nAquatic GCM Agnostic Trait-based Ecosystems\nCouples with OceanBioME.jl\nUsed to implement high-complexity trait-based ecosystems of arbitrary complexity\nFirst commit Nov 2018, manuscript in prep…\n\n\n\n\n\nAgate.jl couples with OceanBioME and is solved by Oceananigans.jl."
+  },
+  {
+    "objectID": "01_intro.html#intermediate-vs-high-complexity-ecosystems",
+    "href": "01_intro.html#intermediate-vs-high-complexity-ecosystems",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Intermediate vs High complexity ecosystems",
+    "text": "Intermediate vs High complexity ecosystems\n\n\nLow complexity ecosystems: NPZD models\nIntermediate complexity: multiple P and Z functional types (e.g. PISCES, MARBL)\nHigh complexity: size structured plus functional types (e.g. DARWIN, ecoGENIE)\n\n\n\n\n\nSimplified representation of model complexity. Some models favour biogeochemical complexity (e.g. PISCES) while others favour ecosystems (DARWIN)."
+  },
+  {
+    "objectID": "01_intro.html#trait-based-approaches",
+    "href": "01_intro.html#trait-based-approaches",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Trait-based approaches",
+    "text": "Trait-based approaches\n\n\n~ 110,000 eukaryotic OTU’s (de Vargas et al., 2015)\nmodelling even 1% of this is too expensive\nLarge majority uncultured and can’t be easily parameterized\nTrait based frameworks provide first-principles framework to capture this diversity\n\n\n\n\n\nOverview of key traits from Litchman and Klaushmeier, 2008 (Ann. Rev. Ecol. Evol. Syst. )."
+  },
+  {
+    "objectID": "01_intro.html#trait-trade-offs",
+    "href": "01_intro.html#trait-trade-offs",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Trait trade-offs",
+    "text": "Trait trade-offs\n\n\nComplex emergent ecossytems can be created by seeding the system with many types\nCompetitive types will survive in relevant niches\nidea requires trait trade-offs, if one type is too advantageous it will dominate (Darwinian demon)\ntrade-off: “every benefit comes at a cost\n\n\n\n\n\nTrait trade-offs. Only some combinations are energetically feasible, and a subset is selected by the environment"
+  },
+  {
+    "objectID": "01_intro.html#allometry",
+    "href": "01_intro.html#allometry",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Allometry",
+    "text": "Allometry\n\n\nAllometry (size) is a funamental trait that applies to all organisms on ERA5\nFor plankton it determines, growth rates and nutrient requirements\nPrey selection is also largely size dependant\n\n\n\n\n\nDivision rate vs size from Follows and Dutkiewicz, 2011. Prey:predator size ratios from Hansen 1994"
+  },
+  {
+    "objectID": "01_intro.html#global-emergent-ecosystems",
+    "href": "01_intro.html#global-emergent-ecosystems",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Global emergent ecosystems",
+    "text": "Global emergent ecosystems\n\n\nTrait-based models successfully used in global context\nMITgcm-DARWIN (modern and climate change simulations of carbon cycle and diversity)\necoGENIE (paleo and future climate simulations of carbon cycle and diversity)\n\n\n\n\n\nGlobal applications of trait-based models. MITgcm-DARWIN figure from Dutkiewicz and EcoGENIE from Bagwell"
+  },
+  {
+    "objectID": "01_intro.html#setup-for-today-box-models",
+    "href": "01_intro.html#setup-for-today-box-models",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Setup for today: box models",
+    "text": "Setup for today: box models\n\n\nGlobal trait-based models are too expensive to run\nWe will be using “0D” box models and 1D water columns instead\nWe will use these to explore the impacts of traits and physical processes (mixing and light)\n\n\n\n\n\nOverview of box-model reproduced from dar_one docs."
+  },
+  {
+    "objectID": "01_intro.html#schedule",
+    "href": "01_intro.html#schedule",
+    "title": "Agate.jl Workshop: Motivation and Orientation",
+    "section": "Schedule",
+    "text": "Schedule\n\n\n\n\n\n\n\n\nTime\nSession\n\n\n\n\n09:30–10:00\nDocker setup (optional, this can be done before the workshop)\n\n\n10:00–10:30\nWelcome and workshop overview\n\n\n10:30–11:10\nSession 1: Size, allometry, and plankton traits\n\n\n11:10–11:25\nBreak\n\n\n11:25–12:05\nSession 2: Predation and trophic structure\n\n\n12:05–12:45\nSession 3: Physical forcing: light and diffusivity\n\n\n12:45–13:45\nLunch\n\n\n13:45–14:35\nGroup exercise\n\n\n14:35–15:10\nOwn-work block 1\n\n\n15:10–15:40\nBreak\n\n\n15:40–16:30\nOwn-work block 2\n\n\n16:30–16:55\nShow-and-tell (optional) and feedback\n\n\n16:55–17:00\nWrap-up\n\n\n17:00\nPub\n\n\n\n\n\n\n\nMap of 8-10 Berkley Square (from mazemap)."
+  },
+  {
+    "objectID": "03_module_lecture.html#predation-and-trophic-structure",
+    "href": "03_module_lecture.html#predation-and-trophic-structure",
+    "title": "Module Lecture 2",
+    "section": "Predation and trophic structure",
+    "text": "Predation and trophic structure\n\n\n\n\n\n\n\n\nImage from Dutkiewicz et al., 2024 (L&O)."
+  },
+  {
+    "objectID": "03_module_lecture.html#palatability",
+    "href": "03_module_lecture.html#palatability",
+    "title": "Module Lecture 2",
+    "section": "Palatability",
+    "text": "Palatability\n\n\n\n\n\n\n\n\nReplace with the diagnostic or comparison for this module."
+  },
+  {
+    "objectID": "03_module_lecture.html#size-optima",
+    "href": "03_module_lecture.html#size-optima",
+    "title": "Module Lecture 2",
+    "section": "Size optima",
+    "text": "Size optima\n\n\n\n\n\n\n\n\nHansen 1994, and from Garcia-Oliva and Wirtz 2022."
+  },
+  {
+    "objectID": "03_module_lecture.html#assimilation-efficiency",
+    "href": "03_module_lecture.html#assimilation-efficiency",
+    "title": "Module Lecture 2",
+    "section": "Assimilation efficiency",
+    "text": "Assimilation efficiency\n\n\nAlso known as Gross Growth Efficiency (GGE)\n\n\n\n\n\nData replotted from Straile 1997."
+  },
+  {
+    "objectID": "03_module_lecture.html#unresolved-higher-predation",
+    "href": "03_module_lecture.html#unresolved-higher-predation",
+    "title": "Module Lecture 2",
+    "section": "Unresolved higher predation",
+    "text": "Unresolved higher predation\n\n\n\n\n\n\n\n\nImage from Follows and Dutkiewicz, 2011 (Annu. Rev. Mar. Sci)."
+  },
+  {
+    "objectID": "03_module_lecture.html#trade-offs",
+    "href": "03_module_lecture.html#trade-offs",
+    "title": "Module Lecture 2",
+    "section": "Trade-offs",
+    "text": "Trade-offs\n\n\n\n\n\n\n\n\nReplace with the diagnostic or comparison for this module."
+  }
+]
